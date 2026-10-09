@@ -16,7 +16,7 @@ export interface Project {
 export const PROJECTS: Project[] = [
   {
     title: "Prato do Dia — Visão Computacional & Segmentação de Alimentos",
-    category: "PESQUISA APLICADA // UERJ",
+    category: "PESQUISA // UERJ",
     period: "2024 — PRESENTE",
     description:
       "Projeto de Iniciação Científica desenvolvido na Universidade do Estado do Rio de Janeiro (UERJ). Investiga e implementa um pipeline de visão computacional leve para detecção e segmentação de instâncias de alimentos em fotos de refeições para identificação e estimativa de porções. Combina YOLO11 para detecção de caixas delimitadoras e SAM 2.1 (Segment Anything Model 2 - Hiera Tiny) via ONNX Runtime CPU, conectado a uma API em FastAPI e app Flutter.",
@@ -40,7 +40,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Puzzles — Desafios Lógicos & Computacionais",
-    category: "APLICAÇÃO INTERATIVA // PRODUTO AO VIVO",
+    category: "APP WEB // PRODUTO",
     period: "2024 — PRESENTE",
     description:
       "Plataforma interativa de puzzles lógicos e problemas computacionais focada em resolução de problemas algorítmicos. Totalmente auto-hospedada em infraestrutura própria sob o domínio gabe.tec.br com tempo de resposta instantâneo.",
@@ -55,7 +55,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Scopio — Auditor de Métricas de Código & Quality Gates",
-    category: "FERRAMENTA CLI // OPEN SOURCE (PyPI)",
+    category: "CLI // OPEN SOURCE",
     period: "2024",
     description:
       "Ferramenta CLI e auditor de engenharia de software distribuída publicamente no PyPI. Analisa complexidade ciclomática (CCN), linhas lógicas de código (NLOC) e histórico em SQLite, fornecendo quality gates automatizados e detecção de regressões para pipelines de CI.",
@@ -71,7 +71,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Infraestrutura Homelab Híbrida (tachibana + wired)",
-    category: "INFRAESTRUTURA // DEVOPS & SYSADMIN",
+    category: "INFRA // HOMELAB",
     period: "2023 — PRESENTE",
     description:
       "Cluster pessoal híbrido composto por VPS em nuvem (wired) e servidores bare-metal residenciais com NixOS (tachibana e navi), interconectados via rede privada mesh Tailscale para deploy de serviços públicos e armazenamento seguro.",
@@ -86,7 +86,7 @@ export const PROJECTS: Project[] = [
   },
   {
     title: "Website & Portal Editorial de Engenharia (gabe.tec.br)",
-    category: "ENGENHARIA FRONTEND // ESTÁTICO",
+    category: "FRONTEND // ESTÁTICO",
     period: "2024 — PRESENTE",
     description:
       "Portal pessoal de engenharia de software e pesquisa científica. Desenvolvido para máxima fidelidade tipográfica, ausência de frameworks de estilo inflados e pontuação perfeita em Core Web Vitals.",

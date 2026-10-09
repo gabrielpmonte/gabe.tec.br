@@ -77,11 +77,17 @@ const fieldNotes = allFieldNotes.slice(0, 3);
         {
           featuredProjects.map((p, idx) => (
             <article class="featured-project-card hairline-box">
-              <div class="card-top font-mono">
-                <span class="card-index">[{String(idx + 1).padStart(2, "0")}]</span>
-                <span class="card-cat">{p.category}</span>
-                {p.badge && <span class="card-badge">{p.badge}</span>}
-              </div>
+              <header class="card-top font-mono">
+                <div class="card-meta">
+                  <span class="card-index">[{String(idx + 1).padStart(2, "0")}]</span>
+                  <span class="card-cat">{p.category}</span>
+                </div>
+                {p.badge && (
+                  <div class="card-badge-row">
+                    <span class="card-badge">{p.badge}</span>
+                  </div>
+                )}
+              </header>
 
               <div class="card-content">
                 <h3 class="project-heading">
@@ -273,7 +279,8 @@ const fieldNotes = allFieldNotes.slice(0, 3);
   }
 
   .index-hire-badge .dot {
-    color: var(--text);
+    color: #10b981;
+    text-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
   }
 
   .quick-stats {
@@ -354,35 +361,53 @@ const fieldNotes = allFieldNotes.slice(0, 3);
   }
 
   .card-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-meta {
     font-size: 0.72rem;
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
     gap: 0.5rem;
     color: var(--text-dim);
   }
 
   .card-index {
     color: var(--text);
-    font-weight: 600;
+    font-weight: 700;
   }
 
   .card-cat {
-    letter-spacing: 0.02em;
+    letter-spacing: 0.04em;
+    color: var(--text-dim);
+  }
+
+  .card-badge-row {
+    display: flex;
+    align-items: center;
   }
 
   .card-badge {
-    margin-left: auto;
     font-size: 0.68rem;
-    border: 1px solid var(--border);
-    padding: 0.1rem 0.4rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
     color: var(--text);
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.55rem;
+    line-height: 1.2;
+    display: inline-flex;
+    align-items: center;
   }
 
   .card-content {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.75rem;
     flex-grow: 1;
   }
 
@@ -391,6 +416,7 @@ const fieldNotes = allFieldNotes.slice(0, 3);
     font-weight: 600;
     line-height: 1.35;
     margin: 0;
+    min-height: 2.85rem;
   }
 
   .project-title-link {
@@ -419,7 +445,8 @@ const fieldNotes = allFieldNotes.slice(0, 3);
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem;
-    margin-top: 0.25rem;
+    margin-top: auto;
+    padding-top: 0.5rem;
   }
 
   .stack-chip {
