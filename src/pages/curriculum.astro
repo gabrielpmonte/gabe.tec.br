@@ -80,42 +80,39 @@ import { SITE } from '../site.config';
       <section class="cv-section hairline-divider">
         <h2 class="cv-sec-title font-mono">// 03. HISTÓRICO PROFISSIONAL & ACADÊMICO</h2>
 
-        <!-- Bloco 1: Placeholder para Experiência Principal / Estágio -->
+        <!-- Bloco 1: Iniciação Científica na UERJ (Prato do Dia) -->
         <div class="cv-job-block">
           <div class="job-header">
-            <span class="job-title">[PREENCHER: Cargo / Ex: Estagiário de Desenvolvimento ou Monitor]</span>
-            <span class="job-period font-mono">[2024 — PRESENTE / PERÍODO]</span>
+            <span class="job-title">Pesquisador de Iniciação Científica // Visão Computacional</span>
+            <span class="job-period font-mono">2024 — PRESENTE</span>
           </div>
-          <div class="job-company font-mono">[PREENCHER: Empresa ou Laboratório / Departamento UERJ]</div>
+          <div class="job-company font-mono">Universidade do Estado do Rio de Janeiro (UERJ) • Projeto Prato do Dia</div>
           <ul class="job-achievements">
             <li>
-              [PREENCHER: Descreva o que você desenvolveu, tecnologias usadas e impacto / métrica alcançada].
+              Desenvolvimento de pipeline de visão computacional leve e reprodutível integrando detector YOLO11 e segmentador SAM 2.1 (Segment Anything Model 2 - Hiera Tiny via ONNX Runtime CPU) para extração de máscaras poligonais de alimentos em imagens de pratos.
             </li>
             <li>
-              [PREENCHER: Exemplo: Otimização de scripts de automação ou pipelines de processamento de dados].
+              Implementação de rotinas de pré-processamento (letterbox/normalização), resolução de sobreposições de instâncias e extração de atributos morfológicos (cor, textura, forma, área e coordenadas espaciais) para apoio à identificação e estimativa nutricional.
             </li>
             <li>
-              [PREENCHER: Colaboração em equipe, boas práticas de versionamento com Git e documentação técnica].
+              Validação de qualidade com métricas de IoU (Intersection over Union), Dice score e geração de overlays para inspeção visual; estruturação da inferência em biblioteca Python desacoplada, consumida por API assíncrona em FastAPI e aplicativo mobile em Flutter.
             </li>
           </ul>
         </div>
 
-        <!-- Bloco 2: Pesquisa Acadêmica / Iniciação Científica na UERJ -->
+        <!-- Bloco 2: Desenvolvimento Open Source (Scopio) -->
         <div class="cv-job-block">
           <div class="job-header">
-            <span class="job-title">Pesquisa Acadêmica & Iniciação Científica // Visão Computacional</span>
-            <span class="job-period font-mono">2023 — PRESENTE</span>
+            <span class="job-title">Autor & Mantenedor Open Source // Scopio</span>
+            <span class="job-period font-mono">2024 — PRESENTE</span>
           </div>
-          <div class="job-company font-mono">Universidade do Estado do Rio de Janeiro (UERJ)</div>
+          <div class="job-company font-mono">Projeto de Código Aberto • Publicado no PyPI</div>
           <ul class="job-achievements">
             <li>
-              Investigação e implementação de pipelines de visão computacional e pré-processamento de imagens utilizando Python e OpenCV.
+              Criação de ferramenta CLI de auditoria de métricas de software (CCN, NLOC) com persistência em SQLite, cálculo de diffs comparativos com baseline e quality gates para prevenção de regressões em esteiras de CI/CD.
             </li>
             <li>
-              [PREENCHER: Detalhes específicos do seu projeto de pesquisa ou tema de monografia/TCC na UERJ].
-            </li>
-            <li>
-              Experimentação e avaliação comparativa de modelos de aprendizagem de máquina para classificação e detecção de padrões visuais.
+              Publicação e distribuição do pacote no repositório oficial Python PyPI (`pip install scopio`), com pipeline de testes unitários automatizados via GitHub Actions.
             </li>
           </ul>
         </div>
@@ -146,13 +143,16 @@ import { SITE } from '../site.config';
         <h2 class="cv-sec-title font-mono">// 04. PROJETOS EM DESTAQUE</h2>
         <ul class="cv-projects-list">
           <li>
-            <strong>Puzzles (<a href="https://puzzles.gabe.tec.br" target="_blank" rel="noopener noreferrer">puzzles.gabe.tec.br</a>):</strong> Aplicação web interativa de desafios lógicos e quebra-cabeças computacionais, auto-hospedada em infraestrutura própria com alta responsividade.
+            <strong>Prato do Dia — Visão Computacional (<a href="https://github.com/uerj-prato-do-dia" target="_blank" rel="noopener noreferrer">github.com/uerj-prato-do-dia</a>):</strong> Pipeline de pesquisa na UERJ combinando YOLO11 e SAM 2.1 em ONNX Runtime para segmentação de instâncias de alimentos, com backend FastAPI e cliente Flutter.
           </li>
           <li>
-            <strong>[PREENCHER: Pipeline / Aplicação de Visão Computacional]:</strong> Projeto prático com OpenCV/PyTorch para detecção de objetos/segmentação. Repositório: <a href="https://github.com/gabrielpmonte" target="_blank" rel="noopener noreferrer">github.com/gabrielpmonte/[repo]</a>.
+            <strong>Scopio (<a href="https://pypi.org/project/scopio/" target="_blank" rel="noopener noreferrer">pypi.org/project/scopio</a>):</strong> Auditor de código e métricas com histórico em SQLite e quality gates de complexidade ciclomática para CI/CD, distribuído no PyPI.
           </li>
           <li>
-            <strong>Website & Plataforma Pessoal (<a href="https://gabe.tec.br" target="_blank" rel="noopener noreferrer">gabe.tec.br</a>):</strong> Plataforma técnica estática de alta performance desenvolvida com Astro, TypeScript, sem frameworks inchados, otimizada para Core Web Vitals e renderização instantânea.
+            <strong>Puzzles (<a href="https://puzzles.gabe.tec.br" target="_blank" rel="noopener noreferrer">puzzles.gabe.tec.br</a>):</strong> Aplicação web interativa de desafios lógicos e algorítmicos auto-hospedada em infraestrutura autônoma com alta responsividade.
+          </li>
+          <li>
+            <strong>Website & Plataforma Pessoal (<a href="https://gabe.tec.br" target="_blank" rel="noopener noreferrer">gabe.tec.br</a>):</strong> Plataforma técnica estática desenvolvida com Astro e TypeScript, sem frameworks inchados, otimizada para Core Web Vitals e renderização instantânea. Repositório: <a href="https://github.com/gabrielpmonte/gabe.tec.br" target="_blank" rel="noopener noreferrer">github.com/gabrielpmonte/gabe.tec.br</a>.
           </li>
         </ul>
       </section>

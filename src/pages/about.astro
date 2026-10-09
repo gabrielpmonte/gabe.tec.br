@@ -161,35 +161,53 @@ import { SITE } from "../site.config";
           <div class="repo-box hairline-box">
             <div class="repo-head font-mono">
               <a
-                href={SITE.github.url}
+                href="https://github.com/uerj-prato-do-dia"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="repo-name"
               >
-                {SITE.github.handle}/[PREENCHER-PROJETO-VISAO]
+                uerj-prato-do-dia
               </a>
-              <span class="repo-lang">Python / OpenCV</span>
+              <span class="repo-lang">Python / ML / ONNX</span>
             </div>
             <p class="repo-desc">
-              [PREENCHER: Pipeline e experimentos práticos de Visão
-              Computacional / PDI desenvolvidos na UERJ].
+              Pipeline de visão computacional (YOLO11 + SAM 2.1 ONNX) para
+              detecção e segmentação de instâncias de alimentos em fotos de refeições.
             </p>
           </div>
 
           <div class="repo-box hairline-box">
             <div class="repo-head font-mono">
               <a
-                href={SITE.github.url}
+                href={`${SITE.github.url}/scopio`}
                 target="_blank"
                 rel="noopener noreferrer"
                 class="repo-name"
               >
-                {SITE.github.handle}/website
+                {SITE.github.handle}/scopio
+              </a>
+              <span class="repo-lang">Python / PyPI</span>
+            </div>
+            <p class="repo-desc">
+              Auditor de métricas de software (CCN, NLOC) com histórico SQLite e
+              quality gates para CI/CD. Pacote publicado no PyPI.
+            </p>
+          </div>
+
+          <div class="repo-box hairline-box">
+            <div class="repo-head font-mono">
+              <a
+                href={`${SITE.github.url}/gabe.tec.br`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="repo-name"
+              >
+                {SITE.github.handle}/gabe.tec.br
               </a>
               <span class="repo-lang">Astro / TypeScript</span>
             </div>
             <p class="repo-desc">
-              Código fonte deste portal estático de engenharia com tipografia
+              Código-fonte deste portal estático de engenharia com tipografia
               editorial acromática, SEO rigoroso e zero clientes pesados.
             </p>
           </div>
