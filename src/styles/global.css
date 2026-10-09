@@ -60,6 +60,10 @@ html.dark {
   padding: 0;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 html {
   font-family: var(--font-sans);
   background-color: var(--bg);

@@ -1,43 +1,43 @@
-# Astro Starter Kit: Minimal
+# gabe.tec.br
+
+Código-fonte do site pessoal e digital garden acessível em [gabe.tec.br](https://gabe.tec.br).
+
+O projeto consolida artigos técnicos, notas atômicas interconectadas (Zettelkasten), registros de campo e portfólio em uma única aplicação estática.
+
+## Stack
+
+- **Framework:** [Astro](https://astro.build) (geração estática, `output: 'static'`)
+- **Linguagem:** TypeScript
+- **Estilização:** CSS puro com variáveis nativas e tipografia Geist (Sans e Mono)
+- **Conteúdo:** Astro Content Collections com Markdown/MDX
+- **Busca:** [Pagefind](https://pagefind.app) (indexação estática pós-build)
+- **Matemática:** Remark-Math e Rehype-Katex
+- **Syntax Highlighting:** Shiki (temas github-light e github-dark)
+- **Deploy:** GitHub Actions para GitHub Pages em domínio customizado
+
+## Estrutura do Projeto
+
+- `src/content/writing/`: Artigos técnicos.
+- `src/content/notes/`: Notas atômicas do digital garden com wikilinks e estágios de maturação (seed, growing, evergreen).
+- `src/content/field_notes/`: Registros de campo, montanhismo e fotografia documental.
+- `src/pages/`: Rotas estáticas, busca local, página now e geração de imagens OpenGraph.
+- `src/plugins/`: Plugins remark e rehype para suporte a wikilinks, callouts e otimização de imagens.
+
+## Desenvolvimento
 
 ```sh
-npm create astro@latest -- --template minimal
+# Instalar dependências
+npm install
+
+# Servidor de desenvolvimento
+npm run dev
+
+# Build de produção (Astro + Pagefind)
+npm run build
+
+# Preview do build
+npm run preview
+
+# Validação de tipos
+npx astro check
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).

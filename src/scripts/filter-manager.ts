@@ -137,12 +137,17 @@ export function setupFilterManager(config: FilterManagerConfig): void {
         });
       });
 
-      // Filter items using native HTML5 hidden attribute (prevents layout thrashing)
+      // Filter items using native HTML5 hidden attribute and inline display fallback
       let visibleCount = 0;
       items.forEach((item) => {
         const matches = itemMatcher(item, filters);
         item.hidden = !matches;
-        if (matches) visibleCount++;
+        if (matches) {
+          item.style.removeProperty('display');
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
       });
 
       // Check if any filter is active
@@ -243,7 +248,14 @@ export function setupFilterManager(config: FilterManagerConfig): void {
     applyFilters(getActiveFiltersFromUrl(), false);
   }
 
-  // Handle initial page load and Astro View Transitions
+  // Run on initial script execution if DOM is ready, or on DOMContentLoaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  // Handle Astro View Transitions
   document.addEventListener('astro:page-load', init);
 
   // Handle browser back/forward buttons
