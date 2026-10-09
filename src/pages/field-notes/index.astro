@@ -131,8 +131,10 @@ const tagItems = getTagCounts(notes);
   import { setupFilterManager } from "../../scripts/filter-manager";
 
   setupFilterManager({
+    rootSelector: ".field-archive-container",
     topButtonSelector: ".tag-filter-btn",
     buttonValueAttr: "data-tag",
+    buttonParamKeyAttr: "data-param",
     defaultParamKey: "tag",
     inlineButtonSelector: ".tag-inline-btn",
     inlineButtonValueAttr: "data-tag",
@@ -149,7 +151,7 @@ const tagItems = getTagCounts(notes);
     bannerId: "field-status-banner",
     bannerCountId: "field-visible-count",
     bannerLabelId: "field-active-tag",
-    formatBannerLabel: (filters) => `#${filters.tag}`,
+    formatBannerLabel: (filters) => (filters.tag ? `#${filters.tag}` : ""),
     clearBtnId: "field-clear-btn",
     emptyStateId: "field-empty-state",
     listContainerId: "field-grid",

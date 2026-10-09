@@ -5,6 +5,8 @@ export interface InlineButtonBinding {
 }
 
 export interface FilterManagerConfig {
+  /** Root container selector to scope this filter manager and avoid cross-page leaks */
+  rootSelector?: string;
   /** Selector for top filter buttons */
   topButtonSelector?: string;
   /** Attribute name storing button filter value (default: 'data-value' or 'data-tag') */
@@ -41,6 +43,7 @@ export interface FilterManagerConfig {
 
 export function setupFilterManager(config: FilterManagerConfig): void {
   const {
+    rootSelector,
     topButtonSelector = '.tag-filter-btn',
     buttonValueAttr = 'data-value',
     buttonParamKeyAttr,
@@ -76,14 +79,36 @@ export function setupFilterManager(config: FilterManagerConfig): void {
   let pageController: AbortController | null = null;
 
   function init(): void {
-    const topButtons = document.querySelectorAll<HTMLButtonElement>(topButtonSelector);
-    const items = document.querySelectorAll<HTMLElement>(itemSelector);
-    const banner = bannerId ? document.getElementById(bannerId) : null;
-    const bannerCount = bannerCountId ? document.getElementById(bannerCountId) : null;
-    const bannerLabel = bannerLabelId ? document.getElementById(bannerLabelId) : null;
-    const clearBtn = clearBtnId ? document.getElementById(clearBtnId) : null;
-    const emptyState = emptyStateId ? document.getElementById(emptyStateId) : null;
-    const listContainer = listContainerId ? document.getElementById(listContainerId) : null;
+    // 1. Verify if the current page contains the root element for this filter instance
+    const rootElement = rootSelector
+      ? document.querySelector<HTMLElement>(rootSelector)
+      : document.body;
+
+    if (!rootElement) {
+      if (pageController) {
+        pageController.abort();
+        pageController = null;
+      }
+      return;
+    }
+    const root: HTMLElement = rootElement;
+
+    // 2. Abort prior listeners to prevent duplicate handlers across SPA navigation
+    if (pageController) {
+      pageController.abort();
+    }
+    pageController = new AbortController();
+    const signal = pageController.signal;
+
+    // 3. Query elements strictly within root container
+    const topButtons = root.querySelectorAll<HTMLButtonElement>(topButtonSelector);
+    const items = root.querySelectorAll<HTMLElement>(itemSelector);
+    const banner = bannerId ? root.querySelector<HTMLElement>(`#${bannerId}`) || document.getElementById(bannerId) : null;
+    const bannerCount = bannerCountId ? root.querySelector<HTMLElement>(`#${bannerCountId}`) || document.getElementById(bannerCountId) : null;
+    const bannerLabel = bannerLabelId ? root.querySelector<HTMLElement>(`#${bannerLabelId}`) || document.getElementById(bannerLabelId) : null;
+    const clearBtn = clearBtnId ? root.querySelector<HTMLButtonElement>(`#${clearBtnId}`) || document.getElementById(clearBtnId) : null;
+    const emptyState = emptyStateId ? root.querySelector<HTMLElement>(`#${emptyStateId}`) || document.getElementById(emptyStateId) : null;
+    const listContainer = listContainerId ? root.querySelector<HTMLElement>(`#${listContainerId}`) || document.getElementById(listContainerId) : null;
 
     if (items.length === 0 && topButtons.length === 0) return;
 
@@ -128,7 +153,7 @@ export function setupFilterManager(config: FilterManagerConfig): void {
 
       // Update inline buttons active classes across all bindings
       allInlineBindings.forEach(({ selector, paramKey, valueAttr }) => {
-        const btns = document.querySelectorAll<HTMLButtonElement>(selector);
+        const btns = root.querySelectorAll<HTMLButtonElement>(selector);
         const activeVal = filters[paramKey] ?? null;
 
         btns.forEach((btn) => {
@@ -178,7 +203,7 @@ export function setupFilterManager(config: FilterManagerConfig): void {
       }
     }
 
-    // Bind Top Buttons
+    // Bind Top Buttons with abort signal
     topButtons.forEach((btn) => {
       btn.addEventListener('click', () => {
         const paramKey = (buttonParamKeyAttr ? btn.getAttribute(buttonParamKeyAttr) : null) || defaultParamKey;
@@ -189,12 +214,12 @@ export function setupFilterManager(config: FilterManagerConfig): void {
         const nextVal = (btnVal === currentVal || btnVal === 'all') ? null : btnVal;
         currentFilters[paramKey] = nextVal;
         applyFilters(currentFilters);
-      });
+      }, { signal });
     });
 
-    // Bind Inline Buttons across all bindings
+    // Bind Inline Buttons across all bindings with abort signal
     allInlineBindings.forEach(({ selector, paramKey, valueAttr }) => {
-      const btns = document.querySelectorAll<HTMLButtonElement>(selector);
+      const btns = root.querySelectorAll<HTMLButtonElement>(selector);
 
       btns.forEach((btn) => {
         btn.addEventListener('click', (e) => {
@@ -206,11 +231,11 @@ export function setupFilterManager(config: FilterManagerConfig): void {
           const nextVal = (btnVal === currentVal) ? null : btnVal;
           currentFilters[paramKey] = nextVal;
           applyFilters(currentFilters);
-        });
+        }, { signal });
       });
     });
 
-    // Bind Clear Button
+    // Bind Clear Button with abort signal
     if (clearBtn) {
       clearBtn.addEventListener('click', () => {
         const cleared: Record<string, string | null> = {};
@@ -219,15 +244,10 @@ export function setupFilterManager(config: FilterManagerConfig): void {
           cleared[k] = null;
         }
         applyFilters(cleared);
-      });
+      }, { signal });
     }
 
-    // Bind Escape Key with AbortController to prevent memory leaks across SPA page transitions
-    if (pageController) {
-      pageController.abort();
-    }
-    pageController = new AbortController();
-
+    // Bind Escape Key with abort signal
     const onKeyDown = (e: KeyboardEvent): void => {
       if (e.key === 'Escape') {
         const current = getActiveFiltersFromUrl();
@@ -242,7 +262,7 @@ export function setupFilterManager(config: FilterManagerConfig): void {
       }
     };
 
-    window.addEventListener('keydown', onKeyDown, { signal: pageController.signal });
+    window.addEventListener('keydown', onKeyDown, { signal });
 
     // Initial check from URL
     applyFilters(getActiveFiltersFromUrl(), false);
@@ -266,5 +286,6 @@ export function setupFilterManager(config: FilterManagerConfig): void {
   // Cleanup on Astro before-swap
   document.addEventListener('astro:before-swap', () => {
     pageController?.abort();
+    pageController = null;
   });
 }

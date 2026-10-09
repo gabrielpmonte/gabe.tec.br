@@ -159,8 +159,10 @@ const tagItems = getTagCounts(allPosts);
   import { setupFilterManager } from "../../scripts/filter-manager";
 
   setupFilterManager({
+    rootSelector: ".archive-container",
     topButtonSelector: ".tag-filter-btn",
     buttonValueAttr: "data-tag",
+    buttonParamKeyAttr: "data-param",
     defaultParamKey: "tag",
     inlineButtonSelector: ".tag-inline-btn",
     inlineButtonValueAttr: "data-tag",

@@ -122,6 +122,7 @@ const tagItems = getTagCounts(allNotes);
   import { setupFilterManager } from "../../scripts/filter-manager";
 
   setupFilterManager({
+    rootSelector: ".garden-container",
     topButtonSelector: ".stage-btn, .tag-filter-btn",
     buttonValueAttr: "data-value",
     buttonParamKeyAttr: "data-param",
