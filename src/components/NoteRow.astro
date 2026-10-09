@@ -1,0 +1,189 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatISODate } from "../utils/date";
+
+interface Props {
+  note: CollectionEntry<"notes">;
+  interactive?: boolean;
+}
+
+const { note, interactive = true } = Astro.props;
+---
+
+<article
+  class="note-row hairline-divider"
+  data-stage={note.data.stage}
+  data-tags={note.data.tags.join(",")}
+>
+  <div class="note-meta font-mono">
+    {
+      interactive ? (
+        <button
+          type="button"
+          class={`stage-tag stage-${note.data.stage} stage-inline-btn`}
+          data-stage={note.data.stage}
+          title={`Filtrar por estágio ${note.data.stage}`}
+        >
+          [{note.data.stage.toUpperCase()}]
+        </button>
+      ) : (
+        <a
+          href={`/notes?stage=${encodeURIComponent(note.data.stage)}`}
+          class={`stage-tag stage-${note.data.stage}`}
+          title={`Ver notas em estágio ${note.data.stage}`}
+        >
+          [{note.data.stage.toUpperCase()}]
+        </a>
+      )
+    }
+    <time datetime={note.data.publishDate.toISOString()} class="note-date">
+      {formatISODate(note.data.publishDate)}
+    </time>
+  </div>
+
+  <div class="note-body">
+    <h2 class="note-heading">
+      <a href={`/notes/${note.id}`} class="note-link">
+        {note.data.title}
+      </a>
+    </h2>
+    {
+      note.data.description && (
+        <p class="note-summary">{note.data.description}</p>
+      )
+    }
+    <div class="note-tags font-mono">
+      {
+        note.data.tags.map((t) =>
+          interactive ? (
+            <button
+              type="button"
+              class="tag-mono tag-inline-btn"
+              data-tag={t}
+              title={`Filtrar por #${t}`}
+            >
+              #{t}
+            </button>
+          ) : (
+            <a
+              href={`/notes?tag=${encodeURIComponent(t)}`}
+              class="tag-mono"
+              title={`Ver notas com #${t}`}
+            >
+              #{t}
+            </a>
+          ),
+        )
+      }
+    </div>
+  </div>
+</article>
+
+<style>
+  .note-row {
+    padding: 1.25rem 1.5rem;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+  }
+
+  .note-row:last-child {
+    border-bottom: none;
+  }
+
+  .note-meta {
+    font-size: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .stage-tag {
+    font-weight: 600;
+  }
+
+  .stage-evergreen {
+    color: var(--text);
+  }
+  .stage-growing {
+    color: var(--text-muted);
+  }
+  .stage-seed {
+    color: var(--text-dim);
+  }
+
+  button.stage-tag {
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    text-align: left;
+    transition: opacity var(--transition-fast);
+  }
+
+  button.stage-tag:hover {
+    opacity: 0.75;
+    text-decoration: underline;
+  }
+
+  a.stage-tag {
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+  }
+
+  a.stage-tag:hover {
+    text-decoration: underline;
+  }
+
+  .note-date {
+    color: var(--text-dim);
+  }
+
+  .note-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .note-heading {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  .note-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    transition: text-decoration-color var(--transition-fast);
+  }
+
+  .note-link:hover {
+    text-decoration-color: var(--text);
+  }
+
+  .note-summary {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .note-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.25rem;
+  }
+
+  @media (max-width: 680px) {
+    .note-row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+</style>

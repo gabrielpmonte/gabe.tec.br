@@ -1,0 +1,34 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#09090b"/>
+  <!-- Topographic Elevation Grid -->
+  <line x1="80" y1="80" x2="1200" y2="80" stroke="#27272a" stroke-width="1"/>
+  <line x1="80" y1="640" x2="1200" y2="640" stroke="#27272a" stroke-width="1"/>
+  <line x1="80" y1="560" x2="1200" y2="560" stroke="#18181b" stroke-width="1" stroke-dasharray="2 4"/>
+
+  <!-- Water & Bay Contour Lines -->
+  <path d="M80 620 Q 320 600 640 625 T 1200 610" stroke="#27272a" stroke-width="1.5" fill="none"/>
+  <path d="M80 580 Q 400 550 720 585 T 1200 570" stroke="#3f3f46" stroke-width="1.5" fill="none"/>
+
+  <!-- Morro da Urca Silhouette (lower peak, left) -->
+  <polygon points="120,640 340,360 520,380 680,640" fill="#121215" stroke="#3f3f46" stroke-width="1.5"/>
+
+  <!-- Pão de Açúcar Silhouette (higher dome, right) -->
+  <path d="M540 640 L620 400 C680 210 820 200 880 390 L980 640 Z" fill="#18181b" stroke="#52525b" stroke-width="1.5"/>
+
+  <!-- Cable car (Bondinho) wire and car indicator -->
+  <line x1="420" y1="370" x2="740" y2="240" stroke="#a1a1aa" stroke-width="1" stroke-dasharray="6 3"/>
+  <rect x="575" y="295" width="12" height="9" fill="#fafafa" stroke="#18181b" stroke-width="1"/>
+
+  <!-- Contour Ridges -->
+  <path d="M80 480 Q 380 430 760 510 T 1200 460" stroke="#52525b" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+
+  <!-- Technical Overlay HUD -->
+  <rect x="100" y="100" width="370" height="85" fill="#09090b" stroke="#27272a" stroke-width="1"/>
+  <text x="120" y="130" fill="#fafafa" font-family="monospace" font-size="14" font-weight="600">MORRO DA URCA // 22°57'S 43°09'W</text>
+  <text x="120" y="152" fill="#71717a" font-family="monospace" font-size="12">ELEV: 220m a.s.l. | BAÍA DE GUANABARA</text>
+  <text x="120" y="170" fill="#a1a1aa" font-family="monospace" font-size="11">OPTICS: MOBILE 24mm | NATURAL FIELD</text>
+
+  <!-- Crosshairs -->
+  <line x1="750" y1="220" x2="750" y2="260" stroke="#71717a" stroke-width="1"/>
+  <line x1="730" y1="240" x2="770" y2="240" stroke="#71717a" stroke-width="1"/>
+</svg>

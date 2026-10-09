@@ -1,0 +1,157 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import FilterBar from "../../components/FilterBar.astro";
+import FilterBanner from "../../components/FilterBanner.astro";
+import EmptyState from "../../components/EmptyState.astro";
+import FieldNoteCard from "../../components/FieldNoteCard.astro";
+import { getSortedFieldNotes, getTagCounts } from "../../utils/content";
+import { SITE } from "../../site.config";
+
+const notes = await getSortedFieldNotes();
+const tagItems = getTagCounts(notes);
+---
+
+<BaseLayout
+  title="Notas de Campo & Fotografia Documental"
+  description={`Registros técnicos de montanhismo, trilhas de longo curso e expedições geográficas de ${SITE.author}. Equipamentos, coordenadas e topografia.`}
+>
+  <div class="field-archive-container">
+    <header class="field-header hairline-box">
+      <div class="header-path font-mono">
+        // {SITE.domain.toUpperCase()} / FIELD-NOTES
+      </div>
+      <h1 class="field-title">Notas de Campo &amp; Fotografia Documental</h1>
+      <p class="field-desc">
+        Documentação de expedições, marchas de travessia e relevos montanhosos.
+        A fotografia é tratada com rigor documental e óptico: focais fixas,
+        simulação acromática, zero retoque artificial e coordenadas geográficas
+        catalogadas.
+      </p>
+
+      <div class="field-spec-summary font-mono">
+        <div>OPTICS PRINCIPAL: FUJIFILM X-T5 // 27MM F/2.8 &amp; 35MM F/2</div>
+        <div>SISTEMA DE COORDENADAS: WGS 84 // GPS GEO-REFERENCIADO</div>
+      </div>
+
+      <FilterBar
+        label="FILTRAR POR TAG:"
+        allLabel="TODAS"
+        totalCount={notes.length}
+        items={tagItems}
+        paramKey="tag"
+        listId="tag-filter-list"
+      />
+    </header>
+
+    <FilterBanner
+      bannerId="field-status-banner"
+      countId="field-visible-count"
+      labelId="field-active-tag"
+      clearBtnId="field-clear-btn"
+      totalCount={notes.length}
+      entityLabel="REGISTROS"
+    />
+
+    <div class="field-grid" id="field-grid">
+      {
+        notes.map((entry, index) => (
+          <FieldNoteCard
+            entry={entry}
+            variant="full"
+            interactiveTags={true}
+            priority={index === 0 ? "high" : index === 1 ? true : false}
+          />
+        ))
+      }
+    </div>
+
+    <EmptyState
+      id="field-empty-state"
+      message="// NENHUMA EXPEDIÇÃO ENCONTRADA PARA A TAG SELECIONADA."
+    />
+  </div>
+</BaseLayout>
+
+<style>
+  .field-archive-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .field-header {
+    padding: 1.75rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .header-path {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  .field-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .field-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .field-spec-summary {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    padding-top: 0.75rem;
+    border-top: var(--hairline);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .field-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .field-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  import { setupFilterManager } from "../../scripts/filter-manager";
+
+  setupFilterManager({
+    topButtonSelector: ".tag-filter-btn",
+    buttonValueAttr: "data-tag",
+    defaultParamKey: "tag",
+    inlineButtonSelector: ".tag-inline-btn",
+    inlineButtonValueAttr: "data-tag",
+    inlineButtonParamKey: "tag",
+    itemSelector: ".field-item",
+    itemMatcher: (item, filters) => {
+      const activeTag = filters.tag;
+      if (!activeTag || activeTag === "all") return true;
+      const itemTags = (item.getAttribute("data-tags") || "")
+        .split(",")
+        .map((s) => s.trim());
+      return itemTags.includes(activeTag);
+    },
+    bannerId: "field-status-banner",
+    bannerCountId: "field-visible-count",
+    bannerLabelId: "field-active-tag",
+    formatBannerLabel: (filters) => `#${filters.tag}`,
+    clearBtnId: "field-clear-btn",
+    emptyStateId: "field-empty-state",
+    listContainerId: "field-grid",
+  });
+</script>

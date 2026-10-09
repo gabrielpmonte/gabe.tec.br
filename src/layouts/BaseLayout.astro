@@ -1,0 +1,92 @@
+---
+import "../styles/global.css";
+import HeaderSidebar from "../components/HeaderSidebar.astro";
+import SEOHead from "../components/SEOHead.astro";
+import { SITE } from "../site.config";
+import { ClientRouter } from "astro:transitions";
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  type?: "website" | "article";
+  publishDate?: Date;
+  updatedDate?: Date;
+  tags?: string[];
+  canonicalUrl?: string;
+}
+
+const props = Astro.props;
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <SEOHead {...props} />
+
+    <!-- Astro ClientRouter for instant SPA page transitions & prefetch -->
+    <ClientRouter />
+
+    <!-- Zero-FOUC Theme Initialization & Transition Persistence -->
+    <script is:inline>
+      function initTheme() {
+        const storedTheme = localStorage.getItem("theme");
+        if (
+          storedTheme === "dark" ||
+          (!storedTheme &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      }
+      initTheme();
+      document.addEventListener("astro:after-swap", initTheme);
+    </script>
+  </head>
+  <body>
+    <div class="layout-root">
+      <HeaderSidebar currentPath={Astro.url.pathname} />
+      <div class="layout-content">
+        <main id="main-content" class="content-main">
+          <slot />
+        </main>
+      </div>
+    </div>
+
+    <style>
+      .layout-root {
+        display: flex;
+        min-height: 100vh;
+        width: 100%;
+        background-color: var(--bg);
+      }
+
+      .layout-content {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .content-main {
+        flex: 1;
+        width: 100%;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 3rem 2.5rem;
+      }
+
+      @media (max-width: 960px) {
+        .layout-root {
+          flex-direction: column;
+        }
+
+        .content-main {
+          padding: 2rem 1.25rem;
+        }
+      }
+    </style>
+  </body>
+</html>

@@ -1,0 +1,494 @@
+@import '@fontsource/geist-sans/400.css';
+@import '@fontsource/geist-sans/500.css';
+@import '@fontsource/geist-sans/600.css';
+@import '@fontsource/geist-sans/700.css';
+@import '@fontsource/geist-mono/400.css';
+@import '@fontsource/geist-mono/500.css';
+@import '@fontsource/geist-mono/600.css';
+@import 'katex/dist/katex.min.css';
+
+/* ==========================================================================
+   DESIGN TOKENS & SYSTEM VARIABLES
+   Achromatic high-contrast functionalist engineering palette
+   ========================================================================== */
+
+:root {
+  --font-sans: 'Geist Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', monospace;
+
+  /* Light Theme */
+  --bg: #ffffff;
+  --surface: #f8f8f9;
+  --surface-active: #f1f1f4;
+  --border: #e4e4e7;
+  --border-strong: #a1a1aa;
+  --text: #09090b;
+  --text-muted: #52525b;
+  --text-dim: #71717a;
+  --hairline: 1px solid var(--border);
+
+  /* Layout */
+  --max-width: 1280px;
+  --sidebar-width: 320px;
+}
+
+html.dark {
+  /* Dark Theme */
+  --bg: #09090b;
+  --surface: #121215;
+  --surface-active: #1a1a1f;
+  --border: #27272a;
+  --border-strong: #52525b;
+  --text: #fafafa;
+  --text-muted: #a1a1aa;
+  --text-dim: #71717a;
+  --hairline: 1px solid var(--border);
+}
+
+/* ==========================================================================
+   STRICT GEOMETRIC RESET: ZERO ROUNDED EDGES & ZERO ARTIFICIAL ELEVATION
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-sans);
+  background-color: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   TYPOGRAPHIC HIERARCHY
+   ========================================================================== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 1.75rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.35rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: var(--hairline);
+}
+
+h3 {
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+/* Monospace strict elements */
+code,
+pre,
+kbd,
+samp,
+.font-mono,
+.meta-data,
+.tag,
+.date-mono,
+.badge,
+.sys-label {
+  font-family: var(--font-mono);
+  font-feature-settings: 'calt' 0;
+}
+
+/* ==========================================================================
+   ANCHOR LINKS & ACCENTS
+   ========================================================================== */
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--border-strong);
+  text-underline-offset: 4px;
+  text-decoration-thickness: 1px;
+  transition: text-decoration-color 100ms ease, color 100ms ease;
+}
+
+a:hover {
+  text-decoration-color: var(--text);
+}
+
+/* Unstyled links for clean functional blocks */
+a.no-underline {
+  text-decoration: none;
+}
+
+a.no-underline:hover {
+  text-decoration: none;
+}
+
+/* Wikilinks */
+a.wikilink {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 0.1rem 0.3rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+a.wikilink::before {
+  content: '[[';
+  color: var(--text-dim);
+}
+
+a.wikilink::after {
+  content: ']]';
+  color: var(--text-dim);
+}
+
+a.wikilink:hover {
+  border-color: var(--text);
+  background-color: var(--surface-active);
+}
+
+/* ==========================================================================
+   CODE BLOCKS & SHIKI INTEGRATION
+   ========================================================================== */
+
+code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 0.15em 0.35em;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  vertical-align: baseline;
+}
+
+pre.astro-code {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  background-color: var(--surface) !important;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+}
+
+/* Dark mode dual-theme Shiki overrides */
+html.dark pre.astro-code {
+  background-color: #121215 !important;
+  border-color: var(--border) !important;
+}
+
+html.dark pre.astro-code,
+html.dark pre.astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: transparent !important;
+}
+
+/* ==========================================================================
+   CALLOUTS & OBSIDIAN-STYLE NOTICES
+   ========================================================================== */
+
+.callout,
+blockquote.callout {
+  border: 1px solid var(--border) !important;
+  border-left: 3px solid var(--text) !important;
+  background-color: var(--surface) !important;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+
+.callout-header {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text);
+}
+
+.callout-tag {
+  color: var(--text-dim);
+}
+
+.callout-note {
+  border-left-color: var(--text-muted) !important;
+}
+
+.callout-warning,
+.callout-caution {
+  border-left-color: var(--text) !important;
+}
+
+blockquote:not(.callout) {
+  border-left: 2px solid var(--border-strong);
+  padding-left: 1rem;
+  margin: 1.25rem 0;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   BUTTONS, INPUTS & CONTROLS
+   ========================================================================== */
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--text);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  background-color: var(--surface);
+  transition: background-color 100ms ease, border-color 100ms ease;
+}
+
+button:hover {
+  background-color: var(--surface-active);
+  border-color: var(--border-strong);
+}
+
+button:active {
+  background-color: var(--text);
+  color: var(--bg);
+}
+
+/* ==========================================================================
+   TABLES
+   ========================================================================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.92rem;
+}
+
+th,
+td {
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  border: 1px solid var(--border);
+}
+
+th {
+  background-color: var(--surface);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   LISTS & CONTENT FLOW
+   ========================================================================== */
+
+ul,
+ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+li {
+  margin-bottom: 0.35rem;
+}
+
+hr {
+  border: none;
+  border-top: var(--hairline);
+  margin: 2rem 0;
+}
+
+/* ==========================================================================
+   METADATA BADGES & HAIRLINE CONTAINERS
+   ========================================================================== */
+
+.hairline-box {
+  border: var(--hairline);
+  background-color: var(--surface);
+}
+
+.hairline-divider {
+  border-bottom: var(--hairline);
+}
+
+.tag-mono {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.15rem 0.45rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+button.tag-mono,
+a.tag-mono {
+  cursor: pointer;
+  text-decoration: none;
+  font: inherit;
+  font-size: 0.72rem;
+  white-space: nowrap;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
+}
+
+button.tag-mono:hover,
+a.tag-mono:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+
+button.tag-mono.is-active,
+a.tag-mono.is-active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: var(--surface-subtle);
+}
+
+.filter-status-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.65rem 1.25rem;
+  font-size: 0.78rem;
+  background-color: var(--surface);
+  border: var(--hairline);
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.filter-status-banner strong {
+  color: var(--text);
+}
+
+.filter-status-banner .clear-filter-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font: inherit;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.55rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.filter-status-banner .clear-filter-btn:hover {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+}
+
+.filter-empty-state {
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 0.88rem;
+}
+
+/* ==========================================================================
+   KATEX ACCENT TWEAKS
+   ========================================================================== */
+
+.katex-display {
+  padding: 1rem 0;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* ==========================================================================
+   PRINT STYLES FOR CV & DOCUMENTATION
+   ========================================================================== */
+
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    font-size: 11pt;
+    line-height: 1.4;
+  }
+
+  .no-print,
+  #header-sidebar,
+  .theme-toggle-btn,
+  .back-to-top {
+    display: none !important;
+  }
+
+  .content-main {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: #000000 !important;
+  }
+
+  .hairline-box,
+  pre.astro-code {
+    border: 1px solid #999999 !important;
+    background: transparent !important;
+  }
+}

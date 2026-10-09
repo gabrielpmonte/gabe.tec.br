@@ -1,0 +1,123 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatISODate } from "../utils/date";
+
+interface Props {
+  post: CollectionEntry<"writing">;
+  interactiveTags?: boolean;
+}
+
+const { post, interactiveTags = true } = Astro.props;
+---
+
+<tr class="article-row hairline-divider" data-tags={post.data.tags.join(",")}>
+  <td class="col-date font-mono">
+    <time datetime={post.data.publishDate.toISOString()}>
+      {formatISODate(post.data.publishDate)}
+    </time>
+  </td>
+  <td class="col-title">
+    <a href={`/writing/${post.id}`} class="post-link">
+      {post.data.title}
+    </a>
+    <p class="post-desc">{post.data.description}</p>
+  </td>
+  <td class="col-tags font-mono">
+    <div class="tags-container">
+      {
+        post.data.tags.map((t) =>
+          interactiveTags ? (
+            <button
+              type="button"
+              class="tag-mono tag-inline-btn"
+              data-tag={t}
+              title={`Filtrar por #${t}`}
+            >
+              #{t}
+            </button>
+          ) : (
+            <a
+              href={`/writing?tag=${encodeURIComponent(t)}`}
+              class="tag-mono"
+              title={`Ver artigos com #${t}`}
+            >
+              #{t}
+            </a>
+          ),
+        )
+      }
+    </div>
+  </td>
+  <td class="col-time font-mono">
+    {post.data.readingTime ? `${post.data.readingTime}m` : "--"}
+  </td>
+</tr>
+
+<style>
+  .article-row td {
+    padding: 1rem 1rem;
+    vertical-align: top;
+    border-left: none;
+    border-right: none;
+  }
+
+  .col-date {
+    width: 105px;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .col-title {
+    min-width: 260px;
+  }
+
+  .post-link {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    display: block;
+    margin-bottom: 0.25rem;
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    transition: text-decoration-color var(--transition-fast);
+  }
+
+  .post-link:hover {
+    text-decoration-color: var(--text);
+  }
+
+  .post-desc {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .col-tags {
+    width: 250px;
+    min-width: 220px;
+  }
+
+  .tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    align-items: flex-start;
+  }
+
+  .col-time {
+    width: 55px;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .col-tags,
+    .col-time {
+      display: none;
+    }
+  }
+</style>

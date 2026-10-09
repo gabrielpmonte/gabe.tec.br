@@ -1,0 +1,113 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatISODate } from "../utils/date";
+
+interface Props {
+  post: CollectionEntry<"writing">;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="dense-item hairline-divider">
+  <div class="item-meta font-mono">
+    <time datetime={post.data.publishDate.toISOString()} class="item-date">
+      {formatISODate(post.data.publishDate)}
+    </time>
+    {
+      post.data.readingTime && (
+        <span class="item-duration">{post.data.readingTime} min</span>
+      )
+    }
+  </div>
+
+  <div class="item-body">
+    <h3 class="item-title">
+      <a href={`/writing/${post.id}`} class="title-link">
+        {post.data.title}
+      </a>
+    </h3>
+    <p class="item-desc">{post.data.description}</p>
+    <div class="item-tags font-mono">
+      {
+        post.data.tags.map((t) => (
+          <a
+            href={`/writing?tag=${encodeURIComponent(t)}`}
+            class="tag-mono"
+            title={`Ver artigos com #${t}`}
+          >
+            #{t}
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</article>
+
+<style>
+  .dense-item {
+    padding: 1.25rem 1.5rem;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+  }
+
+  .dense-item:last-child {
+    border-bottom: none;
+  }
+
+  .item-meta {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .item-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .item-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  .title-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    transition: text-decoration-color var(--transition-fast);
+  }
+
+  .title-link:hover {
+    text-decoration-color: var(--text);
+  }
+
+  .item-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  .item-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.2rem;
+  }
+
+  @media (max-width: 680px) {
+    .dense-item {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+</style>

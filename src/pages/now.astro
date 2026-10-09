@@ -1,0 +1,432 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../site.config";
+
+const lastUpdated = "2026-10-01";
+---
+
+<BaseLayout
+  title="Agora // Now Page"
+  description={`O que ${SITE.author} está construindo, estudando e lendo no momento presente (Derek Sivers /now page).`}
+>
+  <div class="now-container">
+    <header class="now-header hairline-box">
+      <div class="header-path font-mono">
+        // {SITE.domain.toUpperCase()} / NOW
+      </div>
+      <h1 class="now-title">O que estou fazendo agora</h1>
+      <div class="now-meta font-mono">
+        <span>LOCALIZAÇÃO: {SITE.location.formattedUpper}</span>
+        <span class="sep">•</span>
+        <span
+          >ÚLTIMA REVISÃO: <time datetime={lastUpdated}>{lastUpdated}</time
+          ></span
+        >
+      </div>
+      <p class="now-notice">
+        Esta é uma página <a
+          href="https://nownownow.com/about"
+          target="_blank"
+          rel="noopener noreferrer">/now</a
+        > inspirada no conceito de Derek Sivers — uma declaração pública e intencional
+        de prioridades no momento presente.
+      </p>
+    </header>
+
+    <div class="now-sections">
+      <!-- Banner de Disponibilidade -->
+      <div class="now-hire-banner font-mono hairline-box">
+        <span class="hire-dot">●</span>
+        <span>STATUS: {SITE.availability.fullText}</span>
+      </div>
+
+      <!-- Section 1: O que estou construindo -->
+      <section class="now-card hairline-box">
+        <header class="card-header">
+          <span class="section-badge font-mono">// 01 • EXECUÇÃO ATIVA</span>
+          <h2 class="section-title">O que estou construindo</h2>
+        </header>
+
+        <div class="flow-list">
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">
+                Puzzles — Desafios Lógicos & Computacionais
+              </h3>
+              <span class="flow-tag font-mono">Web / TypeScript</span>
+            </div>
+            <p class="flow-item-desc">
+              Evoluindo a plataforma de raciocínio algorítmico auto-hospedada em <a
+                href="https://puzzles.gabe.tec.br"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-mono underline">puzzles.gabe.tec.br</a
+              > com foco em velocidade de carregamento e interface sem distrações.
+            </p>
+          </article>
+
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">
+                Pipelines Experimentais de Visão Computacional
+              </h3>
+              <span class="flow-tag font-mono">Python / OpenCV</span>
+            </div>
+            <p class="flow-item-desc">
+              Desenvolvimento e avaliação de rotinas de processamento digital de
+              imagens, convoluções espaciais e segmentação de padrões no
+              contexto acadêmico da UERJ.
+            </p>
+          </article>
+
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">
+                Infraestrutura Homelab & Redes Privadas
+              </h3>
+              <span class="flow-tag font-mono">NixOS / Caddy</span>
+            </div>
+            <p class="flow-item-desc">
+              Manutenção e automação declarativa dos servidores autônomos (nós <code
+                >tachibana</code
+              > e <code>wired</code>) interconectados via rede privada Tailscale
+              com terminação SSL automática.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Section 2: Estudos e Engenharia -->
+      <section class="now-card hairline-box">
+        <header class="card-header">
+          <span class="section-badge font-mono"
+            >// 02 • PESQUISA & PROFUNDIDADE</span
+          >
+          <h2 class="section-title">Estudos e Foco Técnico</h2>
+        </header>
+
+        <div class="flow-list">
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">
+                Processamento Digital de Imagens e CNNs
+              </h3>
+              <span class="flow-tag font-mono">IA / Visão</span>
+            </div>
+            <p class="flow-item-desc">
+              Aprofundamento na teoria matemática de convoluções, transformadas
+              espaciais e arquiteturas de redes neurais convolucionais para
+              classificação visual e detecção de objetos.
+            </p>
+          </article>
+
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">
+                Sistemas Operacionais & Administração Linux
+              </h3>
+              <span class="flow-tag font-mono">Linux / Shell</span>
+            </div>
+            <p class="flow-item-desc">
+              Gestão de processos, particionamento de memória, permissões POSIX,
+              networking em malha (Tailscale) e containerização leve com Docker.
+            </p>
+          </article>
+
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">
+                Algoritmos Fundamentais e Resolução de Problemas
+              </h3>
+              <span class="flow-tag font-mono">Estruturas de Dados</span>
+            </div>
+            <p class="flow-item-desc">
+              Prática de análise de complexidade temporal e espacial <code
+                >O(n)</code
+              >, algoritmos de grafos, busca e programação dinâmica.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Section 3: Leituras Correntes -->
+      <section class="now-card hairline-box">
+        <header class="card-header">
+          <span class="section-badge font-mono"
+            >// 03 • LEITURAS EM ANDAMENTO</span
+          >
+          <h2 class="section-title">Bibliografia & Referências</h2>
+        </header>
+
+        <div class="flow-list">
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">
+                Designing Data-Intensive Applications
+              </h3>
+              <span class="flow-author font-mono">Martin Kleppmann</span>
+            </div>
+            <p class="flow-item-desc">
+              Releitura com ênfase analítica nos capítulos de consenso
+              distribuído, linearizabilidade e ordenação total de mensagens.
+            </p>
+          </article>
+
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">
+                Systems Performance: Enterprise and the Cloud (2nd Ed)
+              </h3>
+              <span class="flow-author font-mono">Brendan Gregg</span>
+            </div>
+            <p class="flow-item-desc">
+              Metodologias USE, métricas de saturação de subsistemas e análise
+              prática de latência de barramento via profiling.
+            </p>
+          </article>
+
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">The Linux Programming Interface</h3>
+              <span class="flow-author font-mono">Michael Kerrisk</span>
+            </div>
+            <p class="flow-item-desc">
+              Consultas contínuas a chamadas de sistema POSIX, descritores de
+              arquivo, gerenciamento de sinais e primitivas de IPC.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Section 4: Vida Física e Exploração -->
+      <section class="now-card hairline-box">
+        <header class="card-header">
+          <span class="section-badge font-mono">// 04 • OFF-SCREEN</span>
+          <h2 class="section-title">Físico & Expedições</h2>
+        </header>
+
+        <div class="flow-list">
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">
+                Corrida em Trilha & Travessias Autônomas
+              </h3>
+              <span class="flow-tag font-mono">Expedição</span>
+            </div>
+            <p class="flow-item-desc">
+              Treinamento de corrida de montanha e condicionamento físico para
+              travessias autônomas de longo curso no cerrado e serras do
+              Sudeste.
+            </p>
+          </article>
+
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">
+                Fotografia Documental Monocromática
+              </h3>
+              <span class="flow-tag font-mono">Documental</span>
+            </div>
+            <p class="flow-item-desc">
+              Fotografia de rua e arquitetura com câmera Fujifilm de lente fixa,
+              explorando geometrias de concreto, contraste alto e ausência de
+              distração cromática.
+            </p>
+          </article>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .now-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+
+  .now-header {
+    padding: 2.25rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--surface);
+  }
+
+  .header-path {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .now-title {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .now-meta {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    letter-spacing: 0.04em;
+  }
+
+  .now-meta .sep {
+    opacity: 0.5;
+  }
+
+  .now-notice {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+    padding-top: 1rem;
+    border-top: var(--hairline);
+  }
+
+  .now-notice a {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .now-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .now-hire-banner {
+    padding: 0.6rem 0.85rem;
+    background-color: var(--surface);
+    border: 1px dashed var(--border);
+    font-size: 0.78rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .now-hire-banner .hire-dot {
+    color: var(--text);
+  }
+
+  .now-card {
+    padding: 2.25rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    background-color: var(--surface);
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-bottom: 1rem;
+    border-bottom: var(--hairline);
+  }
+
+  .section-badge {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .flow-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .flow-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--border-strong);
+    transition: border-color 0.15s ease;
+  }
+
+  .flow-item:hover {
+    border-left-color: var(--text);
+  }
+
+  .flow-item-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .flow-item-title {
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+    margin: 0;
+  }
+
+  .flow-tag {
+    font-size: 0.72rem;
+    padding: 0.15rem 0.5rem;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    background-color: var(--bg);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  .flow-author {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    letter-spacing: 0.03em;
+  }
+
+  .flow-item-desc {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .flow-item-desc code {
+    font-size: 0.85em;
+    padding: 0.1em 0.35em;
+    border: 1px solid var(--border);
+    background-color: var(--bg);
+  }
+
+  @media (max-width: 640px) {
+    .now-header,
+    .now-card {
+      padding: 1.5rem 1.25rem;
+    }
+
+    .now-title {
+      font-size: 1.6rem;
+    }
+
+    .flow-item-head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+</style>

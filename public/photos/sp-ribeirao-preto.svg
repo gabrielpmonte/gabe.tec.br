@@ -1,0 +1,40 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#09090b"/>
+  <!-- Topographic Elevation Grid -->
+  <line x1="80" y1="80" x2="1200" y2="80" stroke="#27272a" stroke-width="1"/>
+  <line x1="80" y1="640" x2="1200" y2="640" stroke="#27272a" stroke-width="1"/>
+
+  <!-- Urban Grid Lines & Transit Vector (Left / São Paulo Metropolitan) -->
+  <line x1="120" y1="640" x2="120" y2="380" stroke="#27272a" stroke-width="1"/>
+  <line x1="180" y1="640" x2="180" y2="320" stroke="#3f3f46" stroke-width="1.5"/>
+  <line x1="240" y1="640" x2="240" y2="280" stroke="#52525b" stroke-width="1.5"/>
+  <line x1="300" y1="640" x2="300" y2="350" stroke="#3f3f46" stroke-width="1.5"/>
+  <line x1="360" y1="640" x2="360" y2="240" stroke="#71717a" stroke-width="2"/>
+  <line x1="420" y1="640" x2="420" y2="390" stroke="#27272a" stroke-width="1"/>
+  <line x1="480" y1="640" x2="480" y2="300" stroke="#52525b" stroke-width="1.5"/>
+
+  <!-- Skyline Silhouette Blocks -->
+  <rect x="150" y="360" width="40" height="280" fill="#121215" stroke="#3f3f46" stroke-width="1"/>
+  <rect x="220" y="290" width="55" height="350" fill="#18181b" stroke="#52525b" stroke-width="1.5"/>
+  <rect x="330" y="260" width="45" height="380" fill="#121215" stroke="#3f3f46" stroke-width="1"/>
+  <rect x="440" y="340" width="50" height="300" fill="#18181b" stroke="#52525b" stroke-width="1"/>
+
+  <!-- Highway / Transit Corridor Curve to Inland Plateau (Right / Ribeirão Preto) -->
+  <path d="M480 640 Q 640 480 840 500 T 1200 460" stroke="#71717a" stroke-width="2" fill="none"/>
+  <path d="M480 640 Q 640 480 840 500 T 1200 460" stroke="#fafafa" stroke-width="1" stroke-dasharray="6 6" fill="none"/>
+
+  <!-- Inland Plains Rolling Contours (Ribeirão Preto) -->
+  <path d="M600 640 Q 820 460 1020 520 T 1200 480" stroke="#3f3f46" stroke-width="1.5" fill="none"/>
+  <path d="M720 640 Q 940 410 1120 450 T 1200 430" stroke="#52525b" stroke-width="1.5" fill="none"/>
+  <polygon points="760,640 920,440 1080,480 1200,640" fill="#121215" stroke="#3f3f46" stroke-width="1"/>
+
+  <!-- Technical Overlay HUD -->
+  <rect x="100" y="100" width="420" height="85" fill="#09090b" stroke="#27272a" stroke-width="1"/>
+  <text x="120" y="130" fill="#fafafa" font-family="monospace" font-size="14" font-weight="600">SÃO PAULO / RIBEIRÃO PRETO // 23°33'S 46°38'W</text>
+  <text x="120" y="152" fill="#71717a" font-family="monospace" font-size="12">ELEV: 760m / 546m a.s.l. | ROTA SP-330 / 10 DIAS</text>
+  <text x="120" y="170" fill="#a1a1aa" font-family="monospace" font-size="11">OPTICS: MOBILE 24mm | REGISTRO DOCUMENTAL</text>
+
+  <!-- Crosshairs -->
+  <line x1="840" y1="480" x2="840" y2="520" stroke="#71717a" stroke-width="1"/>
+  <line x1="820" y1="500" x2="860" y2="500" stroke="#71717a" stroke-width="1"/>
+</svg>

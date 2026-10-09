@@ -1,0 +1,276 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WritingDenseItem from "../components/WritingDenseItem.astro";
+import NoteCard from "../components/NoteCard.astro";
+import FieldNoteCard from "../components/FieldNoteCard.astro";
+import {
+  getPublishedWritings,
+  getSortedNotes,
+  getSortedFieldNotes,
+} from "../utils/content";
+import { SITE } from "../site.config";
+
+const allWritings = await getPublishedWritings();
+const allNotes = await getSortedNotes();
+const allFieldNotes = await getSortedFieldNotes();
+
+const writings = allWritings.slice(0, 5);
+const notes = allNotes.slice(0, 6);
+const fieldNotes = allFieldNotes.slice(0, 3);
+---
+
+<BaseLayout title={SITE.defaultTitle} description={SITE.defaultDescription}>
+  <div class="index-flow">
+    <!-- Top Terminal Meta Header -->
+    <header class="index-header hairline-box">
+      <div class="header-status-line font-mono">
+        <span class="prompt">&gt;_</span>
+        <span class="host">{SITE.domain}</span>
+        <span class="sep">:</span>
+        <span class="path">~/index</span>
+        <span class="badge">[READY]</span>
+      </div>
+      <p class="index-intro">
+        Desenvolvedor e graduando em Ciência da Computação pela UERJ. Foco em
+        visão computacional, processamento digital de imagens, engenharia de
+        software e infraestrutura autônoma.
+      </p>
+      <div class="index-hire-badge font-mono">
+        <span class="dot">●</span>
+        {SITE.availability.fullText}
+      </div>
+      <div class="quick-stats font-mono">
+        <span
+          >PROJETOS: <a href="/projects" class="font-mono underline">EXPLORAR</a
+          ></span
+        >
+        <span>•</span>
+        <span>WRITING: {writings.length} ARTIGOS</span>
+        <span>•</span>
+        <span>GARDEN: {notes.length} NOTAS</span>
+        <span>•</span>
+        <span>FIELD: {fieldNotes.length} REGISTROS</span>
+      </div>
+    </header>
+
+    <!-- Block 1: Technical Writing Articles -->
+    <section class="section-block" aria-labelledby="sec-writing-title">
+      <div class="section-header">
+        <h2 id="sec-writing-title" class="section-title">
+          <span class="title-code font-mono">[01]</span> Artigos Técnicos Recentes
+        </h2>
+        <a href="/writing" class="section-more font-mono no-underline">
+          ver todos ({writings.length})
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="square"><path d="M7 17L17 7M7 7h10v10"></path></svg
+          >
+        </a>
+      </div>
+
+      <div class="dense-list hairline-box">
+        {writings.map((post) => <WritingDenseItem post={post} />)}
+      </div>
+    </section>
+
+    <!-- Block 2: Digital Garden Recent Notes -->
+    <section class="section-block" aria-labelledby="sec-notes-title">
+      <div class="section-header">
+        <h2 id="sec-notes-title" class="section-title">
+          <span class="title-code font-mono">[02]</span> Digital Garden &amp; Zettelkasten
+        </h2>
+        <a href="/notes" class="section-more font-mono no-underline">
+          explorar garden ({notes.length})
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="square"><path d="M7 17L17 7M7 7h10v10"></path></svg
+          >
+        </a>
+      </div>
+
+      <div class="garden-grid">
+        {notes.map((note) => <NoteCard note={note} />)}
+      </div>
+    </section>
+
+    <!-- Block 3: Documentary Photography & Field Notes Strip -->
+    <section class="section-block" aria-labelledby="sec-field-title">
+      <div class="section-header">
+        <h2 id="sec-field-title" class="section-title">
+          <span class="title-code font-mono">[03]</span> Notas de Campo &amp; Fotografia
+          Documental
+        </h2>
+        <a href="/field-notes" class="section-more font-mono no-underline">
+          ver arquivo ({fieldNotes.length})
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="square"><path d="M7 17L17 7M7 7h10v10"></path></svg
+          >
+        </a>
+      </div>
+
+      <div class="field-strip">
+        {
+          fieldNotes.map((item) => (
+            <FieldNoteCard entry={item} variant="compact" />
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>
+
+<style>
+  .index-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 2.75rem;
+  }
+
+  /* Top Header */
+  .index-header {
+    padding: 1.75rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .header-status-line {
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .prompt {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .host {
+    color: var(--text);
+  }
+
+  .badge {
+    color: var(--text-dim);
+    margin-left: auto;
+  }
+
+  .index-intro {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--text);
+    max-width: 720px;
+    margin: 0;
+  }
+
+  .index-hire-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    background-color: var(--surface-secondary, rgba(255, 255, 255, 0.04));
+    border: 1px solid var(--border);
+    padding: 0.45rem 0.75rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+  }
+
+  .index-hire-badge .dot {
+    color: var(--text);
+  }
+
+  .quick-stats {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    padding-top: 0.5rem;
+    border-top: var(--hairline);
+  }
+
+  /* Section Block */
+  .section-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: var(--hairline);
+    padding-bottom: 0.5rem;
+  }
+
+  .section-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+  }
+
+  .title-code {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+    margin-right: 0.25rem;
+  }
+
+  .section-more {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .section-more:hover {
+    color: var(--text);
+  }
+
+  /* Dense List */
+  .dense-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Garden Grid */
+  .garden-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  /* Field Strip */
+  .field-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+
+  @media (max-width: 680px) {
+    .garden-grid,
+    .field-strip {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

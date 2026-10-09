@@ -1,0 +1,141 @@
+---
+import type { MarkdownHeading } from "astro";
+
+interface Props {
+  headings: MarkdownHeading[];
+  title?: string;
+}
+
+const { headings, title = "// SUMÁRIO EXECUTIVO" } = Astro.props;
+const filteredHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+
+{
+  filteredHeadings.length > 0 && (
+    <aside class="toc-sidebar no-print" aria-label="Sumário do documento">
+      <div class="toc-box hairline-box">
+        <div class="toc-title font-mono">{title}</div>
+        <nav class="toc-nav">
+          <ul class="toc-list font-mono">
+            {filteredHeadings.map((h) => (
+              <li class={`toc-item depth-${h.depth}`}>
+                <a href={`#${h.slug}`} class="toc-link">
+                  <span class="toc-prefix">{h.depth === 2 ? "#" : "##"}</span>
+                  <span class="toc-text">{h.text}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </aside>
+  )
+}
+
+<style>
+  .toc-sidebar {
+    position: sticky;
+    top: 2rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+  }
+
+  .toc-box {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .toc-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .toc-item.depth-2 {
+    padding-left: 0;
+  }
+
+  .toc-item.depth-3 {
+    padding-left: 0.75rem;
+  }
+
+  .toc-link {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    line-height: 1.35;
+    transition: color var(--transition-fast);
+  }
+
+  .toc-link:hover,
+  .toc-link.is-active {
+    color: var(--text);
+  }
+
+  .toc-link.is-active .toc-prefix {
+    color: var(--accent);
+  }
+
+  .toc-prefix {
+    color: var(--text-dim);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 900px) {
+    .toc-sidebar {
+      position: static;
+      max-height: none;
+    }
+  }
+</style>
+
+<script>
+  function setupTocScrollSpy(): void {
+    const links = document.querySelectorAll<HTMLAnchorElement>(".toc-link");
+    if (links.length === 0) return;
+
+    const headingIds = Array.from(links)
+      .map((link) => (link.getAttribute("href") || "").replace("#", ""))
+      .filter(Boolean);
+
+    const headingElements = headingIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+
+    if (headingElements.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("id");
+            links.forEach((link) => {
+              const active = link.getAttribute("href") === `#${id}`;
+              link.classList.toggle("is-active", active);
+            });
+          }
+        });
+      },
+      { rootMargin: "0px 0px -75% 0px" },
+    );
+
+    headingElements.forEach((el) => observer.observe(el));
+  }
+
+  document.addEventListener("astro:page-load", setupTocScrollSpy);
+</script>

@@ -1,0 +1,139 @@
+---
+// src/components/sidebar/SidebarHeader.astro
+import { SITE } from "../../site.config";
+---
+
+<header class="sidebar-header">
+  <div class="sys-badge font-mono">
+    <span class="status-dot"></span>
+    <span class="sys-text">SYS_STATUS // ONLINE</span>
+  </div>
+
+  <div class="identity-block">
+    <a href="/" class="identity-name-link no-underline">
+      <h1 class="identity-name">{SITE.author}</h1>
+    </a>
+    <p class="identity-handle font-mono">@{SITE.handle}</p>
+    <p class="identity-title">{SITE.title}</p>
+    <p class="identity-desc">
+      Ciência da Computação (UERJ), visão computacional e engenharia de software.
+    </p>
+  </div>
+
+  <div class="sidebar-hire-status font-mono">
+    <div class="hire-status-indicator">
+      <span class="hire-dot"></span>
+      <span class="hire-title">CONTRATAÇÃO: ABERTO</span>
+    </div>
+    <div class="hire-level">ESTÁGIO / JÚNIOR</div>
+    <div class="hire-loc">RJ • REMOTO</div>
+  </div>
+
+  <div class="domain-tag font-mono">
+    <span class="domain-prefix">host:</span>
+    <span class="domain-val">{SITE.domain}</span>
+  </div>
+</header>
+
+<style>
+  .sys-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    padding: 0.2rem 0.5rem;
+    background-color: var(--bg);
+    margin-bottom: 1.25rem;
+  }
+
+  .status-dot,
+  .hire-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--text);
+    display: inline-block;
+  }
+
+  .identity-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin: 0 0 0.25rem 0;
+    line-height: 1.2;
+  }
+
+  .identity-handle {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+  }
+
+  .identity-title {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+  }
+
+  .identity-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  .sidebar-hire-status {
+    margin-top: 0.85rem;
+    padding: 0.5rem 0.65rem;
+    background-color: var(--surface-secondary, rgba(255, 255, 255, 0.03));
+    border: 1px dashed var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    font-size: 0.7rem;
+  }
+
+  .hire-status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .hire-title {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+
+  .hire-level {
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .hire-loc {
+    color: var(--text-dim);
+    font-size: 0.68rem;
+  }
+
+  .domain-tag {
+    margin-top: 1rem;
+    padding: 0.35rem 0.5rem;
+    font-size: 0.75rem;
+    border: 1px solid var(--border);
+    background-color: var(--bg);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .domain-prefix {
+    color: var(--text-dim);
+  }
+
+  .domain-val {
+    color: var(--text);
+    font-weight: 500;
+  }
+</style>

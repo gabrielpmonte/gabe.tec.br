@@ -1,0 +1,24 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#09090b"/>
+  <!-- Topographic Elevation Grid -->
+  <line x1="80" y1="80" x2="1200" y2="80" stroke="#27272a" stroke-width="1"/>
+  <line x1="80" y1="640" x2="1200" y2="640" stroke="#27272a" stroke-width="1"/>
+  <!-- Giant Tepui Monolith Silhouette -->
+  <polygon points="120,640 240,220 980,220 1100,640" fill="#121215" stroke="#3f3f46" stroke-width="1.5"/>
+  <!-- Vertical Cliff Strata -->
+  <line x1="300" y1="220" x2="260" y2="640" stroke="#27272a" stroke-width="1"/>
+  <line x1="450" y1="220" x2="420" y2="640" stroke="#27272a" stroke-width="1"/>
+  <line x1="640" y1="220" x2="640" y2="640" stroke="#27272a" stroke-width="1"/>
+  <line x1="820" y1="220" x2="860" y2="640" stroke="#27272a" stroke-width="1"/>
+  <!-- Summit Blocks -->
+  <rect x="360" y="195" width="80" height="25" fill="#18181b" stroke="#52525b" stroke-width="1"/>
+  <rect x="520" y="185" width="120" height="35" fill="#18181b" stroke="#71717a" stroke-width="1"/>
+  <rect x="740" y="200" width="70" height="20" fill="#18181b" stroke="#52525b" stroke-width="1"/>
+  <!-- Clouds / Mist Layer -->
+  <path d="M80 480 C 280 450, 480 510, 680 470 C 880 430, 1080 490, 1200 460" stroke="#71717a" stroke-width="1" stroke-dasharray="6 6" fill="none"/>
+  <!-- Technical Overlay HUD -->
+  <rect x="100" y="100" width="350" height="85" fill="#09090b" stroke="#27272a" stroke-width="1"/>
+  <text x="120" y="130" fill="#fafafa" font-family="monospace" font-size="14" font-weight="600">MONTE RORAIMA // 05°12'N 60°45'W</text>
+  <text x="120" y="152" fill="#71717a" font-family="monospace" font-size="12">ELEV: 2,810m a.s.l. | PRECAMBRIAN TEPUI</text>
+  <text x="120" y="170" fill="#a1a1aa" font-family="monospace" font-size="11">OPTICS: XF 18-55mm f/2.8-4 | CLASSIC CHROME</text>
+</svg>

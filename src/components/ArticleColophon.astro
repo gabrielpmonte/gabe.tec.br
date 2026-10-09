@@ -1,0 +1,74 @@
+---
+import { SITE } from "../site.config";
+
+interface Props {
+  backHref?: string;
+  backLabel?: string;
+  topAnchor?: string;
+}
+
+const {
+  backHref = "/writing",
+  backLabel = "Voltar para /writing",
+  topAnchor = "#main-content",
+} = Astro.props;
+---
+
+<footer class="article-colophon hairline-box">
+  <div class="colophon-meta font-mono">
+    <div>// ESPECIFICAÇÃO DE ENGENHARIA</div>
+    <div>
+      AUTOR: {SITE.author.toUpperCase()} ({SITE.domain.toUpperCase()})
+    </div>
+    <div>COMPILADOR: ASTRO SSG + SHIKI + REHYPE-KATEX</div>
+    <div>STATUS: DETERMINÍSTICO // ZERO-DEPENDENCY CLIENT</div>
+  </div>
+  <div class="colophon-actions font-mono">
+    <a href={backHref} class="colophon-btn font-mono no-underline">
+      &larr; {backLabel}
+    </a>
+    <a href={topAnchor} class="colophon-btn font-mono no-underline">
+      &uarr; Topo da Página
+    </a>
+  </div>
+</footer>
+
+<style>
+  .article-colophon {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .colophon-meta {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .colophon-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: var(--hairline);
+  }
+
+  .colophon-btn {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.75rem;
+    background-color: var(--bg);
+    transition: all var(--transition-fast);
+  }
+
+  .colophon-btn:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+</style>

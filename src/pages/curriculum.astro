@@ -1,0 +1,403 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../site.config';
+---
+
+<BaseLayout
+  title={`Currículo Profissional (CV) — ${SITE.author}`}
+  description={`Currículo de ${SITE.author}. Graduando em Ciência da Computação pela UERJ com foco em Visão Computacional, Engenharia de Software e Sistemas.`}
+>
+  <div class="cv-wrapper">
+    <!-- Action Controls (Hidden on print) -->
+    <header class="cv-top-bar no-print hairline-box">
+      <div class="cv-spec font-mono">
+        <span class="status-hire font-mono">[● DISPONÍVEL: ESTÁGIO / JÚNIOR • RJ OU REMOTO]</span>
+        <span class="sep no-mobile">•</span>
+        <span class="no-mobile">VERSÃO: 2026.Q4</span>
+      </div>
+      <div class="cv-actions">
+        <button type="button" class="print-btn font-mono" onclick="window.print()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          [IMPRIMIR / GERAR PDF ATS]
+        </button>
+      </div>
+    </header>
+
+    <!-- Plain-Text Style Formatted CV Content -->
+    <article class="cv-document hairline-box">
+      <!-- Header -->
+      <section class="cv-header-block hairline-divider">
+        <div class="cv-status-banner font-mono no-print">
+          // STATUS ATUAL: {SITE.availability.fullText}
+        </div>
+        <h1 class="cv-name">{SITE.author.toUpperCase()}</h1>
+        <div class="cv-headline font-mono">{SITE.education.degree.toUpperCase()} (UERJ) // VISÃO COMPUTACIONAL & SISTEMAS</div>
+        <div class="cv-contact-row font-mono">
+          <span>EMAIL: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></span>
+          <span>•</span>
+          <span>WEB: <a href={SITE.url}>{SITE.domain}</a></span>
+          <span>•</span>
+          <span>GH: <a href={SITE.github.url} target="_blank" rel="noopener noreferrer">github.com/{SITE.github.handle}</a></span>
+          <span>•</span>
+          <span>LI: <a href={SITE.linkedin.url} target="_blank" rel="noopener noreferrer">linkedin.com/in/{SITE.linkedin.handle}</a></span>
+          <span>•</span>
+          <span>LOCAL: {SITE.location.formattedUpper}</span>
+        </div>
+      </section>
+
+      <!-- Executive Synthesis -->
+      <section class="cv-section hairline-divider">
+        <h2 class="cv-sec-title font-mono">// 01. SÍNTESE DO PERFIL</h2>
+        <p class="cv-text">
+          Graduando em <strong>Ciência da Computação pela Universidade do Estado do Rio de Janeiro (UERJ)</strong> com ênfase e pesquisa aplicada em <strong>Visão Computacional</strong> e engenharia de software. Vivência sólida em programação de sistemas (Python, C/C++, Linux/NixOS), fundamentos de arquitetura e infraestrutura autônoma (Docker, Caddy, Tailscale em homelab distribuído). Busco oportunidades de <strong>Estágio ou Desenvolvedor Júnior</strong> em Desenvolvimento de Software, Visão Computacional, Engenharia de Dados ou Infraestrutura (Presencial no Rio de Janeiro ou Remoto).
+        </p>
+      </section>
+
+      <!-- Core Competencies -->
+      <section class="cv-section hairline-divider">
+        <h2 class="cv-sec-title font-mono">// 02. COMPETÊNCIAS & STACK TÉCNICA</h2>
+        <div class="cv-skills-grid font-mono">
+          <div class="skill-category">
+            <span class="category-name">LINGUAGENS:</span>
+            <span class="category-items">Python, C/C++, TypeScript, JavaScript, SQL, POSIX Shell (Bash), Go / Rust (estudos contínuos).</span>
+          </div>
+          <div class="skill-category">
+            <span class="category-name">VISÃO COMPUTACIONAL & IA:</span>
+            <span class="category-items">OpenCV, PyTorch, NumPy, Scikit-learn, Processamento Digital de Imagens (PDI), Filtros Espaciais, CNNs.</span>
+          </div>
+          <div class="skill-category">
+            <span class="category-name">SISTEMAS & INFRAESTRUTURA:</span>
+            <span class="category-items">Linux (NixOS, Debian), Docker, Caddy Server, Tailscale VPN, Redes TCP/IP, Orquestração Homelab.</span>
+          </div>
+          <div class="skill-category">
+            <span class="category-name">FERRAMENTAS & ENGENHARIA:</span>
+            <span class="category-items">Git, GitHub Actions (CI/CD), VS Code / Neovim, REST APIs, Astro, Testes Unitários.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Professional & Academic Experience -->
+      <section class="cv-section hairline-divider">
+        <h2 class="cv-sec-title font-mono">// 03. HISTÓRICO PROFISSIONAL & ACADÊMICO</h2>
+
+        <!-- Bloco 1: Placeholder para Experiência Principal / Estágio -->
+        <div class="cv-job-block">
+          <div class="job-header">
+            <span class="job-title">[PREENCHER: Cargo / Ex: Estagiário de Desenvolvimento ou Monitor]</span>
+            <span class="job-period font-mono">[2024 — PRESENTE / PERÍODO]</span>
+          </div>
+          <div class="job-company font-mono">[PREENCHER: Empresa ou Laboratório / Departamento UERJ]</div>
+          <ul class="job-achievements">
+            <li>
+              [PREENCHER: Descreva o que você desenvolveu, tecnologias usadas e impacto / métrica alcançada].
+            </li>
+            <li>
+              [PREENCHER: Exemplo: Otimização de scripts de automação ou pipelines de processamento de dados].
+            </li>
+            <li>
+              [PREENCHER: Colaboração em equipe, boas práticas de versionamento com Git e documentação técnica].
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bloco 2: Pesquisa Acadêmica / Iniciação Científica na UERJ -->
+        <div class="cv-job-block">
+          <div class="job-header">
+            <span class="job-title">Pesquisa Acadêmica & Iniciação Científica // Visão Computacional</span>
+            <span class="job-period font-mono">2023 — PRESENTE</span>
+          </div>
+          <div class="job-company font-mono">Universidade do Estado do Rio de Janeiro (UERJ)</div>
+          <ul class="job-achievements">
+            <li>
+              Investigação e implementação de pipelines de visão computacional e pré-processamento de imagens utilizando Python e OpenCV.
+            </li>
+            <li>
+              [PREENCHER: Detalhes específicos do seu projeto de pesquisa ou tema de monografia/TCC na UERJ].
+            </li>
+            <li>
+              Experimentação e avaliação comparativa de modelos de aprendizagem de máquina para classificação e detecção de padrões visuais.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bloco 3: Engenharia de Infraestrutura & Homelab -->
+        <div class="cv-job-block">
+          <div class="job-header">
+            <span class="job-title">Arquiteto & Administrador de Infraestrutura Pessoal (Homelab)</span>
+            <span class="job-period font-mono">2023 — PRESENTE</span>
+          </div>
+          <div class="job-company font-mono">Projeto Autônomo de Engenharia // nós tachibana, wired, navi</div>
+          <ul class="job-achievements">
+            <li>
+              Concepção e operação de cluster de homelab híbrido (VPS pública + servidores locais com NixOS) conectado via malha criptografada Tailscale.
+            </li>
+            <li>
+              Roteamento reverso e terminação SSL automática com Caddy expondo serviços e aplicações web sob domínio próprio (gabe.tec.br).
+            </li>
+            <li>
+              Containerização com Docker e gestão declarativa de configurações de sistema operacional para alta reprodutibilidade.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Projects & Showcase -->
+      <section class="cv-section hairline-divider">
+        <h2 class="cv-sec-title font-mono">// 04. PROJETOS EM DESTAQUE</h2>
+        <ul class="cv-projects-list">
+          <li>
+            <strong>Puzzles (<a href="https://puzzles.gabe.tec.br" target="_blank" rel="noopener noreferrer">puzzles.gabe.tec.br</a>):</strong> Aplicação web interativa de desafios lógicos e quebra-cabeças computacionais, auto-hospedada em infraestrutura própria com alta responsividade.
+          </li>
+          <li>
+            <strong>[PREENCHER: Pipeline / Aplicação de Visão Computacional]:</strong> Projeto prático com OpenCV/PyTorch para detecção de objetos/segmentação. Repositório: <a href="https://github.com/gabrielpmonte" target="_blank" rel="noopener noreferrer">github.com/gabrielpmonte/[repo]</a>.
+          </li>
+          <li>
+            <strong>Website & Plataforma Pessoal (<a href="https://gabe.tec.br" target="_blank" rel="noopener noreferrer">gabe.tec.br</a>):</strong> Plataforma técnica estática de alta performance desenvolvida com Astro, TypeScript, sem frameworks inchados, otimizada para Core Web Vitals e renderização instantânea.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Education & Languages -->
+      <section class="cv-section">
+        <h2 class="cv-sec-title font-mono">// 05. FORMAÇÃO ACADÊMICA & IDIOMAS</h2>
+        <div class="cv-edu-grid font-mono">
+          <div>
+            <strong>{SITE.education.degree} — {SITE.education.institution}</strong><br />
+            {SITE.education.emphasis} • Previsão de Conclusão: 2026/2027
+          </div>
+          <div>
+            <strong>IDIOMAS:</strong> Português (Nativo) • Inglês (Leitura e Escrita Técnica / Fluente).
+          </div>
+        </div>
+      </section>
+    </article>
+  </div>
+</BaseLayout>
+
+<style>
+  .cv-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .cv-top-bar {
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cv-spec {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .status-hire {
+    color: var(--text);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    background-color: var(--surface-secondary, rgba(255, 255, 255, 0.05));
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--border);
+  }
+
+  .cv-status-banner {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    padding: 0.4rem 0.6rem;
+    background: var(--bg);
+    border: 1px dashed var(--border);
+    margin-bottom: 0.5rem;
+  }
+
+  .print-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    padding: 0.4rem 0.75rem;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .print-btn:hover {
+    border-color: var(--text);
+  }
+
+  .cv-document {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: var(--surface);
+  }
+
+  .cv-header-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .cv-name {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .cv-headline {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  .cv-contact-row {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.35rem;
+  }
+
+  .cv-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 1.75rem;
+  }
+
+  .cv-sec-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  .cv-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .cv-skills-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.82rem;
+  }
+
+  .skill-category {
+    display: flex;
+    gap: 0.5rem;
+    line-height: 1.45;
+  }
+
+  .category-name {
+    color: var(--text-dim);
+    width: 170px;
+    flex-shrink: 0;
+  }
+
+  .category-items {
+    color: var(--text);
+  }
+
+  .cv-job-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .cv-job-block:last-child {
+    margin-bottom: 0;
+  }
+
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .job-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .job-period {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+
+  .job-company {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .job-achievements {
+    list-style: square;
+    padding-left: 1.25rem;
+    margin: 0.35rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .cv-projects-list {
+    list-style: square;
+    padding-left: 1.25rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  .cv-edu-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text);
+  }
+
+  @media print {
+    .cv-wrapper {
+      gap: 0;
+    }
+
+    .cv-document {
+      border: none !important;
+      padding: 0 !important;
+      background: #ffffff !important;
+      color: #000000 !important;
+    }
+
+    .cv-section {
+      padding-bottom: 1rem;
+    }
+
+    .cv-sec-title {
+      color: #000000 !important;
+    }
+  }
+</style>

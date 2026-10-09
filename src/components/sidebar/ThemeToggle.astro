@@ -1,0 +1,104 @@
+---
+// src/components/sidebar/ThemeToggle.astro
+---
+
+<theme-toggle>
+  <button
+    type="button"
+    class="theme-toggle-btn font-mono"
+    aria-label="Alternar tema de cores"
+    aria-pressed="false"
+  >
+    <span class="theme-label">TEMA:</span>
+    <span data-theme-label class="theme-mode-val">[DARK]</span>
+    <svg
+      class="theme-icon"
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="square"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </button>
+</theme-toggle>
+
+<style>
+  .theme-toggle-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    padding: 0.5rem 0.65rem;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    cursor: pointer;
+    transition: border-color 100ms ease, background-color 100ms ease;
+  }
+  .theme-toggle-btn:hover {
+    border-color: var(--border-strong);
+    background-color: var(--surface-active);
+  }
+  .theme-label {
+    color: var(--text-dim);
+  }
+  .theme-mode-val {
+    font-weight: 600;
+  }
+  .theme-icon {
+    opacity: 0.8;
+  }
+</style>
+
+<script>
+  class ThemeToggle extends HTMLElement {
+    private button: HTMLButtonElement | null = null;
+    private label: HTMLElement | null = null;
+
+    connectedCallback() {
+      this.button = this.querySelector("button");
+      this.label = this.querySelector("[data-theme-label]");
+
+      this.updateUI();
+      this.button?.addEventListener("click", this.toggleTheme);
+    }
+
+    disconnectedCallback() {
+      this.button?.removeEventListener("click", this.toggleTheme);
+    }
+
+    private toggleTheme = () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+      this.updateUI();
+    };
+
+    private updateUI() {
+      const isDark = document.documentElement.classList.contains("dark");
+      if (this.label) {
+        this.label.textContent = isDark ? "[DARK]" : "[LIGHT]";
+      }
+      if (this.button) {
+        this.button.setAttribute("aria-pressed", String(isDark));
+      }
+    }
+  }
+
+  if (!customElements.get("theme-toggle")) {
+    customElements.define("theme-toggle", ThemeToggle);
+  }
+</script>

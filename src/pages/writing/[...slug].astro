@@ -1,0 +1,237 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import TableOfContents from "../../components/TableOfContents.astro";
+import ArticleColophon from "../../components/ArticleColophon.astro";
+import { render } from "astro:content";
+import { getPublishedWritings } from "../../utils/content";
+import { formatISODate } from "../../utils/date";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedWritings();
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+---
+
+<BaseLayout
+  title={`${post.data.title} — Artigo Técnico`}
+  description={post.data.description}
+  type="article"
+  publishDate={post.data.publishDate}
+  updatedDate={post.data.updatedDate}
+  tags={post.data.tags}
+>
+  <article class="article-container">
+    <Breadcrumb
+      backHref="/writing"
+      backLabel="VOLTAR AO ÍNDICE DE ARTIGOS"
+      currentSlug={post.id}
+    />
+
+    <!-- Header Section -->
+    <header class="article-header hairline-box">
+      <div class="meta-line font-mono">
+        <span class="meta-label">DATA:</span>
+        <time datetime={post.data.publishDate.toISOString()} class="meta-val">
+          {formatISODate(post.data.publishDate)}
+        </time>
+        {
+          post.data.updatedDate && (
+            <>
+              <span class="meta-sep">•</span>
+              <span class="meta-label">REV:</span>
+              <time
+                datetime={post.data.updatedDate.toISOString()}
+                class="meta-val"
+              >
+                {formatISODate(post.data.updatedDate)}
+              </time>
+            </>
+          )
+        }
+        {
+          post.data.readingTime && (
+            <>
+              <span class="meta-sep">•</span>
+              <span class="meta-val">{post.data.readingTime} MIN LEITURA</span>
+            </>
+          )
+        }
+        <span class="meta-badge">[PEER_REVIEWED]</span>
+      </div>
+
+      <h1 class="article-title">{post.data.title}</h1>
+      <p class="article-subtitle">{post.data.description}</p>
+
+      <div class="article-tags font-mono">
+        {
+          post.data.tags.map((tag) => (
+            <a
+              href={`/writing?tag=${encodeURIComponent(tag)}`}
+              class="tag-mono"
+              title={`Filtrar artigos por #${tag}`}
+            >
+              #{tag}
+            </a>
+          ))
+        }
+      </div>
+    </header>
+
+    <div class="article-body-layout">
+      <!-- Floating / Sticky Table of Contents -->
+      <TableOfContents headings={headings} />
+
+      <!-- Main Editorial Content Flow -->
+      <div class="article-content-flow">
+        <div class="prose-content">
+          <Content />
+        </div>
+
+        <!-- Footer Colophon -->
+        <ArticleColophon backHref="/writing" backLabel="Voltar para /writing" />
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .article-header {
+    padding: 2rem 2.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .meta-line {
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .meta-label {
+    color: var(--text-dim);
+  }
+
+  .meta-sep {
+    color: var(--border-strong);
+  }
+
+  .meta-val {
+    color: var(--text);
+  }
+
+  .meta-badge {
+    margin-left: auto;
+    color: var(--text-dim);
+  }
+
+  .article-title {
+    font-size: 1.85rem;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+    margin: 0;
+  }
+
+  .article-subtitle {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .article-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding-top: 0.5rem;
+    border-top: var(--hairline);
+  }
+
+  /* Two Column Layout with TOC */
+  .article-body-layout {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .article-content-flow {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .prose-content {
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .prose-content :global(h2) {
+    font-size: 1.35rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    scroll-margin-top: 2rem;
+  }
+
+  .prose-content :global(h3) {
+    font-size: 1.15rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    scroll-margin-top: 2rem;
+  }
+
+  .prose-content :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .prose-content :global(ul),
+  .prose-content :global(ol) {
+    margin-bottom: 1.25rem;
+    padding-left: 1.5rem;
+  }
+
+  .prose-content :global(li) {
+    margin-bottom: 0.4rem;
+  }
+
+  .prose-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem 0 0.75rem 0;
+    border: var(--hairline);
+    background-color: var(--surface);
+  }
+
+  .prose-content :global(p > em:only-child) {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .article-body-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

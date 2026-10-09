@@ -1,0 +1,104 @@
+---
+// src/components/sidebar/SidebarNav.astro
+import { NAV_LINKS, isRouteActive } from "../../config/navigation";
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+---
+
+<nav class="sidebar-nav" aria-label="Navegação Principal">
+  <div class="nav-section-title font-mono">// NAVEGAÇÃO</div>
+  <ul class="nav-list">
+    {
+      NAV_LINKS.map((item) => {
+        const active = isRouteActive(item.href, currentPath);
+        return (
+          <li class="nav-item">
+            <a
+              href={item.href}
+              class:list={[
+                "nav-link no-underline font-mono",
+                { "is-active": active },
+              ]}
+              aria-current={active ? "page" : undefined}
+            >
+              <span class="nav-index">[{item.code}]</span>
+              <span class="nav-label">{item.label}</span>
+              {active && <span class="active-marker" aria-hidden="true">&lt;</span>}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>
+
+<style>
+  .nav-section-title {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+  }
+
+  .nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.5rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    border: 1px solid transparent;
+    transition:
+      background-color 80ms ease,
+      color 80ms ease;
+  }
+
+  .nav-index {
+    color: var(--text-dim);
+    font-size: 0.75rem;
+  }
+
+  .nav-label {
+    flex-grow: 1;
+    color: var(--text);
+  }
+
+  .active-marker {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .nav-link:hover {
+    background-color: var(--bg);
+    border-color: var(--border);
+    color: var(--text);
+  }
+
+  .nav-link.is-active {
+    background-color: var(--bg);
+    border-color: var(--border);
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  @media (max-width: 960px) {
+    .nav-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.35rem;
+    }
+  }
+</style>

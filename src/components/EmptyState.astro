@@ -1,0 +1,28 @@
+---
+interface Props {
+  id: string;
+  message?: string;
+}
+
+const {
+  id,
+  message = "// NENHUM RESULTADO ENCONTRADO PARA OS FILTROS SELECIONADOS.",
+} = Astro.props;
+---
+
+<div
+  class="filter-empty-state font-mono hairline-box"
+  id={id}
+  style="display: none;"
+>
+  {message}
+</div>
+
+<style>
+  .filter-empty-state {
+    padding: 3.5rem 1.5rem;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.88rem;
+  }
+</style>

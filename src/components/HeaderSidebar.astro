@@ -1,0 +1,13 @@
+---
+// src/components/HeaderSidebar.astro
+// Re-export / delegador do componente modular Sidebar
+import Sidebar from "./sidebar/Sidebar.astro";
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+---
+
+<Sidebar currentPath={currentPath} />

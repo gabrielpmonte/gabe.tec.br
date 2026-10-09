@@ -1,0 +1,279 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import { render } from "astro:content";
+import { getSortedFieldNotes } from "../../utils/content";
+import { formatISODate } from "../../utils/date";
+import { SITE } from "../../site.config";
+
+export async function getStaticPaths() {
+  const allFieldNotes = await getSortedFieldNotes();
+  return allFieldNotes.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const formatDate = formatISODate;
+---
+
+<BaseLayout
+  title={`${entry.data.title} — Notas de Campo`}
+  description={entry.data.summary}
+  type="article"
+  publishDate={entry.data.date}
+  tags={entry.data.tags}
+  ogImage={entry.data.coverImage}
+>
+  <article class="field-doc-container">
+    <Breadcrumb
+      backHref="/field-notes"
+      backLabel="VOLTAR ÀS NOTAS DE CAMPO"
+      currentSlug={entry.id}
+      ariaLabel="Navegação de campo"
+    />
+
+    <!-- Top Technical Specification Box -->
+    <header class="field-doc-header hairline-box">
+      <div class="field-sys-header font-mono">
+        <span>// EXPEDIÇÃO GEOGRÁFICA</span>
+        <span>STATUS: CONCLUÍDA</span>
+      </div>
+
+      <h1 class="field-doc-title">{entry.data.title}</h1>
+      <p class="field-doc-summary">{entry.data.summary}</p>
+
+      <!-- Technical HUD Data Table -->
+      <div class="hud-grid font-mono">
+        <div class="hud-item">
+          <span class="hud-key">LOCAL:</span>
+          <span class="hud-val">{entry.data.location}</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-key">COORDENADAS:</span>
+          <span class="hud-val">{entry.data.coordinates}</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-key">DATA:</span>
+          <span class="hud-val">{formatDate(entry.data.date)}</span>
+        </div>
+        {
+          entry.data.elevation && (
+            <div class="hud-item">
+              <span class="hud-key">ALTITUDE:</span>
+              <span class="hud-val">{entry.data.elevation}</span>
+            </div>
+          )
+        }
+        <div class="hud-item">
+          <span class="hud-key">CÂMERA:</span>
+          <span class="hud-val">{entry.data.gear.camera}</span>
+        </div>
+        <div class="hud-item">
+          <span class="hud-key">LENTE:</span>
+          <span class="hud-val">{entry.data.gear.lens}</span>
+        </div>
+        {
+          entry.data.gear.simulation && (
+            <div class="hud-item">
+              <span class="hud-key">SIMULAÇÃO:</span>
+              <span class="hud-val">{entry.data.gear.simulation}</span>
+            </div>
+          )
+        }
+      </div>
+
+      <div class="field-tags font-mono">
+        {
+          entry.data.tags.map((t) => (
+            <a
+              href={`/field-notes?tag=${encodeURIComponent(t)}`}
+              class="tag-mono"
+              title={`Filtrar expedições por #${t}`}
+            >
+              #{t}
+            </a>
+          ))
+        }
+      </div>
+    </header>
+
+    <!-- Hero Documentary Illustration -->
+    {
+      entry.data.coverImage && (
+        <div class="field-hero-wrapper hairline-box">
+          <img
+            src={entry.data.coverImage}
+            alt={`Registro visual e topográfico de ${entry.data.title}`}
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+            class="field-hero-img"
+          />
+          <div class="hero-caption font-mono">
+            <span>FIG 01. REGISTRO TOPOGRÁFICO DE TERRENO</span>
+            <span>{entry.data.coordinates}</span>
+          </div>
+        </div>
+      )
+    }
+
+    <!-- Chronicle Content Body -->
+    <div class="prose-content">
+      <Content />
+    </div>
+
+    <!-- Footer Return -->
+    <footer class="field-doc-footer hairline-box font-mono">
+      <div>REGISTRO DE CAMPO // {SITE.author.toUpperCase()}</div>
+      <a href="/field-notes" class="footer-link">
+        &larr; Retornar ao índice de expedições
+      </a>
+    </footer>
+  </article>
+</BaseLayout>
+
+<style>
+  .field-doc-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 820px;
+  }
+
+  .field-doc-header {
+    padding: 1.75rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .field-sys-header {
+    font-size: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    color: var(--text-dim);
+  }
+
+  .field-doc-title {
+    font-size: 1.85rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  .field-doc-summary {
+    font-size: 1rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .hud-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+    padding: 1rem;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    font-size: 0.75rem;
+  }
+
+  .hud-item {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .hud-key {
+    color: var(--text-dim);
+    width: 105px;
+    flex-shrink: 0;
+  }
+
+  .hud-val {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .field-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .field-hero-wrapper {
+    overflow: hidden;
+  }
+
+  .field-hero-img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-caption {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+    border-top: var(--hairline);
+    background-color: var(--surface);
+  }
+
+  .prose-content {
+    font-size: 1.02rem;
+    line-height: 1.7;
+    color: var(--text);
+  }
+
+  .prose-content :global(h2) {
+    font-size: 1.3rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose-content :global(p) {
+    margin-bottom: 1.25rem;
+  }
+
+  .prose-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem 0 0.75rem 0;
+    border: var(--hairline);
+    background-color: var(--surface);
+  }
+
+  .prose-content :global(p > em:only-child) {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-top: -0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .field-doc-footer {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  .footer-link {
+    color: var(--text);
+    text-decoration: underline;
+  }
+
+  @media (max-width: 650px) {
+    .hud-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

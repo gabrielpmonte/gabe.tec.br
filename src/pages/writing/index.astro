@@ -1,0 +1,185 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import FilterBar from "../../components/FilterBar.astro";
+import FilterBanner from "../../components/FilterBanner.astro";
+import EmptyState from "../../components/EmptyState.astro";
+import WritingTableRow from "../../components/WritingTableRow.astro";
+import { getPublishedWritings, getTagCounts } from "../../utils/content";
+import { SITE } from "../../site.config";
+
+const allPosts = await getPublishedWritings();
+const tagItems = getTagCounts(allPosts);
+---
+
+<BaseLayout
+  title="Artigos Técnicos // Writing"
+  description="Arquivo de artigos técnicos sobre sistemas distribuídos, alocadores de memória, concorrência e algoritmos de alto desempenho."
+>
+  <div class="archive-container">
+    <header class="archive-header hairline-box">
+      <div class="header-path font-mono">
+        // {SITE.domain.toUpperCase()} / WRITING
+      </div>
+      <h1 class="archive-title">Artigos Técnicos</h1>
+      <p class="archive-desc">
+        Investigações aprofundadas sobre engenharia de sistemas, concorrência de
+        baixo nível, armazenamento distribuído e eficiência de hardware.
+      </p>
+
+      <FilterBar
+        label="FILTRAR POR TAG:"
+        allLabel="TODOS"
+        totalCount={allPosts.length}
+        items={tagItems}
+        paramKey="tag"
+        listId="tag-filter-list"
+      />
+    </header>
+
+    <FilterBanner
+      bannerId="filter-status-banner"
+      countId="filter-count"
+      labelId="filter-tag-name"
+      clearBtnId="clear-filter-btn"
+      totalCount={allPosts.length}
+      entityLabel="ARTIGOS"
+    />
+
+    <div
+      class="articles-table-wrapper hairline-box"
+      id="articles-table-wrapper"
+    >
+      <table class="articles-table">
+        <thead>
+          <tr>
+            <th class="col-date font-mono">DATA</th>
+            <th class="col-title font-mono">TÍTULO &amp; RESUMO</th>
+            <th class="col-tags font-mono">TAGS</th>
+            <th class="col-time font-mono">TEMPO</th>
+          </tr>
+        </thead>
+        <tbody id="articles-tbody">
+          {
+            allPosts.map((post) => (
+              <WritingTableRow post={post} interactiveTags={true} />
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <EmptyState
+      id="filter-empty-state"
+      message="// NENHUM ARTIGO ENCONTRADO PARA A TAG SELECIONADA."
+    />
+  </div>
+</BaseLayout>
+
+<style>
+  .archive-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .archive-header {
+    padding: 1.75rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .header-path {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  .archive-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .archive-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .articles-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .articles-table {
+    width: 100%;
+    margin: 0;
+    border: none;
+    border-collapse: collapse;
+  }
+
+  .articles-table th {
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    text-align: left;
+    color: var(--text-dim);
+    border-bottom: var(--hairline);
+    background-color: var(--surface-subtle);
+  }
+
+  .col-date {
+    width: 105px;
+    white-space: nowrap;
+  }
+
+  .col-title {
+    min-width: 260px;
+  }
+
+  .col-tags {
+    width: 250px;
+    min-width: 220px;
+  }
+
+  .col-time {
+    width: 55px;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .col-tags,
+    .col-time {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { setupFilterManager } from "../../scripts/filter-manager";
+
+  setupFilterManager({
+    topButtonSelector: ".tag-filter-btn",
+    buttonValueAttr: "data-tag",
+    defaultParamKey: "tag",
+    inlineButtonSelector: ".tag-inline-btn",
+    inlineButtonValueAttr: "data-tag",
+    inlineButtonParamKey: "tag",
+    itemSelector: ".article-row",
+    itemMatcher: (item, filters) => {
+      const activeTag = filters.tag;
+      if (!activeTag || activeTag === "all") return true;
+      const rowTags = (item.getAttribute("data-tags") || "")
+        .split(",")
+        .map((s) => s.trim());
+      return rowTags.includes(activeTag);
+    },
+    bannerId: "filter-status-banner",
+    bannerCountId: "filter-count",
+    bannerLabelId: "filter-tag-name",
+    formatBannerLabel: (filters) => `#${filters.tag}`,
+    clearBtnId: "clear-filter-btn",
+    emptyStateId: "filter-empty-state",
+    listContainerId: "articles-table-wrapper",
+  });
+</script>

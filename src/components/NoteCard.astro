@@ -1,0 +1,116 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { formatISODate } from "../utils/date";
+
+interface Props {
+  note: CollectionEntry<"notes">;
+}
+
+const { note } = Astro.props;
+---
+
+<div class="garden-card hairline-box">
+  <div class="garden-card-head font-mono">
+    <a
+      href={`/notes?stage=${encodeURIComponent(note.data.stage)}`}
+      class={`stage-badge stage-${note.data.stage}`}
+      title={`Ver notas em estágio [${note.data.stage.toUpperCase()}]`}
+    >
+      [{note.data.stage.toUpperCase()}]
+    </a>
+    <time datetime={note.data.publishDate.toISOString()} class="garden-date">
+      {formatISODate(note.data.publishDate)}
+    </time>
+  </div>
+  <h3 class="garden-title">
+    <a href={`/notes/${note.id}`} class="title-link">
+      {note.data.title}
+    </a>
+  </h3>
+  {note.data.description && <p class="garden-desc">{note.data.description}</p>}
+  <div class="garden-tags font-mono">
+    {
+      note.data.tags.slice(0, 3).map((t) => (
+        <a
+          href={`/notes?tag=${encodeURIComponent(t)}`}
+          class="tag-mono"
+          title={`Ver notas com #${t}`}
+        >
+          #{t}
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .garden-card {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .garden-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.72rem;
+  }
+
+  .stage-badge {
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity var(--transition-fast);
+  }
+
+  .stage-badge:hover {
+    text-decoration: underline;
+  }
+
+  .stage-evergreen {
+    color: var(--text);
+  }
+  .stage-growing {
+    color: var(--text-muted);
+  }
+  .stage-seed {
+    color: var(--text-dim);
+  }
+
+  .garden-date {
+    color: var(--text-dim);
+  }
+
+  .garden-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+  }
+
+  .title-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    transition: text-decoration-color var(--transition-fast);
+  }
+
+  .title-link:hover {
+    text-decoration-color: var(--text);
+  }
+
+  .garden-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .garden-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: auto;
+  }
+</style>

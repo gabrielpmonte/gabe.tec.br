@@ -1,0 +1,531 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../site.config";
+---
+
+<BaseLayout
+  title={`Sobre // ${SITE.author}`}
+  description={`Síntese profissional, princípios de engenharia de software e arquiteturas de sistemas de ${SITE.author} (${SITE.domain}).`}
+>
+  <div class="about-container">
+    <header class="about-header hairline-box">
+      <div class="header-path font-mono">
+        // {SITE.domain.toUpperCase()} / ABOUT
+      </div>
+      <h1 class="about-name">{SITE.author}</h1>
+      <div class="about-spec font-mono">
+        <span>{SITE.title.toUpperCase()}</span>
+        <span class="sep">•</span>
+        <span>{SITE.location.formattedUpper}</span>
+      </div>
+    </header>
+
+    <div class="about-body">
+      <!-- Section 1: Perfil e Foco -->
+      <section class="about-card hairline-box">
+        <header class="card-header">
+          <span class="section-badge font-mono"
+            >// 01 • SÍNTESE & POSICIONAMENTO</span
+          >
+          <h2 class="section-title">
+            Ciência da Computação & Visão Computacional
+          </h2>
+        </header>
+
+        <div class="prose-stack">
+          <div class="about-hire-box font-mono">
+            <strong>STATUS ATUAL:</strong>
+            {SITE.availability.fullText}
+          </div>
+          <p class="lead-text">
+            Sou graduando em <strong
+              >Ciência da Computação pela Universidade do Estado do Rio de
+              Janeiro (UERJ)</strong
+            >, com foco e pesquisa aplicada em <strong
+              >Visão Computacional</strong
+            >, processamento digital de imagens e engenharia de software
+            fundamentada em sistemas.
+          </p>
+          <p class="body-text">
+            Minha abordagem de computação prioriza clareza algorítmica, código
+            legível e simpatia mecânica com o hardware subjacente. Além da
+            pesquisa acadêmica, projeto e mantenho minha própria infraestrutura
+            de servidores autônomos (homelab híbrido com nós NixOS e VPS),
+            aplicando na prática conceitos de redes, segurança com VPNs malhadas
+            (Tailscale), contêineres Docker e servidores de alta performance
+            (Caddy).
+          </p>
+          <p class="body-text">
+            Atualmente busco oportunidades de <strong
+              >Estágio ou Desenvolvedor Júnior</strong
+            > em times de Engenharia de Software, Visão Computacional / Inteligência
+            Artificial ou Infraestrutura no Rio de Janeiro ou remotamente.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 2: Princípios Operacionais -->
+      <section class="about-card hairline-box">
+        <header class="card-header">
+          <span class="section-badge font-mono"
+            >// 02 • FUNDAMENTOS OPERACIONAIS</span
+          >
+          <h2 class="section-title">Princípios de Engenharia</h2>
+        </header>
+
+        <div class="principles-grid">
+          <article class="principle-item">
+            <div class="principle-head">
+              <span class="principle-num font-mono">01.</span>
+              <h3 class="principle-title">Determinismo Acima de Heurística</h3>
+            </div>
+            <p class="principle-desc">
+              Sistemas e algoritmos devem ter comportamento reprodutível e
+              verificável. Entender o fluxo de dados em nível de memória e
+              processamento evita falhas sutis.
+            </p>
+          </article>
+
+          <article class="principle-item">
+            <div class="principle-head">
+              <span class="principle-num font-mono">02.</span>
+              <h3 class="principle-title">Simpatia Mecânica</h3>
+            </div>
+            <p class="principle-desc">
+              O código não opera no vácuo abstrato. Conhecer a hierarquia de
+              memória, custos de alocação e latência de I/O é essencial para
+              desenvolver aplicações eficientes.
+            </p>
+          </article>
+
+          <article class="principle-item">
+            <div class="principle-head">
+              <span class="principle-num font-mono">03.</span>
+              <h3 class="principle-title">Densidade de Dados e Minimalismo</h3>
+            </div>
+            <p class="principle-desc">
+              Interfaces e ferramentas técnicas devem priorizar clareza
+              tipográfica, ausência de dependências inchadas e foco absoluto na
+              informação relevante.
+            </p>
+          </article>
+
+          <article class="principle-item">
+            <div class="principle-head">
+              <span class="principle-num font-mono">04.</span>
+              <h3 class="principle-title">Reprodutibilidade & Código Aberto</h3>
+            </div>
+            <p class="principle-desc">
+              Sistemas declarativos (como NixOS) e padrões abertos garantem que
+              projetos continuem auditáveis, fáceis de implantar e sustentáveis
+              a longo prazo.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Section 3: Ecossistema GitHub e Repositórios -->
+      <section class="about-card hairline-box">
+        <header class="card-header">
+          <span class="section-badge font-mono"
+            >// 03 • PROJETOS & REPOSITÓRIOS PÚBLICOS</span
+          >
+          <h2 class="section-title">Código Aberto & Demonstrações</h2>
+        </header>
+
+        <p class="section-intro">
+          Projetos selecionados e código-fonte disponíveis para auditoria
+          técnica:
+        </p>
+
+        <div class="repo-grid">
+          <div class="repo-box hairline-box">
+            <div class="repo-head font-mono">
+              <a
+                href="https://puzzles.gabe.tec.br"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="repo-name"
+              >
+                puzzles.gabe.tec.br
+              </a>
+              <span class="repo-lang">Live Demo</span>
+            </div>
+            <p class="repo-desc">
+              Plataforma interativa de puzzles lógicos e problemas
+              computacionais auto-hospedada em infraestrutura própria sob o
+              domínio gabe.tec.br.
+            </p>
+          </div>
+
+          <div class="repo-box hairline-box">
+            <div class="repo-head font-mono">
+              <a
+                href={SITE.github.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="repo-name"
+              >
+                {SITE.github.handle}/[PREENCHER-PROJETO-VISAO]
+              </a>
+              <span class="repo-lang">Python / OpenCV</span>
+            </div>
+            <p class="repo-desc">
+              [PREENCHER: Pipeline e experimentos práticos de Visão
+              Computacional / PDI desenvolvidos na UERJ].
+            </p>
+          </div>
+
+          <div class="repo-box hairline-box">
+            <div class="repo-head font-mono">
+              <a
+                href={SITE.github.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="repo-name"
+              >
+                {SITE.github.handle}/website
+              </a>
+              <span class="repo-lang">Astro / TypeScript</span>
+            </div>
+            <p class="repo-desc">
+              Código fonte deste portal estático de engenharia com tipografia
+              editorial acromática, SEO rigoroso e zero clientes pesados.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 4: Comunicação Direta -->
+      <section class="about-card hairline-box">
+        <header class="card-header">
+          <span class="section-badge font-mono">// 04 • CANAIS DE CONTATO</span>
+          <h2 class="section-title">Comunicação Direta</h2>
+        </header>
+
+        <p class="section-intro">
+          Prefiro canais de texto assíncronos e objetivos para discussões de
+          engenharia, arquitetura e colaborações técnicas:
+        </p>
+
+        <div class="contact-channels font-mono">
+          <div class="contact-row">
+            <span class="contact-key">EMAIL</span>
+            <a href={`mailto:${SITE.email}`} class="contact-val">{SITE.email}</a
+            >
+          </div>
+          <div class="contact-row">
+            <span class="contact-key">PGP KEY</span>
+            <span class="contact-val"
+              ><code>{SITE.pgpKey}</code>
+              <span class="contact-hint font-sans"
+                >(Disponível sob requisição)</span
+              ></span
+            >
+          </div>
+          <div class="contact-row">
+            <span class="contact-key">GITHUB</span>
+            <a
+              href={SITE.github.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-val">github.com/{SITE.github.handle}</a
+            >
+          </div>
+          <div class="contact-row">
+            <span class="contact-key">LINKEDIN</span>
+            <a
+              href={SITE.linkedin.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="contact-val">linkedin.com/in/{SITE.linkedin.handle}</a
+            >
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .about-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+
+  .about-header {
+    padding: 2.25rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    background-color: var(--surface);
+  }
+
+  .header-path {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .about-name {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .about-spec {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    letter-spacing: 0.04em;
+  }
+
+  .about-spec .sep {
+    opacity: 0.5;
+  }
+
+  .about-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .about-card {
+    padding: 2.25rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    background-color: var(--surface);
+  }
+
+  .card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding-bottom: 1rem;
+    border-bottom: var(--hairline);
+  }
+
+  .section-badge {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    letter-spacing: 0.08em;
+  }
+
+  .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .prose-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .about-hire-box {
+    font-size: 0.78rem;
+    padding: 0.6rem 0.85rem;
+    background-color: var(--bg);
+    border: 1px dashed var(--border);
+    color: var(--text);
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+
+  .lead-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text);
+    font-weight: 450;
+    margin: 0;
+  }
+
+  .body-text {
+    font-size: 0.95rem;
+    line-height: 1.68;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .section-intro {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .inline-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .principles-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .principle-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding-left: 1rem;
+    border-left: 2px solid var(--border-strong);
+    transition: border-color 0.15s ease;
+  }
+
+  .principle-item:hover {
+    border-left-color: var(--text);
+  }
+
+  .principle-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+  }
+
+  .principle-num {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+
+  .principle-title {
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0;
+  }
+
+  .principle-desc {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    margin: 0;
+  }
+
+  .repo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .repo-box {
+    padding: 1.25rem 1.4rem;
+    background-color: var(--bg);
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    transition: border-color 0.15s ease;
+  }
+
+  .repo-box:hover {
+    border-color: var(--border-strong);
+  }
+
+  .repo-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .repo-name {
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .repo-name:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .repo-lang {
+    font-size: 0.72rem;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    background-color: var(--surface);
+  }
+
+  .repo-desc {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  .contact-channels {
+    display: flex;
+    flex-direction: column;
+    border-top: var(--hairline);
+  }
+
+  .contact-row {
+    display: flex;
+    align-items: baseline;
+    padding: 0.9rem 0;
+    border-bottom: var(--hairline);
+    font-size: 0.88rem;
+    gap: 1.5rem;
+  }
+
+  .contact-key {
+    width: 90px;
+    flex-shrink: 0;
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-val {
+    color: var(--text);
+    text-decoration: none;
+    word-break: break-all;
+  }
+
+  .contact-val a {
+    color: var(--text);
+  }
+
+  .contact-val:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .contact-hint {
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    margin-left: 0.5rem;
+  }
+
+  @media (max-width: 640px) {
+    .about-header,
+    .about-card {
+      padding: 1.5rem 1.25rem;
+    }
+
+    .about-name {
+      font-size: 1.6rem;
+    }
+
+    .contact-row {
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+  }
+</style>

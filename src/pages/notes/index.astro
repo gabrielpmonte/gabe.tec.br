@@ -1,0 +1,170 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import FilterBar from "../../components/FilterBar.astro";
+import FilterBanner from "../../components/FilterBanner.astro";
+import EmptyState from "../../components/EmptyState.astro";
+import NoteRow from "../../components/NoteRow.astro";
+import {
+  getSortedNotes,
+  getNoteStageCounts,
+  getTagCounts,
+} from "../../utils/content";
+import { SITE } from "../../site.config";
+
+const allNotes = await getSortedNotes();
+const stageCounts = getNoteStageCounts(allNotes);
+
+const stageItems = [
+  { id: "evergreen", label: "EVERGREEN", count: stageCounts.evergreen },
+  { id: "growing", label: "GROWING", count: stageCounts.growing },
+  { id: "seed", label: "SEED", count: stageCounts.seed },
+];
+
+const tagItems = getTagCounts(allNotes);
+---
+
+<BaseLayout
+  title="Digital Garden // Notas Zettelkasten"
+  description={`Rede de notas atômicas interconectadas de ${SITE.author}. Pensamento evolutivo em estágios seed, growing e evergreen.`}
+>
+  <div class="garden-container">
+    <header class="garden-header hairline-box">
+      <div class="header-path font-mono">
+        // {SITE.domain.toUpperCase()} / DIGITAL-GARDEN
+      </div>
+      <h1 class="garden-title">Digital Garden &amp; Zettelkasten</h1>
+      <p class="garden-desc">
+        Notas atômicas em evolução contínua, conectadas bidirecionalmente
+        através de wikilinks. Diferente de artigos fechados, as notas são
+        atualizadas à medida que novos conceitos são refinados.
+      </p>
+
+      <FilterBar
+        label="ESTÁGIOS DE MATURAÇÃO:"
+        allLabel="TODAS"
+        totalCount={stageCounts.total}
+        items={stageItems}
+        paramKey="stage"
+        buttonClass="stage-btn"
+        listId="stage-filter-list"
+      />
+
+      <FilterBar
+        label="FILTRAR POR TAG:"
+        allLabel="TODAS"
+        totalCount={allNotes.length}
+        items={tagItems}
+        paramKey="tag"
+        buttonClass="tag-filter-btn"
+        listId="tag-filter-list"
+      />
+    </header>
+
+    <FilterBanner
+      bannerId="notes-status-banner"
+      countId="notes-visible-count"
+      labelId="notes-active-filter-label"
+      clearBtnId="notes-clear-btn"
+      totalCount={allNotes.length}
+      entityLabel="NOTAS"
+    />
+
+    <div class="notes-dense-list hairline-box" id="notes-dense-list">
+      {allNotes.map((note) => <NoteRow note={note} interactive={true} />)}
+    </div>
+
+    <EmptyState
+      id="notes-empty-state"
+      message="// NENHUMA NOTA ENCONTRADA PARA OS FILTROS SELECIONADOS."
+    />
+  </div>
+</BaseLayout>
+
+<style>
+  .garden-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .garden-header {
+    padding: 1.75rem 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .header-path {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+  }
+
+  .garden-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .garden-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .notes-dense-list {
+    display: flex;
+    flex-direction: column;
+  }
+</style>
+
+<script>
+  import { setupFilterManager } from "../../scripts/filter-manager";
+
+  setupFilterManager({
+    topButtonSelector: ".stage-btn, .tag-filter-btn",
+    buttonValueAttr: "data-value",
+    buttonParamKeyAttr: "data-param",
+    inlineBindings: [
+      {
+        selector: ".stage-inline-btn",
+        paramKey: "stage",
+        valueAttr: "data-stage",
+      },
+      { selector: ".tag-inline-btn", paramKey: "tag", valueAttr: "data-tag" },
+    ],
+    itemSelector: ".note-row",
+    itemMatcher: (item, filters) => {
+      const activeStage = filters.stage;
+      const activeTag = filters.tag;
+
+      const rowStage = item.getAttribute("data-stage");
+      const rowTags = (item.getAttribute("data-tags") || "")
+        .split(",")
+        .map((s) => s.trim());
+
+      const matchesStage =
+        !activeStage || activeStage === "all" || rowStage === activeStage;
+      const matchesTag =
+        !activeTag || activeTag === "all" || rowTags.includes(activeTag);
+
+      return matchesStage && matchesTag;
+    },
+    bannerId: "notes-status-banner",
+    bannerCountId: "notes-visible-count",
+    bannerLabelId: "notes-active-filter-label",
+    formatBannerLabel: (filters) => {
+      const parts = [];
+      if (filters.stage && filters.stage !== "all") {
+        parts.push(`ESTÁGIO: [${filters.stage.toUpperCase()}]`);
+      }
+      if (filters.tag && filters.tag !== "all") {
+        parts.push(`TAG: [#${filters.tag}]`);
+      }
+      return parts.join(" + ");
+    },
+    clearBtnId: "notes-clear-btn",
+    emptyStateId: "notes-empty-state",
+    listContainerId: "notes-dense-list",
+  });
+</script>

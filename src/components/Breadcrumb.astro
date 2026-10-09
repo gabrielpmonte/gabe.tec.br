@@ -1,0 +1,55 @@
+---
+interface Props {
+  backHref: string;
+  backLabel: string;
+  currentSlug: string;
+  ariaLabel?: string;
+}
+
+const {
+  backHref,
+  backLabel,
+  currentSlug,
+  ariaLabel = "Navegação estrutural",
+} = Astro.props;
+---
+
+<nav class="breadcrumb-nav font-mono" aria-label={ariaLabel}>
+  <a href={backHref} class="back-link">
+    &larr; [{backLabel.toUpperCase()}]
+  </a>
+  <span class="path-sep">/</span>
+  <span class="curr-slug">{currentSlug}</span>
+</nav>
+
+<style>
+  .breadcrumb-nav {
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-dim);
+  }
+
+  .back-link {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    transition:
+      color var(--transition-fast),
+      text-decoration-color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    color: var(--text);
+    text-decoration-color: var(--text);
+  }
+
+  .path-sep {
+    color: var(--text-dim);
+  }
+
+  .curr-slug {
+    color: var(--text);
+  }
+</style>

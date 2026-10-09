@@ -1,0 +1,69 @@
+---
+interface Props {
+  bannerId: string;
+  countId: string;
+  labelId: string;
+  clearBtnId: string;
+  totalCount: number;
+  entityLabel?: string;
+}
+
+const {
+  bannerId,
+  countId,
+  labelId,
+  clearBtnId,
+  totalCount,
+  entityLabel = "ITENS",
+} = Astro.props;
+---
+
+<div
+  class="filter-status-banner font-mono"
+  id={bannerId}
+  style="display: none;"
+>
+  <span>
+    EXIBINDO <strong id={countId}>0</strong> DE {totalCount}
+    {entityLabel} // FILTRO ATIVO: <strong id={labelId}></strong>
+  </span>
+  <button type="button" class="clear-filter-btn" id={clearBtnId}>
+    [LIMPAR FILTRO ✕]
+  </button>
+</div>
+
+<style>
+  .filter-status-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.78rem;
+    background-color: var(--surface);
+    border: var(--hairline);
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .filter-status-banner strong {
+    color: var(--text);
+  }
+
+  .clear-filter-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font: inherit;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.55rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .clear-filter-btn:hover {
+    border-color: var(--accent-red);
+    color: var(--accent-red);
+  }
+</style>

@@ -1,0 +1,146 @@
+---
+import type { BacklinkItem } from "../utils/backlinks";
+
+interface Props {
+  backlinks: BacklinkItem[];
+}
+
+const { backlinks } = Astro.props;
+---
+
+<section
+  class="backlinks-section hairline-box"
+  aria-labelledby="backlinks-heading"
+>
+  <div class="backlinks-header font-mono">
+    <span class="backlinks-icon">&lt;--&gt;</span>
+    <h3 id="backlinks-heading" class="backlinks-title">
+      // MENCIONADO EM ({backlinks.length})
+    </h3>
+  </div>
+
+  {
+    backlinks.length === 0 ? (
+      <p class="backlinks-empty font-mono">
+        Nenhuma nota atômica aponta para este registro até o momento. (Conexão
+        isolada / nó raiz).
+      </p>
+    ) : (
+      <ul class="backlinks-list">
+        {backlinks.map((item) => (
+          <li class="backlinks-item hairline-divider">
+            <div class="item-head font-mono">
+              {item.stage && (
+                <span class={`stage-indicator stage-${item.stage}`}>
+                  [{item.stage.toUpperCase()}]
+                </span>
+              )}
+              <a href={item.url} class="item-link">
+                {item.title}
+              </a>
+            </div>
+            {item.excerpt && <p class="item-desc">{item.excerpt}</p>}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</section>
+
+<style>
+  .backlinks-section {
+    margin-top: 3rem;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .backlinks-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .backlinks-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    border: none;
+    color: var(--text);
+  }
+
+  .backlinks-empty {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .backlinks-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .backlinks-item {
+    padding: 0.75rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .backlinks-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .backlinks-item:first-child {
+    padding-top: 0;
+  }
+
+  .item-head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+  }
+
+  .stage-indicator {
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  .stage-evergreen {
+    color: var(--text);
+  }
+  .stage-growing {
+    color: var(--text-muted);
+  }
+  .stage-seed {
+    color: var(--text-dim);
+  }
+
+  .item-link {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+  }
+
+  .item-link:hover {
+    text-decoration-color: var(--text);
+  }
+
+  .item-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.4;
+  }
+</style>

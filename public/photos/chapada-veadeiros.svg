@@ -1,0 +1,23 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#09090b"/>
+  <!-- Topographic Elevation Grid -->
+  <line x1="80" y1="80" x2="1200" y2="80" stroke="#27272a" stroke-width="1"/>
+  <line x1="80" y1="640" x2="1200" y2="640" stroke="#27272a" stroke-width="1"/>
+  <!-- Canyon Contour Lines -->
+  <path d="M80 500 Q 280 480 480 540 T 880 510 T 1200 480" stroke="#3f3f46" stroke-width="1.5" fill="none"/>
+  <path d="M80 420 Q 340 380 620 460 T 960 400 T 1200 440" stroke="#52525b" stroke-width="1.5" fill="none"/>
+  <path d="M80 340 Q 420 280 760 380 T 1080 320 T 1200 360" stroke="#71717a" stroke-width="1.5" fill="none"/>
+  <path d="M80 260 Q 520 220 840 310 T 1200 240" stroke="#a1a1aa" stroke-width="1.5" fill="none"/>
+  <path d="M140 180 Q 640 160 920 220 T 1200 180" stroke="#e4e4e7" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+  <!-- Plateau Silhouettes -->
+  <polygon points="180,640 320,380 540,380 660,640" fill="#18181b" stroke="#3f3f46" stroke-width="1"/>
+  <polygon points="560,640 740,310 980,310 1140,640" fill="#121215" stroke="#52525b" stroke-width="1"/>
+  <!-- Technical Overlay HUD -->
+  <rect x="100" y="100" width="340" height="85" fill="#09090b" stroke="#27272a" stroke-width="1"/>
+  <text x="120" y="130" fill="#fafafa" font-family="monospace" font-size="14" font-weight="600">CHAPADA DOS VEADEIROS // 14°08'S 47°45'W</text>
+  <text x="120" y="152" fill="#71717a" font-family="monospace" font-size="12">ELEV: 1,180m a.s.l. | QUARTZITE RIDGE</text>
+  <text x="120" y="170" fill="#a1a1aa" font-family="monospace" font-size="11">OPTICS: XF 27mm f/2.8 WR | ACROS+R</text>
+  <!-- Frame Crosshairs -->
+  <line x1="640" y1="340" x2="640" y2="380" stroke="#71717a" stroke-width="1"/>
+  <line x1="620" y1="360" x2="660" y2="360" stroke="#71717a" stroke-width="1"/>
+</svg>

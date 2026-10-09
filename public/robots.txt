@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Disallow draft or internal assets if any
+Disallow: /og/
+
+# Sitemap index
+Sitemap: https://gabe.tec.br/sitemap-index.xml

@@ -1,0 +1,35 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="720" fill="#09090b"/>
+  <!-- Topographic Elevation Grid -->
+  <line x1="80" y1="80" x2="1200" y2="80" stroke="#27272a" stroke-width="1"/>
+  <line x1="80" y1="640" x2="1200" y2="640" stroke="#27272a" stroke-width="1"/>
+
+  <!-- Lower Atlantic Rainforest Canopy Contours -->
+  <path d="M80 570 Q 280 540 500 580 T 920 550 T 1200 560" stroke="#27272a" stroke-width="1.5" fill="none"/>
+  <path d="M80 510 Q 360 470 640 520 T 1020 480 T 1200 500" stroke="#3f3f46" stroke-width="1.5" fill="none"/>
+
+  <!-- Surrounding Ridges (Tijuca Massif) -->
+  <polygon points="60,640 280,340 540,640" fill="#121215" stroke="#3f3f46" stroke-width="1"/>
+  <polygon points="680,640 960,310 1220,640" fill="#121215" stroke="#3f3f46" stroke-width="1"/>
+
+  <!-- Pico da Tijuca Steep Granite Monolith (Center Peak, 1021m) -->
+  <polygon points="340,640 640,160 880,640" fill="#18181b" stroke="#52525b" stroke-width="1.5"/>
+
+  <!-- Iconic 117 Stepped Stairway on the Granite Face -->
+  <path d="M640 160 L625 210 L640 215 L628 260 L642 265 L632 310 L648 315 L638 360 L654 365 L646 410 L660 415" stroke="#a1a1aa" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+  <!-- Topographic Contour Lines across Peak -->
+  <path d="M420 490 Q 640 430 800 490" stroke="#71717a" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+  <path d="M480 390 Q 640 330 760 390" stroke="#a1a1aa" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+  <path d="M540 290 Q 640 240 720 290" stroke="#e4e4e7" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+
+  <!-- Technical Overlay HUD -->
+  <rect x="100" y="100" width="370" height="85" fill="#09090b" stroke="#27272a" stroke-width="1"/>
+  <text x="120" y="130" fill="#fafafa" font-family="monospace" font-size="14" font-weight="600">PICO DA TIJUCA // 22°57'S 43°17'W</text>
+  <text x="120" y="152" fill="#71717a" font-family="monospace" font-size="12">ELEV: 1,021m a.s.l. | PARQUE NACIONAL</text>
+  <text x="120" y="170" fill="#a1a1aa" font-family="monospace" font-size="11">OPTICS: MOBILE 24mm | NATURAL FIELD</text>
+
+  <!-- Crosshairs -->
+  <line x1="640" y1="140" x2="640" y2="180" stroke="#71717a" stroke-width="1"/>
+  <line x1="620" y1="160" x2="660" y2="160" stroke="#71717a" stroke-width="1"/>
+</svg>

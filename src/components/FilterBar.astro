@@ -1,0 +1,104 @@
+---
+interface FilterItem {
+  id: string;
+  label: string;
+  count?: number;
+}
+
+interface Props {
+  label: string;
+  totalCount: number;
+  items: FilterItem[];
+  allLabel?: string;
+  paramKey?: string;
+  buttonClass?: string;
+  listId?: string;
+}
+
+const {
+  label,
+  totalCount,
+  items,
+  allLabel = "TODAS",
+  paramKey = "tag",
+  buttonClass = "tag-filter-btn",
+  listId = "filter-list",
+} = Astro.props;
+---
+
+<div class="filter-controls font-mono">
+  <span class="filter-label">{label}</span>
+  <div class="filter-tags" id={listId}>
+    <button
+      type="button"
+      class={`${buttonClass} is-active`}
+      data-param={paramKey}
+      data-value="all"
+      data-tag="all"
+      data-stage="all"
+    >
+      [{allLabel}: {totalCount}]
+    </button>
+    {
+      items.map(({ id, label: itemLabel, count }) => (
+        <button
+          type="button"
+          class={buttonClass}
+          data-param={paramKey}
+          data-value={id}
+          data-tag={id}
+          data-stage={id}
+        >
+          {itemLabel}
+          {count !== undefined ? ` [${count}]` : ""}
+        </button>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .filter-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: var(--hairline);
+    font-size: 0.75rem;
+  }
+
+  .filter-label {
+    color: var(--text-dim);
+  }
+
+  .filter-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag-filter-btn,
+  .stage-btn {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.75rem;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all var(--transition-fast);
+  }
+
+  .tag-filter-btn:hover,
+  .stage-btn:hover {
+    border-color: var(--text);
+    color: var(--text);
+  }
+
+  .tag-filter-btn.is-active,
+  .stage-btn.is-active {
+    background-color: var(--text);
+    color: var(--bg);
+    border-color: var(--text);
+  }
+</style>
