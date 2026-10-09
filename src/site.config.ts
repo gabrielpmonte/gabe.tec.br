@@ -9,15 +9,15 @@ export const SITE = {
   shortName: "Gabriel P. Monte",
   handle: "gabrielpmonte",
   title: "Desenvolvedor & Pesquisador",
-  headline: "DESENVOLVEDOR & PESQUISADOR // VISÃO COMPUTACIONAL",
-  bio: "Desenvolvedor e pesquisador com foco em visão computacional.",
+  headline: "CIÊNCIA DA COMPUTAÇÃO // VISÃO COMPUTACIONAL & SISTEMAS",
+  bio: "Graduando em Ciência da Computação pela UERJ. Pesquisador de Iniciação Científica em visão computacional (YOLO11 + SAM 2.1), autor de ferramentas open source e operador de infraestrutura autônoma.",
 
   // Domínio & Hospedagem
   domain: "gabe.tec.br",
   url: "https://gabe.tec.br",
 
   // Contato & Redes
-  email: "gabriel@hotmail.com",
+  email: "gabrielpmonte@gmail.com",
   github: {
     handle: "gabrielpmonte",
     url: "https://github.com/gabrielpmonte",
@@ -45,13 +45,13 @@ export const SITE = {
   education: {
     degree: "Bacharelado em Ciência da Computação",
     institution: "Universidade do Estado do Rio de Janeiro (UERJ)",
-    emphasis: "Ênfase em visão computacional.",
+    emphasis: "Ênfase em visão computacional e sistemas.",
   },
 
   // SEO & Metadados Padrão
   defaultTitle: "Gabriel Pereira Monte — Desenvolvedor & Pesquisador",
   defaultDescription:
-    "Website pessoal, artigos técnicos de sistemas, digital garden e notas de campo de Gabriel Pereira Monte (gabe.tec.br).",
+    "Website pessoal, pesquisas em visão computacional na UERJ, ferramentas open source e digital garden de Gabriel Pereira Monte (gabe.tec.br).",
   locale: "pt-BR",
 
   // Disponibilidade Profissional

@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { SITE } from "../site.config";
 
-const lastUpdated = "2026-10-01";
+const lastUpdated = "2026-10-09";
 ---
 
 <BaseLayout
@@ -51,46 +51,56 @@ const lastUpdated = "2026-10-01";
           <article class="flow-item">
             <div class="flow-item-head">
               <h3 class="flow-item-title">
-                Puzzles — Desafios Lógicos & Computacionais
+                Prato do Dia — Visão Computacional na UERJ
               </h3>
-              <span class="flow-tag font-mono">Web / TypeScript</span>
+              <span class="flow-tag font-mono">Python / YOLO11 / SAM 2.1</span>
             </div>
             <p class="flow-item-desc">
-              Evoluindo a plataforma de raciocínio algorítmico auto-hospedada em <a
+              Pesquisa de Iniciação Científica desenvolvendo um pipeline leve de
+              segmentação de instâncias para análise de refeições. Integrando
+              YOLO11 ONNX (detector) e SAM 2.1 Hiera Tiny ONNX (segmentador por
+              prompt) para rodar diretamente em CPU, gerando máscaras estáveis,
+              extraindo atributos visuais (cor, textura, morfologia) e
+              alimentando um backend em FastAPI e app Flutter.
+            </p>
+          </article>
+
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">
+                Scopio — Auditor de Métricas de Código (PyPI)
+              </h3>
+              <span class="flow-tag font-mono">Python / SQLite / CLI</span>
+            </div>
+            <p class="flow-item-desc">
+              Mantendo e expandindo a ferramenta CLI de código aberto publicada no
+              PyPI (<a
+                href="https://pypi.org/project/scopio/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="font-mono underline">pip install scopio</a
+              >). Foco em quality gates de complexidade ciclomática (CCN),
+              histórico incremental por commit/branch em SQLite e análise de
+              hotspots de risco para prevenção de regressões em CI.
+            </p>
+          </article>
+
+          <article class="flow-item">
+            <div class="flow-item-head">
+              <h3 class="flow-item-title">
+                Puzzles &amp; Infraestrutura Autônoma (Homelab)
+              </h3>
+              <span class="flow-tag font-mono">NixOS / TypeScript / Caddy</span>
+            </div>
+            <p class="flow-item-desc">
+              Evoluindo a plataforma de problemas lógicos em <a
                 href="https://puzzles.gabe.tec.br"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="font-mono underline">puzzles.gabe.tec.br</a
-              > com foco em velocidade de carregamento e interface sem distrações.
-            </p>
-          </article>
-
-          <article class="flow-item">
-            <div class="flow-item-head">
-              <h3 class="flow-item-title">
-                Pipelines Experimentais de Visão Computacional
-              </h3>
-              <span class="flow-tag font-mono">Python / OpenCV</span>
-            </div>
-            <p class="flow-item-desc">
-              Desenvolvimento e avaliação de rotinas de processamento digital de
-              imagens, convoluções espaciais e segmentação de padrões no
-              contexto acadêmico da UERJ.
-            </p>
-          </article>
-
-          <article class="flow-item">
-            <div class="flow-item-head">
-              <h3 class="flow-item-title">
-                Infraestrutura Homelab & Redes Privadas
-              </h3>
-              <span class="flow-tag font-mono">NixOS / Caddy</span>
-            </div>
-            <p class="flow-item-desc">
-              Manutenção e automação declarativa dos servidores autônomos (nós <code
-                >tachibana</code
-              > e <code>wired</code>) interconectados via rede privada Tailscale
-              com terminação SSL automática.
+              > e operando a malha privada do homelab híbrido com NixOS e
+              Tailscale nos nós autônomos <code>tachibana</code>,
+              <code>wired</code> e <code>navi</code>.
             </p>
           </article>
         </div>
@@ -109,41 +119,43 @@ const lastUpdated = "2026-10-01";
           <article class="flow-item">
             <div class="flow-item-head">
               <h3 class="flow-item-title">
-                Processamento Digital de Imagens e CNNs
+                Inferência Leve & Modelos Foundation em CPU
               </h3>
-              <span class="flow-tag font-mono">IA / Visão</span>
+              <span class="flow-tag font-mono">ONNX / Visão</span>
             </div>
             <p class="flow-item-desc">
-              Aprofundamento na teoria matemática de convoluções, transformadas
-              espaciais e arquiteturas de redes neurais convolucionais para
-              classificação visual e detecção de objetos.
+              Estudo de quantização, exportação ONNX e pipelines híbridos
+              (detector + segmentador guiado por prompt) para viabilizar
+              inferência precisa em hardware modesto sem dependência mandatória
+              de placas de vídeo dedicadas.
             </p>
           </article>
 
           <article class="flow-item">
             <div class="flow-item-head">
               <h3 class="flow-item-title">
-                Sistemas Operacionais & Administração Linux
+                Qualidade de Software & Métricas de Código
               </h3>
-              <span class="flow-tag font-mono">Linux / Shell</span>
+              <span class="flow-tag font-mono">Engenharia / CI/CD</span>
             </div>
             <p class="flow-item-desc">
-              Gestão de processos, particionamento de memória, permissões POSIX,
-              networking em malha (Tailscale) e containerização leve com Docker.
+              Investigação prática de correlação entre complexidade ciclomática,
+              taxa de churn de arquivos, pontos críticos de manutenção e
+              arquitetura de linters/analisadores estáticos.
             </p>
           </article>
 
           <article class="flow-item">
             <div class="flow-item-head">
               <h3 class="flow-item-title">
-                Algoritmos Fundamentais e Resolução de Problemas
+                Sistemas Declarativos & Administração Linux
               </h3>
-              <span class="flow-tag font-mono">Estruturas de Dados</span>
+              <span class="flow-tag font-mono">NixOS / Shell</span>
             </div>
             <p class="flow-item-desc">
-              Prática de análise de complexidade temporal e espacial <code
-                >O(n)</code
-              >, algoritmos de grafos, busca e programação dinâmica.
+              Gerenciamento declarativo com NixOS, configuração modular de
+              servidores, isolamento de processos, redes em malha segura
+              (Tailscale) e servidores proxy leves com Caddy.
             </p>
           </article>
         </div>
