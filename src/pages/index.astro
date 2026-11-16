@@ -39,10 +39,6 @@ const fieldNotes = allFieldNotes.slice(0, 3);
         PostgreSQL, orquestração de containers com Podman/Caddy, análise
         epidemiológica em R (UFSM) e contribuição contínua no NixOS.
       </p>
-      <div class="index-hire-badge font-mono">
-        <span class="dot">●</span>
-        {SITE.availability.fullText}
-      </div>
       <div class="quick-stats font-mono">
         <span>PROJETOS: <a href="/projects" class="underline">{PROJECTS.length} DESTAQUES</a></span>
         <span>•</span>
@@ -116,7 +112,7 @@ const fieldNotes = allFieldNotes.slice(0, 3);
                     rel="noopener noreferrer"
                     class="action-link"
                   >
-                    [GITHUB ↗]
+                    Código ↗
                   </a>
                 )}
                 {p.liveUrl && (
@@ -470,11 +466,9 @@ const fieldNotes = allFieldNotes.slice(0, 3);
   }
 
   .stack-chip {
-    font-size: 0.7rem;
-    background-color: var(--bg);
-    border: 1px solid var(--border);
-    padding: 0.15rem 0.45rem;
-    color: var(--text-muted);
+    font-size: 0.72rem;
+    padding: 0;
+    color: var(--text-dim);
   }
 
   .stack-more {

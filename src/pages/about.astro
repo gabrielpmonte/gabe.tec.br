@@ -9,9 +9,6 @@ import { SITE } from "../site.config";
 >
   <div class="about-container">
     <header class="about-header hairline-box">
-      <div class="header-path font-mono">
-        // {SITE.domain.toUpperCase()} / ABOUT
-      </div>
       <h1 class="about-name">{SITE.author}</h1>
       <div class="about-spec font-mono">
         <span>{SITE.title.toUpperCase()}</span>
@@ -24,51 +21,34 @@ import { SITE } from "../site.config";
       <!-- Section 1: Perfil e Foco -->
       <section class="about-card hairline-box">
         <header class="card-header">
-          <span class="section-badge font-mono"
-            >// 01 • SÍNTESE & POSICIONAMENTO</span
-          >
           <h2 class="section-title">
-            Ciência da Computação & Visão Computacional
+            Desenvolvedor Backend &amp; Machine Learning
           </h2>
         </header>
 
         <div class="prose-stack">
-          <div class="about-hire-box font-mono">
-            <strong>STATUS ATUAL:</strong>
-            {SITE.availability.fullText}
-          </div>
           <p class="lead-text">
-            Sou graduando em <strong
-              >Ciência da Computação pela Universidade do Estado do Rio de
-              Janeiro (UERJ)</strong
-            >, atuando como pesquisador de Iniciação Científica em <strong
-              >Visão Computacional & Aprendizado de Máquina</strong
-            > e desenvolvedor de ferramentas de software.
+            Sou graduando em <strong>Ciência da Computação pela UERJ</strong>
+            (previsão de conclusão: 2028), com foco em desenvolvimento backend,
+            APIs e infraestrutura Linux.
           </p>
           <p class="body-text">
-            No meio acadêmico, lidero a engenharia de ML do projeto <strong
-              >Prato do Dia</strong
-            >, desenvolvendo pipelines leves de segmentação de instâncias com
-            YOLO11 e SAM 2.1 (Segment Anything Model 2 - Hiera Tiny) via ONNX
-            Runtime em CPU para apoio à identificação e estimativa nutricional.
-            No ecossistema de código aberto, sou autor do <strong
-              >Scopio</strong
-            >, auditor de métricas e complexidade ciclomática de software
-            distribuído no PyPI.
+            Tenho experiência prática com <strong>Go, Python, PostgreSQL</strong>
+            e orquestração de containers com <strong>Podman e Caddy</strong>, além
+            de contribuição contínua no ecossistema open source como mantenedor de
+            pacotes no <strong>NixOS</strong> (<code>nixpkgs</code>).
           </p>
           <p class="body-text">
-            Minha abordagem prioriza determinismo, código conciso e simpatia
-            mecânica com o hardware. Projeto e mantenho minha própria
-            infraestrutura autônoma de servidores (cluster híbrido com NixOS e
-            VPS nos nós <em>tachibana</em>, <em>wired</em> e <em>navi</em>),
-            interconectados via Tailscale com certificados TLS automáticos e
-            deploy declarativo.
+            Na pesquisa acadêmica, atuo como pesquisador voluntário na <strong>UFSM</strong>
+            com pipelines estatísticos em R para modelagem epidemiológica de Chikungunya,
+            e como pesquisador de Iniciação Científica na <strong>UERJ</strong> no
+            projeto <strong>Prato do Dia</strong> (segmentação de instâncias com
+            YOLO11-seg, OpenCV e aplicativo Flutter).
           </p>
           <p class="body-text">
-            Atualmente estou disponível para oportunidades de <strong
-              >Estágio ou Desenvolvedor Júnior</strong
-            > em Engenharia de Software, Visão Computacional / IA Aplicada ou
-            Sistemas / Infraestrutura (Rio de Janeiro ou Remoto).
+            No servidor Tachibana (Fedora Linux), administro mais de 15 serviços
+            auto-hospedados em rede privada utilizando Podman Quadlets (daemonless),
+            proxy reverso Caddy e observabilidade com Beszel, Gatus e ntfy.
           </p>
         </div>
       </section>
@@ -76,16 +56,12 @@ import { SITE } from "../site.config";
       <!-- Section 2: Princípios Operacionais -->
       <section class="about-card hairline-box">
         <header class="card-header">
-          <span class="section-badge font-mono"
-            >// 02 • FUNDAMENTOS OPERACIONAIS</span
-          >
           <h2 class="section-title">Princípios de Engenharia</h2>
         </header>
 
         <div class="principles-grid">
           <article class="principle-item">
             <div class="principle-head">
-              <span class="principle-num font-mono">01.</span>
               <h3 class="principle-title">Determinismo Acima de Heurística</h3>
             </div>
             <p class="principle-desc">
@@ -97,7 +73,6 @@ import { SITE } from "../site.config";
 
           <article class="principle-item">
             <div class="principle-head">
-              <span class="principle-num font-mono">02.</span>
               <h3 class="principle-title">Simpatia Mecânica</h3>
             </div>
             <p class="principle-desc">
@@ -109,7 +84,6 @@ import { SITE } from "../site.config";
 
           <article class="principle-item">
             <div class="principle-head">
-              <span class="principle-num font-mono">03.</span>
               <h3 class="principle-title">Densidade de Dados e Minimalismo</h3>
             </div>
             <p class="principle-desc">
@@ -121,8 +95,7 @@ import { SITE } from "../site.config";
 
           <article class="principle-item">
             <div class="principle-head">
-              <span class="principle-num font-mono">04.</span>
-              <h3 class="principle-title">Reprodutibilidade & Código Aberto</h3>
+              <h3 class="principle-title">Reprodutibilidade &amp; Código Aberto</h3>
             </div>
             <p class="principle-desc">
               Sistemas declarativos (como NixOS) e padrões abertos garantem que
@@ -136,10 +109,7 @@ import { SITE } from "../site.config";
       <!-- Section 3: Ecossistema GitHub e Repositórios -->
       <section class="about-card hairline-box">
         <header class="card-header">
-          <span class="section-badge font-mono"
-            >// 03 • PROJETOS & REPOSITÓRIOS PÚBLICOS</span
-          >
-          <h2 class="section-title">Código Aberto & Demonstrações</h2>
+          <h2 class="section-title">Código Aberto &amp; Demonstrações</h2>
         </header>
 
         <p class="section-intro">
@@ -226,7 +196,6 @@ import { SITE } from "../site.config";
       <!-- Section 4: Comunicação Direta -->
       <section class="about-card hairline-box">
         <header class="card-header">
-          <span class="section-badge font-mono">// 04 • CANAIS DE CONTATO</span>
           <h2 class="section-title">Comunicação Direta</h2>
         </header>
 
@@ -482,10 +451,7 @@ import { SITE } from "../site.config";
 
   .repo-lang {
     font-size: 0.72rem;
-    padding: 0.1rem 0.4rem;
-    border: 1px solid var(--border);
     color: var(--text-dim);
-    background-color: var(--surface);
   }
 
   .repo-desc {

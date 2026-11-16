@@ -397,10 +397,10 @@ hr {
 
 .tag-mono {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  padding: 0.15rem 0.45rem;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
+  font-size: 0.75rem;
+  padding: 0;
+  background-color: transparent;
+  border: none;
   color: var(--text-dim);
   display: inline-flex;
   align-items: center;
