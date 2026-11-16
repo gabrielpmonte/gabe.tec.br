@@ -12,26 +12,16 @@ const tagItems = getTagCounts(notes);
 ---
 
 <BaseLayout
-  title="Notas de Campo & Fotografia Documental"
-  description={`Registros técnicos de montanhismo, trilhas de longo curso e expedições geográficas de ${SITE.author}. Equipamentos, coordenadas e topografia.`}
+  title="Notas de Campo & Topografia"
+  description={`Registros de montanhismo, trilhas e perfis topográficos de ${SITE.author}. Coordenadas e elevação.`}
 >
   <div class="field-archive-container">
     <header class="field-header hairline-box">
-      <div class="header-path font-mono">
-        // {SITE.domain.toUpperCase()} / FIELD-NOTES
-      </div>
-      <h1 class="field-title">Notas de Campo &amp; Fotografia Documental</h1>
+      <h1 class="field-title">Notas de Campo &amp; Topografia</h1>
       <p class="field-desc">
-        Documentação de expedições, marchas de travessia e relevos montanhosos.
-        A fotografia é tratada com rigor documental e óptico: focais fixas,
-        simulação acromática, zero retoque artificial e coordenadas geográficas
-        catalogadas.
+        Registros de expedições, travessias e perfis de elevação com coordenadas
+        geográficas catalogadas (WGS 84) e metadados de campo.
       </p>
-
-      <div class="field-spec-summary font-mono">
-        <div>OPTICS PRINCIPAL: FUJIFILM X-T5 // 27MM F/2.8 &amp; 35MM F/2</div>
-        <div>SISTEMA DE COORDENADAS: WGS 84 // GPS GEO-REFERENCIADO</div>
-      </div>
 
       <FilterBar
         label="FILTRAR POR TAG:"

@@ -8,6 +8,8 @@ interface Props {
 }
 
 const { post, interactiveTags = true } = Astro.props;
+const wordCount = (post.body || "").trim().split(/\s+/).filter(Boolean).length;
+const readingMinutes = post.data.readingTime ?? Math.max(1, Math.ceil(wordCount / 200));
 ---
 
 <tr class="article-row hairline-divider" data-tags={post.data.tags.join(",")}>
@@ -49,7 +51,7 @@ const { post, interactiveTags = true } = Astro.props;
     </div>
   </td>
   <td class="col-time font-mono">
-    {post.data.readingTime ? `${post.data.readingTime}m` : "--"}
+    {`${readingMinutes} min`}
   </td>
 </tr>
 
