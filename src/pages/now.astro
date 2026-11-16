@@ -7,78 +7,149 @@ const lastUpdated = "2026-11-16";
 
 <BaseLayout
   title={`Agora — ${SITE.author}`}
-  description={`O que ${SITE.author} está construindo, estudando e lendo no momento presente.`}
+  description={`O que ${SITE.author} está construindo, estudando e acompanhando no momento presente.`}
 >
-  <article class="now-log">
-    <header class="now-log-header">
-      <h1>Agora</h1>
+  <div class="now-page">
+    <header class="now-header hairline-box">
+      <div class="now-header-top">
+        <h1>Agora</h1>
+        <span class="now-live-badge font-mono">
+          <span class="live-dot" aria-hidden="true">●</span>
+          Atualizado em <time datetime={lastUpdated}>{lastUpdated}</time>
+        </span>
+      </div>
       <p class="meta font-mono">
         {SITE.location.city}, {SITE.location.state} · Inspirado em
         <a
           href="https://nownownow.com/about"
           target="_blank"
           rel="noopener noreferrer"
-          class="underline">nownownow.com</a
+          class="accent-link">nownownow.com</a
         >
-        · Atualizado em <time datetime={lastUpdated}>{lastUpdated}</time>
       </p>
     </header>
 
-    <section>
-      <h2>Construindo</h2>
-      <ul>
-        <li>
-          <strong>Prato do Dia (UERJ):</strong> Refinando a quantização e inferência em CPU (YOLO11-seg + OpenCV) para segmentação de alimentos e curadoria automatizada de datasets.
-        </li>
-        <li>
-          <strong>Pesquisa UFSM:</strong> Desenvolvendo pipelines de ingestão e modelagem estatística em R para previsão epidemiológica de Chikungunya em Belo Horizonte.
-        </li>
-        <li>
-          <strong>Homelab Tachibana:</strong> Consolidando serviços declarativos em Fedora com Podman Quadlets, Caddy, observabilidade via Beszel/Gatus/ntfy e atualizações automáticas.
-        </li>
-      </ul>
-    </section>
+    <div class="now-grid">
+      <div class="now-main">
+        <section class="now-section">
+          <h2>Construindo</h2>
+          <ul class="build-list">
+            <li class="build-item">
+              <div class="build-head">
+                <a href="/projects#prato-do-dia" class="item-link">
+                  <strong>Prato do Dia (UERJ)</strong>
+                </a>
+                <span class="item-status font-mono">etapa: inferência cpu</span>
+              </div>
+              <p>
+                Refinando a quantização e inferência em CPU (YOLO11-seg + OpenCV)
+                para segmentação de alimentos e curadoria automatizada de datasets.
+              </p>
+            </li>
 
-    <section>
-      <h2>Lendo &amp; Estudando</h2>
-      <ul>
-        <li>
-          <em>Designing Data-Intensive Applications</em> — replicação, particionamento e consenso em sistemas distribuídos.
-        </li>
-        <li>
-          <em>Systems Performance (2nd Ed)</em> — metodologia USE, page cache e análise de latência de I/O em Linux.
-        </li>
-        <li>
-          <em>The Linux Programming Interface</em> — chamadas POSIX, cgroups v2 e isolamento de processos.
-        </li>
-      </ul>
-    </section>
+            <li class="build-item">
+              <div class="build-head">
+                <a href="/curriculum" class="item-link">
+                  <strong>Pesquisa UFSM (CHIKV)</strong>
+                </a>
+                <span class="item-status font-mono">etapa: modelagem em R</span>
+              </div>
+              <p>
+                Desenvolvendo pipelines de ingestão e modelagem estatística em R
+                para previsão epidemiológica de Chikungunya em Belo Horizonte.
+              </p>
+            </li>
 
-    <section>
-      <h2>Fora do Terminal</h2>
-      <ul>
-        <li>Treinos de corrida em trilha preparando travessias no Sudeste.</li>
-        <li>Registros topográficos de trilhas e montanhismo no Rio de Janeiro.</li>
-      </ul>
-    </section>
-  </article>
+            <li class="build-item">
+              <div class="build-head">
+                <a href="/notes/tachibana-homelab" class="item-link">
+                  <strong>Homelab Tachibana</strong>
+                </a>
+                <span class="item-status font-mono">etapa: quadlets + beszel</span>
+              </div>
+              <p>
+                Consolidando serviços declarativos em Fedora com Podman Quadlets,
+                Caddy, observabilidade via Beszel/Gatus/ntfy e atualizações automáticas.
+              </p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="now-section">
+          <h2>Lendo &amp; Estudando</h2>
+          <ul class="study-list">
+            <li>
+              <em>Designing Data-Intensive Applications</em> — replicação,
+              particionamento e consenso em sistemas distribuídos.
+            </li>
+            <li>
+              <em>Systems Performance (2nd Ed)</em> — metodologia USE, page cache
+              e análise de latência de I/O em Linux.
+            </li>
+            <li>
+              <em>The Linux Programming Interface</em> — chamadas POSIX, cgroups
+              v2 e isolamento de processos.
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <aside class="now-aside hairline-box" aria-label="Contexto e Estado Atual">
+        <h2 class="aside-title font-mono">Contexto &amp; Estado Atual</h2>
+        <dl class="context-list">
+          <div class="context-row">
+            <dt class="font-mono">Ambiente</dt>
+            <dd>Fedora / NixOS · Go &amp; Python</dd>
+          </div>
+          <div class="context-row">
+            <dt class="font-mono">Foco da semana</dt>
+            <dd>Quantização &amp; Podman Quadlets</dd>
+          </div>
+          <div class="context-row">
+            <dt class="font-mono">Escutando</dt>
+            <dd>
+              <a
+                href="https://radio.gabe.tec.br"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="accent-link">Airstation (radio.gabe.tec.br)</a
+              >
+            </dd>
+          </div>
+          <div class="context-row">
+            <dt class="font-mono">Fora do terminal</dt>
+            <dd>Corrida em trilha &amp; topografia (RJ)</dd>
+          </div>
+        </dl>
+      </aside>
+    </div>
+  </div>
 </BaseLayout>
 
 <style>
-  .now-log {
+  .now-page {
     display: flex;
     flex-direction: column;
-    gap: 2.25rem;
-    max-width: 65ch;
+    gap: 2rem;
   }
 
-  .now-log-header {
+  .now-header {
+    padding: 1.75rem 2rem;
+    background-color: var(--surface);
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .now-log-header h1 {
+  .now-header-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .now-header h1 {
     font-size: 2rem;
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -86,46 +157,170 @@ const lastUpdated = "2026-11-16";
     margin: 0;
   }
 
-  .now-log .meta {
+  .now-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+  }
+
+  .live-dot {
+    color: var(--tc-emerald, #10b981);
+    font-size: 0.7rem;
+  }
+
+  .now-header .meta {
     font-size: 0.78rem;
     color: var(--text-dim);
     margin: 0;
   }
 
-  .now-log .meta a {
+  .accent-link {
     color: var(--text-muted);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 140ms ease-out;
   }
 
-  .now-log .meta a:hover {
-    color: var(--text);
+  .accent-link:hover {
+    color: var(--tc-amber, var(--text));
   }
 
-  .now-log h2 {
+  .now-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2.25rem;
+    align-items: start;
+  }
+
+  @media (max-width: 820px) {
+    .now-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .now-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+
+  .now-section h2 {
     font-size: 1rem;
     font-weight: 700;
     color: var(--text);
-    margin: 0 0 0.75rem 0;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0;
+    border-bottom: none;
   }
 
-  .now-log ul {
+  .build-list,
+  .study-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
-    padding-left: 1rem;
+    gap: 1rem;
+    padding: 0;
     margin: 0;
-    border-left: 1px solid var(--border);
   }
 
-  .now-log li {
-    font-size: 0.94rem;
+  .build-item {
+    padding-left: 1rem;
+    border-left: 2px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    transition: border-color 140ms ease-out;
+  }
+
+  .build-item:hover {
+    border-left-color: var(--tc-amber, var(--text));
+  }
+
+  .build-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .item-link {
+    color: var(--text);
+    text-decoration: none;
+    transition: color 140ms ease-out;
+  }
+
+  .item-link:hover {
+    color: var(--tc-amber, var(--text));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .item-status {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+  }
+
+  .build-item p {
+    font-size: 0.92rem;
     line-height: 1.6;
     color: var(--text-muted);
-    text-wrap: pretty;
+    margin: 0;
+    max-width: 65ch;
   }
 
-  .now-log li strong {
+  .study-list li {
+    padding-left: 1rem;
+    border-left: 2px solid var(--border);
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 65ch;
+  }
+
+  .now-aside {
+    padding: 1.5rem;
+    background-color: var(--surface);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .aside-title {
+    font-size: 0.82rem;
+    font-weight: 700;
     color: var(--text);
-    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .context-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin: 0;
+  }
+
+  .context-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .context-row dt {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .context-row dd {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0;
   }
 </style>

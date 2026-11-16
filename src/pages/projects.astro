@@ -66,6 +66,7 @@ const projects = PROJECTS;
       {
         projects.slice(0, 3).map((p, index) => (
           <article
+            id={p.title.toLowerCase().includes("prato do dia") ? "prato-do-dia" : undefined}
             class="project-card hairline-box"
             data-group={p.group}
             data-search={`${p.title} ${p.category} ${p.description} ${p.stack.join(" ")} ${p.badge || ""}`.toLowerCase()}
