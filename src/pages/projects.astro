@@ -27,10 +27,57 @@ const projects = PROJECTS;
       </div>
     </header>
 
-    <div class="projects-grid">
+    <section class="showcase-controls hairline-box" aria-label="Filtros da vitrine de projetos">
+      <div class="controls-row">
+        <div class="search-wrap">
+          <span class="search-prefix font-mono">&gt;_</span>
+          <input
+            id="projects-search"
+            type="text"
+            class="search-field font-mono"
+            placeholder="Filtrar por título, stack ou descrição... [/]"
+            autocomplete="off"
+          />
+          <button
+            id="projects-search-clear"
+            type="button"
+            class="search-clear-btn font-mono"
+            hidden
+            aria-label="Limpar busca"
+          >
+            [ESC]
+          </button>
+        </div>
+
+        <div class="filter-tabs font-mono" role="tablist" aria-label="Categorias">
+          <button type="button" class="filter-tab active" data-group="all">
+            TODOS ({projects.length})
+          </button>
+          <button type="button" class="filter-tab" data-group="apps">
+            APPS &amp; JOGOS ({projects.filter((p) => p.group === "apps").length})
+          </button>
+          <button type="button" class="filter-tab" data-group="research">
+            PESQUISA &amp; CLI ({projects.filter((p) => p.group === "research").length})
+          </button>
+          <button type="button" class="filter-tab" data-group="infra">
+            INFRA &amp; DESIGN ({projects.filter((p) => p.group === "infra").length})
+          </button>
+        </div>
+      </div>
+
+      <div id="projects-count" class="controls-meta font-mono">
+        Exibindo {projects.length} de {projects.length} projetos
+      </div>
+    </section>
+
+    <div id="projects-grid" class="projects-grid">
       {
         projects.map((p, index) => (
-          <article class="project-card hairline-box">
+          <article
+            class="project-card hairline-box"
+            data-group={p.group}
+            data-search={`${p.title} ${p.category} ${p.description} ${p.stack.join(" ")} ${p.badge || ""}`.toLowerCase()}
+          >
             <div class="card-top-bar font-mono">
               <span class="card-num">
                 [{String(index + 1).padStart(2, "0")}]
@@ -346,6 +393,163 @@ const projects = PROJECTS;
 
   .live-btn {
     font-weight: 700;
-    border-color: var(--text);
+    border-color: var(--tc-amber, var(--text));
+    color: var(--tc-amber, var(--text));
+  }
+
+  .showcase-controls {
+    padding: 1rem 1.25rem;
+    background-color: var(--surface);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .controls-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .search-wrap {
+    flex: 1 1 280px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.45rem 0.75rem;
+  }
+
+  .search-wrap:focus-within {
+    border-color: var(--tc-blue, var(--text));
+  }
+
+  .search-prefix {
+    color: var(--tc-amber, var(--text-dim));
+    font-size: 0.8rem;
+  }
+
+  .search-field {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-size: 0.82rem;
+  }
+
+  .search-clear-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.4rem;
+    cursor: pointer;
+  }
+
+  .filter-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .filter-tab {
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    padding: 0.4rem 0.65rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .filter-tab:hover {
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+
+  .filter-tab.active {
+    background-color: var(--surface-active);
+    border-color: var(--tc-amber, var(--text));
+    color: var(--tc-amber, var(--text));
+    font-weight: 700;
+  }
+
+  .controls-meta {
+    font-size: 0.72rem;
+    color: var(--text-dim);
   }
 </style>
+
+<script>
+  function initProjectsShowcase() {
+    const searchInput = document.getElementById("projects-search") as HTMLInputElement | null;
+    const clearBtn = document.getElementById("projects-search-clear") as HTMLButtonElement | null;
+    const countEl = document.getElementById("projects-count");
+    const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>(".filter-tab"));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("#projects-grid .project-card"));
+
+    if (!searchInput || !tabs.length || !cards.length) return;
+
+    let activeGroup = "all";
+
+    function applyFilters() {
+      const q = (searchInput?.value || "").trim().toLowerCase();
+      if (clearBtn) clearBtn.hidden = q.length === 0;
+
+      let visible = 0;
+      for (const card of cards) {
+        const group = card.dataset.group || "";
+        const hay = card.dataset.search || "";
+        const okGroup = activeGroup === "all" || group === activeGroup;
+        const okQuery = !q || hay.includes(q);
+        const show = okGroup && okQuery;
+        card.hidden = !show;
+        if (show) visible++;
+      }
+
+      if (countEl) {
+        countEl.textContent = `Exibindo ${visible} de ${cards.length} projetos`;
+      }
+    }
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        activeGroup = tab.dataset.group || "all";
+        tabs.forEach((t) => t.classList.toggle("active", t === tab));
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener("input", applyFilters);
+    clearBtn?.addEventListener("click", () => {
+      searchInput.value = "";
+      applyFilters();
+      searchInput.focus();
+    });
+
+    if (!(window as any).__projectsKeyListener) {
+      (window as any).__projectsKeyListener = true;
+      window.addEventListener("keydown", (e: KeyboardEvent) => {
+        const input = document.getElementById("projects-search") as HTMLInputElement | null;
+        if (!input) return;
+        const tag = (document.activeElement?.tagName || "").toUpperCase();
+        if (e.key === "/" && tag !== "INPUT" && tag !== "TEXTAREA") {
+          e.preventDefault();
+          input.focus();
+          input.select();
+        } else if (e.key === "Escape" && document.activeElement === input) {
+          input.value = "";
+          input.dispatchEvent(new Event("input"));
+          input.blur();
+        }
+      });
+    }
+  }
+
+  document.addEventListener("astro:page-load", initProjectsShowcase);
+</script>

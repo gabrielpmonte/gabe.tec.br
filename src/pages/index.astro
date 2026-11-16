@@ -16,6 +16,7 @@ const allNotes = await getSortedNotes();
 const allFieldNotes = await getSortedFieldNotes();
 
 const featuredProjects = PROJECTS.slice(0, 3);
+const liveApps = PROJECTS.filter((p) => p.group === "apps");
 const writings = allWritings.slice(0, 5);
 const notes = allNotes.slice(0, 6);
 const fieldNotes = allFieldNotes.slice(0, 3);
@@ -135,6 +136,28 @@ const fieldNotes = allFieldNotes.slice(0, 3);
             </article>
           ))
         }
+      </div>
+
+      <div class="live-apps-strip hairline-box">
+        <div class="strip-head font-mono">
+          <span>// APPS &amp; JOGOS AUTORAIS AO VIVO</span>
+          <a href="/projects" class="underline">abrir vitrine completa</a>
+        </div>
+        <div class="strip-links font-mono">
+          {
+            liveApps.map((app) => (
+              <a
+                href={app.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="app-chip no-underline"
+              >
+                <span class="app-dot">●</span>
+                <span>{app.title}</span>
+              </a>
+            ))
+          }
+        </div>
       </div>
     </section>
 
@@ -524,5 +547,51 @@ const fieldNotes = allFieldNotes.slice(0, 3);
     .detail-link {
       margin-left: 0;
     }
+  }
+
+  .live-apps-strip {
+    margin-top: 1rem;
+    padding: 0.9rem 1.15rem;
+    background-color: var(--surface);
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .strip-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+  }
+
+  .strip-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .app-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: border-color 0.15s ease;
+  }
+
+  .app-chip:hover {
+    border-color: var(--tc-amber, var(--text));
+  }
+
+  .app-dot {
+    color: var(--tc-emerald, #10b981);
+    font-size: 0.65rem;
   }
 </style>

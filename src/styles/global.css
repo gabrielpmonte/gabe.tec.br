@@ -27,22 +27,32 @@
   --text-dim: #71717a;
   --hairline: 1px solid var(--border);
 
+  /* Cathode Semantic Accents (Light) */
+  --tc-amber: #b45309;
+  --tc-emerald: #047857;
+  --tc-blue: #1d4ed8;
+
   /* Layout */
   --max-width: 1280px;
   --sidebar-width: 320px;
 }
 
 html.dark {
-  /* Dark Theme */
-  --bg: #09090b;
-  --surface: #121215;
-  --surface-active: #1a1a1f;
-  --border: #27272a;
-  --border-strong: #52525b;
-  --text: #fafafa;
-  --text-muted: #a1a1aa;
-  --text-dim: #71717a;
+  /* Cathode CSS Industrial OKLCH Dark Theme */
+  --bg: oklch(15% 0.012 255);
+  --surface: oklch(19% 0.018 258);
+  --surface-active: oklch(22.5% 0.021 258);
+  --border: color-mix(in oklch, oklch(96.5% 0.01 245) 14%, transparent);
+  --border-strong: color-mix(in oklch, oklch(96.5% 0.01 245) 24%, transparent);
+  --text: oklch(96.5% 0.01 245);
+  --text-muted: oklch(76% 0.025 245);
+  --text-dim: oklch(63.5% 0.022 248);
   --hairline: 1px solid var(--border);
+
+  /* Cathode Semantic Accents (Dark OKLCH) */
+  --tc-amber: oklch(76.5% 0.145 75);
+  --tc-emerald: oklch(77.5% 0.145 162);
+  --tc-blue: oklch(71.5% 0.145 255);
 }
 
 /* ==========================================================================

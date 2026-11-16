@@ -1,8 +1,11 @@
 import { SITE } from "../site.config";
 
+export type ProjectGroup = "apps" | "research" | "infra";
+
 export interface Project {
   title: string;
   category: string;
+  group: ProjectGroup;
   period: string;
   description: string;
   stack: string[];
@@ -17,6 +20,7 @@ export const PROJECTS: Project[] = [
   {
     title: "Prato do Dia — Visão Computacional & Segmentação de Alimentos",
     category: "PESQUISA // UERJ",
+    group: "research",
     period: "2024 — PRESENTE",
     description:
       "Projeto de Iniciação Científica desenvolvido na Universidade do Estado do Rio de Janeiro (UERJ). Investiga e implementa um pipeline de visão computacional leve para detecção e segmentação de instâncias de alimentos em fotos de refeições para identificação e estimativa de porções. Combina YOLO11 para detecção de caixas delimitadoras e SAM 2.1 (Segment Anything Model 2 - Hiera Tiny) via ONNX Runtime CPU, conectado a uma API em FastAPI e app Flutter.",
@@ -39,23 +43,119 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    title: "Roleta de Decisões (Decision Wheel)",
+    category: "APP WEB // MULTIPLAYER",
+    group: "apps",
+    period: "2026 — PRESENTE",
+    description:
+      "Aplicação web para sorteios e tomadas de decisão em tempo real com salas sincronizadas via WebSockets, física de roleta fluida e baixa latência.",
+    stack: ["Go", "Svelte 5", "WebSockets", "Podman", "Caddy"],
+    liveUrl: "https://roleta.gabe.tec.br",
+    badge: "AO VIVO",
+    highlights: [
+      "Backend em Go servindo estado compartilhado em tempo real via WebSockets.",
+      "Frontend reativo em Svelte 5 com animações determinísticas e suporte a salas.",
+      "Auto-hospedado no servidor Tachibana via Podman Quadlet e proxy reverso Caddy.",
+    ],
+  },
+  {
+    title: "Letterboxd Wall — Gerador de Mural de Filmes",
+    category: "APP WEB // CINEMA",
+    group: "apps",
+    period: "2026 — PRESENTE",
+    description:
+      "Gerador de grades e murais visuais a partir de perfis e listas do Letterboxd, com renderização rápida e exportação em alta resolução.",
+    stack: ["Go", "Svelte 5", "REST API", "Podman", "Caddy"],
+    liveUrl: "https://mural.gabe.tec.br",
+    badge: "AO VIVO",
+    highlights: [
+      "Coleta e composição de pôsteres via API REST leve escrita em Go.",
+      "Customização de grade, espaçamento e proporções direto no navegador com Svelte 5.",
+      "Execução rootless isolada com zero rastreamento.",
+    ],
+  },
+  {
+    title: "Jogo da Forca (Hangman LiveView)",
+    category: "JOGO // MULTIPLAYER",
+    group: "apps",
+    period: "2026 — PRESENTE",
+    description:
+      "Jogo da forca multijogador em tempo real construído com Elixir e Phoenix LiveView, sincronizando palpites, placar e estado da partida sem JavaScript pesado.",
+    stack: ["Elixir", "Phoenix LiveView", "BEAM", "Podman"],
+    liveUrl: "https://forca.gabe.tec.br",
+    badge: "AO VIVO",
+    highlights: [
+      "Estado das salas gerenciado nativamente por processos leves na BEAM VM.",
+      "Atualizações reativas em tempo real via WebSockets do Phoenix LiveView.",
+      "Interface direta e responsiva para partidas rápidas entre amigos.",
+    ],
+  },
+  {
     title: "Puzzles — Desafios Lógicos & Computacionais",
-    category: "APP WEB // PRODUTO",
+    category: "JOGO // DIÁRIO",
+    group: "apps",
     period: "2024 — PRESENTE",
     description:
-      "Plataforma interativa de puzzles lógicos e problemas computacionais focada em resolução de problemas algorítmicos. Totalmente auto-hospedada em infraestrutura própria sob o domínio gabe.tec.br com tempo de resposta instantâneo.",
-    stack: ["Web Standards", "TypeScript", "Docker", "Caddy", "Tailscale"],
+      "Plataforma interativa de puzzles lógicos, desafios diários e problemas computacionais com geração automatizada em lote e persistência em SQLite.",
+    stack: ["Web Standards", "SQLite", "Podman", "Caddy"],
     liveUrl: "https://puzzles.gabe.tec.br",
-    badge: "AO VIVO NO SUBDOMÍNIO",
+    badge: "AO VIVO",
     highlights: [
+      "Geração programada de novos lotes de desafios via systemd timers.",
       "Interface limpa e focada em densidade de raciocínio lógico sem distrações.",
-      "Hospedada diretamente na infraestrutura autônoma (nó tachibana / wired) com certificado SSL automático via Caddy.",
-      "Alta performance com zero tracking e carregamento leve para dispositivos móveis e desktop.",
+      "Carregamento leve e zero tracking para dispositivos móveis e desktop.",
+    ],
+  },
+  {
+    title: "Wrong Web — Agregador Minimalista de Links & Notícias",
+    category: "APP WEB // LEITURA",
+    group: "apps",
+    period: "2026 — PRESENTE",
+    description:
+      "Agregador brutalista de links técnicos, notícias e discussões sem algoritmos de recomendação nem poluição visual.",
+    stack: ["Web", "Podman", "Caddy", "Cathode CSS"],
+    liveUrl: "https://news.gabe.tec.br",
+    badge: "AO VIVO",
+    highlights: [
+      "Leitura direta em texto estruturado com foco em densidade informacional.",
+      "Estética industrial alinhada ao design system Cathode CSS.",
+    ],
+  },
+  {
+    title: "Airstation — Rádio Web Online Sincronizada",
+    category: "MÍDIA // ÁUDIO 24/7",
+    group: "apps",
+    period: "2026 — PRESENTE",
+    description:
+      "Estação de rádio online autônoma com programação por blocos horários, vinhetas automáticas, lookahead pre-encoding via FFmpeg e streaming HLS sincronizado.",
+    stack: ["Go", "FFmpeg", "HLS", "SSE", "Podman"],
+    liveUrl: "https://radio.gabe.tec.br",
+    badge: "NO AR 24/7",
+    highlights: [
+      "Transmissão contínua de áudio sincronizada entre todos os ouvintes via HLS.",
+      "Ducking automático de vinhetas e anúncios de hora certa nos blocos musicais.",
+      "Eventos em tempo real de faixa atual via Server-Sent Events (SSE).",
+    ],
+  },
+  {
+    title: "Cathode CSS — Design System Industrial",
+    category: "FRONTEND // DESIGN SYSTEM",
+    group: "infra",
+    period: "2026 — PRESENTE",
+    description:
+      "Biblioteca CSS minimalista e brutalista construída sobre tokens OKLCH perceptualmente uniformes, bordas ortogonais de 1px, zero border-radius e alto contraste WCAG AA.",
+    stack: ["CSS Layers", "OKLCH", "Design Tokens", "HTML5"],
+    liveUrl: "https://css.gabe.tec.br",
+    badge: "DESIGN SYSTEM",
+    highlights: [
+      "Paleta semântica em OKLCH projetada para prevenir fadiga visual (anti-halation).",
+      "Componentes de telemetria, tabelas densas e tipografia técnica em ~16 KB minificado.",
     ],
   },
   {
     title: "Scopio — Auditor de Métricas de Código & Quality Gates",
     category: "CLI // OPEN SOURCE",
+    group: "research",
     period: "2024",
     description:
       "Ferramenta CLI e auditor de engenharia de software distribuída publicamente no PyPI. Analisa complexidade ciclomática (CCN), linhas lógicas de código (NLOC) e histórico em SQLite, fornecendo quality gates automatizados e detecção de regressões para pipelines de CI.",
@@ -70,34 +170,37 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
-    title: "Infraestrutura Homelab Híbrida (tachibana + wired)",
+    title: "Infraestrutura Homelab Tachibana (Quadlets + Caddy + Tailscale)",
     category: "INFRA // HOMELAB",
+    group: "infra",
     period: "2023 — PRESENTE",
     description:
-      "Cluster pessoal híbrido composto por VPS em nuvem (wired) e servidores bare-metal residenciais com NixOS (tachibana e navi), interconectados via rede privada mesh Tailscale para deploy de serviços públicos e armazenamento seguro.",
-    stack: ["NixOS", "Linux", "Docker", "Caddy", "Tailscale", "Bash"],
+      "Infraestrutura declarativa rootless em Fedora com Podman Quadlets gerenciados via systemd, túneis reversos via Wired Gateway, proxy Caddy, observabilidade com Beszel/Gatus/ntfy e backups incrementais Restic.",
+    stack: ["Podman Quadlets", "Linux", "Caddy", "Tailscale", "Restic", "Astro"],
     internalUrl: "/notes/tachibana-homelab",
+    liveUrl: "https://docs.gabe.tec.br",
     badge: "PRODUÇÃO AUTÔNOMA",
     highlights: [
-      "Configurações declarativas e reprodutíveis gerenciadas sob controle de versão.",
-      "Túneis reversos seguros permitindo expor subdomínios públicos (*.gabe.tec.br) sem abrir portas residenciais inseguras.",
-      "Operação com uptime contínuo para suporte a demos interativas e serviços locais.",
+      "Mais de 40 serviços declarativos em Podman Quadlets com AutoUpdate=registry.",
+      "Portal completo de documentação técnica e arquitetura em docs.gabe.tec.br.",
+      "Backups atômicos diários de SQLite e alertas em tempo real via ntfy.",
     ],
   },
   {
     title: "Website & Portal Editorial de Engenharia (gabe.tec.br)",
     category: "FRONTEND // ESTÁTICO",
+    group: "infra",
     period: "2024 — PRESENTE",
     description:
-      "Portal pessoal de engenharia de software e pesquisa científica. Desenvolvido para máxima fidelidade tipográfica, ausência de frameworks de estilo inflados e pontuação perfeita em Core Web Vitals.",
-    stack: ["Astro", "TypeScript", "Vanilla CSS", "KaTeX", "Shiki", "Pagefind"],
+      "Portal pessoal de engenharia de software, pesquisa científica e vitrine de aplicações autorais. Desenvolvido para máxima fidelidade tipográfica com tokens Cathode CSS e HTML estático puro.",
+    stack: ["Astro", "TypeScript", "Cathode CSS", "KaTeX", "Shiki", "Pagefind"],
     githubUrl: `${SITE.github.url}/gabe.tec.br`,
     liveUrl: SITE.url,
     badge: "100% LIGHTHOUSE",
     highlights: [
       "Zero frameworks de UI pesados no cliente; páginas servidas como HTML estático puro.",
-      "Suporte a fórmulas matemáticas com KaTeX e realce de sintaxe Shiki.",
-      "Otimização estrita de LCP (Largest Contentful Paint) e tipografia editorial monoespaçada.",
+      "Suporte a fórmulas matemáticas com KaTeX, realce Shiki e busca local via Pagefind.",
+      "Vitrine interativa unificada de projetos autorais com filtro por categoria e busca.",
     ],
   },
 ];
