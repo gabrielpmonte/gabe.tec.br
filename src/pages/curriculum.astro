@@ -31,9 +31,11 @@ import { SITE } from '../site.config';
           // STATUS ATUAL: {SITE.availability.fullText}
         </div>
         <h1 class="cv-name">{SITE.author.toUpperCase()}</h1>
-        <div class="cv-headline font-mono">{SITE.education.degree.toUpperCase()} (UERJ) // VISÃO COMPUTACIONAL & SISTEMAS</div>
+        <div class="cv-headline font-mono">DESENVOLVEDOR BACKEND &amp; MACHINE LEARNING // UERJ</div>
         <div class="cv-contact-row font-mono">
           <span>EMAIL: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></span>
+          <span>•</span>
+          <span>TEL: <a href={`tel:${SITE.phone}`}>{SITE.phone}</a></span>
           <span>•</span>
           <span>WEB: <a href={SITE.url}>{SITE.domain}</a></span>
           <span>•</span>
@@ -47,92 +49,94 @@ import { SITE } from '../site.config';
 
       <!-- Executive Synthesis -->
       <section class="cv-section hairline-divider">
-        <h2 class="cv-sec-title font-mono">// 01. SÍNTESE DO PERFIL</h2>
+        <h2 class="cv-sec-title font-mono">// 01. PERFIL</h2>
         <p class="cv-text">
-          Graduando em <strong>Ciência da Computação pela Universidade do Estado do Rio de Janeiro (UERJ)</strong> com ênfase e pesquisa aplicada em <strong>Visão Computacional</strong> e engenharia de software. Vivência sólida em programação de sistemas (Python, C/C++, Linux/NixOS), fundamentos de arquitetura e infraestrutura autônoma (Docker, Caddy, Tailscale em homelab distribuído). Busco oportunidades de <strong>Estágio ou Desenvolvedor Júnior</strong> em Desenvolvimento de Software, Visão Computacional, Engenharia de Dados ou Infraestrutura (Presencial no Rio de Janeiro ou Remoto).
+          Graduando em <strong>Ciência da Computação (UERJ, previsão de conclusão: 2028)</strong>, com foco em desenvolvimento backend, APIs e infraestrutura Linux. Experiência prática com <strong>Go, Python, PostgreSQL</strong>, orquestração de containers com <strong>Podman/Caddy</strong> e contribuição contínua em projetos open source (<strong>NixOS</strong>).
         </p>
       </section>
 
       <!-- Core Competencies -->
       <section class="cv-section hairline-divider">
-        <h2 class="cv-sec-title font-mono">// 02. COMPETÊNCIAS & STACK TÉCNICA</h2>
+        <h2 class="cv-sec-title font-mono">// 02. COMPETÊNCIAS &amp; STACK TÉCNICA</h2>
         <div class="cv-skills-grid font-mono">
           <div class="skill-category">
             <span class="category-name">LINGUAGENS:</span>
-            <span class="category-items">Python, C/C++, TypeScript, JavaScript, SQL, POSIX Shell (Bash), Go / Rust (estudos contínuos).</span>
+            <span class="category-items">Python, Golang, R, Flutter, TypeScript.</span>
           </div>
           <div class="skill-category">
-            <span class="category-name">VISÃO COMPUTACIONAL & IA:</span>
-            <span class="category-items">OpenCV, PyTorch, NumPy, Scikit-learn, Processamento Digital de Imagens (PDI), Filtros Espaciais, CNNs.</span>
+            <span class="category-name">FRONTEND &amp; FRAMEWORKS:</span>
+            <span class="category-items">SvelteKit, Svelte, Astro, Elixir / Phoenix LiveView.</span>
           </div>
           <div class="skill-category">
-            <span class="category-name">SISTEMAS & INFRAESTRUTURA:</span>
-            <span class="category-items">Linux (NixOS, Debian), Docker, Caddy Server, Tailscale VPN, Redes TCP/IP, Orquestração Homelab.</span>
+            <span class="category-name">BACKEND, INFRA &amp; BANCOS DE DADOS:</span>
+            <span class="category-items">Linux, Fedora, NixOS, Podman (Quadlets), Git, Caddy, SQLite, PostgreSQL.</span>
           </div>
           <div class="skill-category">
-            <span class="category-name">FERRAMENTAS & ENGENHARIA:</span>
-            <span class="category-items">Git, GitHub Actions (CI/CD), VS Code / Neovim, REST APIs, Astro, Testes Unitários.</span>
+            <span class="category-name">ML &amp; ANÁLISE DE DADOS:</span>
+            <span class="category-items">YOLO11-seg, SAM 2.1, ONNX Runtime, OpenCV, Modelagem Estatística em R.</span>
           </div>
         </div>
       </section>
 
-      <!-- Professional & Academic Experience -->
+      <!-- Professional, Volunteering & Research Experience -->
       <section class="cv-section hairline-divider">
-        <h2 class="cv-sec-title font-mono">// 03. HISTÓRICO PROFISSIONAL & ACADÊMICO</h2>
+        <h2 class="cv-sec-title font-mono">// 03. VOLUNTARIADO, PESQUISA &amp; INFRAESTRUTURA</h2>
 
-        <!-- Bloco 1: Iniciação Científica na UERJ (Prato do Dia) -->
+        <!-- Bloco 1: UFSM -->
+        <div class="cv-job-block">
+          <div class="job-header">
+            <span class="job-title">Pesquisador Voluntário em Análise de Dados</span>
+            <span class="job-period font-mono">jul. de 2025 – Atual</span>
+          </div>
+          <div class="job-company font-mono">Universidade Federal de Santa Maria (UFSM)</div>
+          <ul class="job-achievements">
+            <li>
+              Desenvolvimento de pipelines de ingestão, limpeza e modelagem estatística em R para previsão epidemiológica de incidência de Chikungunya (CHIKV) na região de Belo Horizonte (MG).
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bloco 2: NixOS -->
+        <div class="cv-job-block">
+          <div class="job-header">
+            <span class="job-title">Desenvolvedor Open Source // nixpkgs</span>
+            <span class="job-period font-mono">set. de 2021 – Atual</span>
+          </div>
+          <div class="job-company font-mono">NixOS</div>
+          <ul class="job-achievements">
+            <li>
+              Desenvolvimento, manutenção e revisão de pacotes para o <code>nixpkgs</code>, o repositório oficial de pacotes da distribuição Linux declarativa NixOS.
+            </li>
+          </ul>
+        </div>
+
+        <!-- Bloco 3: Prato do Dia (UERJ) -->
         <div class="cv-job-block">
           <div class="job-header">
             <span class="job-title">Pesquisador de Iniciação Científica // Visão Computacional</span>
-            <span class="job-period font-mono">2024 — PRESENTE</span>
+            <span class="job-period font-mono">mai. de 2024 – Atual</span>
           </div>
-          <div class="job-company font-mono">Universidade do Estado do Rio de Janeiro (UERJ) • Projeto Prato do Dia</div>
+          <div class="job-company font-mono">Universidade do Estado do Rio de Janeiro (UERJ) • Projeto Prato do Dia (<a href="https://github.com/uerj-prato-do-dia" target="_blank" rel="noopener noreferrer">github.com/uerj-prato-do-dia</a>)</div>
           <ul class="job-achievements">
             <li>
-              Desenvolvimento de pipeline de visão computacional leve e reprodutível integrando detector YOLO11 e segmentador SAM 2.1 (Segment Anything Model 2 - Hiera Tiny via ONNX Runtime CPU) para extração de máscaras poligonais de alimentos em imagens de pratos.
+              Pipeline de segmentação de instâncias focado em taxonomia alimentar brasileira. Treinamento e quantização de modelos YOLO11-seg integrados a rotinas OpenCV para inferência, processamento e curadoria automatizada de datasets.
             </li>
             <li>
-              Implementação de rotinas de pré-processamento (letterbox/normalização), resolução de sobreposições de instâncias e extração de atributos morfológicos (cor, textura, forma, área e coordenadas espaciais) para apoio à identificação e estimativa nutricional.
-            </li>
-            <li>
-              Validação de qualidade com métricas de IoU (Intersection over Union), Dice score e geração de overlays para inspeção visual; estruturação da inferência em biblioteca Python desacoplada, consumida por API assíncrona em FastAPI e aplicativo mobile em Flutter.
+              Aplicativo mobile em Flutter consumindo API em Python/FastAPI.
             </li>
           </ul>
         </div>
 
-        <!-- Bloco 2: Desenvolvimento Open Source (Scopio) -->
+        <!-- Bloco 4: Infraestrutura Self-Hosted & Homelab -->
         <div class="cv-job-block">
           <div class="job-header">
-            <span class="job-title">Autor & Mantenedor Open Source // Scopio</span>
-            <span class="job-period font-mono">2024 — PRESENTE</span>
+            <span class="job-title">Infraestrutura Self-Hosted &amp; Homelab</span>
+            <span class="job-period font-mono">out. de 2026 – Atual</span>
           </div>
-          <div class="job-company font-mono">Projeto de Código Aberto • Publicado no PyPI</div>
+          <div class="job-company font-mono">Servidor Tachibana • Fedora, Podman, Caddy</div>
           <ul class="job-achievements">
             <li>
-              Criação de ferramenta CLI de auditoria de métricas de software (CCN, NLOC) com persistência em SQLite, cálculo de diffs comparativos com baseline e quality gates para prevenção de regressões em esteiras de CI/CD.
-            </li>
-            <li>
-              Publicação e distribuição do pacote no repositório oficial Python PyPI (`pip install scopio`), com pipeline de testes unitários automatizados via GitHub Actions.
-            </li>
-          </ul>
-        </div>
-
-        <!-- Bloco 3: Engenharia de Infraestrutura & Homelab -->
-        <div class="cv-job-block">
-          <div class="job-header">
-            <span class="job-title">Arquiteto & Administrador de Infraestrutura Pessoal (Homelab)</span>
-            <span class="job-period font-mono">2023 — PRESENTE</span>
-          </div>
-          <div class="job-company font-mono">Projeto Autônomo de Engenharia // nós tachibana, wired, navi</div>
-          <ul class="job-achievements">
-            <li>
-              Concepção e operação de cluster de homelab híbrido (VPS pública + servidores locais com NixOS) conectado via malha criptografada Tailscale.
-            </li>
-            <li>
-              Roteamento reverso e terminação SSL automática com Caddy expondo serviços e aplicações web sob domínio próprio (gabe.tec.br).
-            </li>
-            <li>
-              Containerização com Docker e gestão declarativa de configurações de sistema operacional para alta reprodutibilidade.
+              Administração de um servidor Fedora Linux, orquestrando +15 serviços em rede fechada utilizando Podman Quadlets (daemonless) para isolamento e segurança.
             </li>
           </ul>
         </div>
@@ -143,30 +147,35 @@ import { SITE } from '../site.config';
         <h2 class="cv-sec-title font-mono">// 04. PROJETOS EM DESTAQUE</h2>
         <ul class="cv-projects-list">
           <li>
-            <strong>Prato do Dia — Visão Computacional (<a href="https://github.com/uerj-prato-do-dia" target="_blank" rel="noopener noreferrer">github.com/uerj-prato-do-dia</a>):</strong> Pipeline de pesquisa na UERJ combinando YOLO11 e SAM 2.1 em ONNX Runtime para segmentação de instâncias de alimentos, com backend FastAPI e cliente Flutter.
+            <strong>Prato do Dia (<a href="https://github.com/uerj-prato-do-dia" target="_blank" rel="noopener noreferrer">github.com/uerj-prato-do-dia</a>):</strong> Pipeline de segmentação de instâncias focado em taxonomia alimentar brasileira (YOLO11-seg, OpenCV, Python) e aplicativo mobile em Flutter.
           </li>
           <li>
-            <strong>Scopio (<a href="https://pypi.org/project/scopio/" target="_blank" rel="noopener noreferrer">pypi.org/project/scopio</a>):</strong> Auditor de código e métricas com histórico em SQLite e quality gates de complexidade ciclomática para CI/CD, distribuído no PyPI.
+            <strong>Letterboxd Wall (<a href="https://boxd.gabe.tec.br" target="_blank" rel="noopener noreferrer">boxd.gabe.tec.br</a>):</strong> API REST em Go para geração dinâmica de colagens de filmes via parsing resiliente de RSS, download concorrente de cartazes, cache em memória com TTL e streaming direto em JPEG; proxy de imagens com CORS e frontend interativo com renderização em Canvas via Svelte 5 (TypeScript).
           </li>
           <li>
-            <strong>Puzzles (<a href="https://puzzles.gabe.tec.br" target="_blank" rel="noopener noreferrer">puzzles.gabe.tec.br</a>):</strong> Aplicação web interativa de desafios lógicos e algorítmicos auto-hospedada em infraestrutura autônoma com alta responsividade.
+            <strong>O Enigma Diário (<a href="https://puzzles.gabe.tec.br" target="_blank" rel="noopener noreferrer">puzzles.gabe.tec.br</a>):</strong> Interface web reativa em SvelteKit (TypeScript) empacotada em container com persistência em SQLite.
           </li>
           <li>
-            <strong>Website & Plataforma Pessoal (<a href="https://gabe.tec.br" target="_blank" rel="noopener noreferrer">gabe.tec.br</a>):</strong> Plataforma técnica estática desenvolvida com Astro e TypeScript, sem frameworks inchados, otimizada para Core Web Vitals e renderização instantânea. Repositório: <a href="https://github.com/gabrielpmonte/gabe.tec.br" target="_blank" rel="noopener noreferrer">github.com/gabrielpmonte/gabe.tec.br</a>.
+            <strong>Roleta de Decisões (<a href="https://roleta.gabe.tec.br" target="_blank" rel="noopener noreferrer">roleta.gabe.tec.br</a>) &amp; Jogo da Forca (<a href="https://forca.gabe.tec.br" target="_blank" rel="noopener noreferrer">forca.gabe.tec.br</a>):</strong> Aplicações multiplayer em tempo real (Go + Svelte 5 WebSockets e Elixir + Phoenix LiveView).
           </li>
         </ul>
       </section>
 
-      <!-- Education & Languages -->
+      <!-- Education, Certifications & Languages -->
       <section class="cv-section">
-        <h2 class="cv-sec-title font-mono">// 05. FORMAÇÃO ACADÊMICA & IDIOMAS</h2>
+        <h2 class="cv-sec-title font-mono">// 05. FORMAÇÃO, CERTIFICAÇÕES &amp; IDIOMAS</h2>
         <div class="cv-edu-grid font-mono">
           <div>
-            <strong>{SITE.education.degree} — {SITE.education.institution}</strong><br />
-            {SITE.education.emphasis} • Previsão de Conclusão: 2026/2027
+            <strong>Ciência da Computação — Universidade Estadual do Rio de Janeiro (UERJ)</strong><br />
+            set. de 2022 – Atual • Previsão de Conclusão: 2028
           </div>
           <div>
-            <strong>IDIOMAS:</strong> Português (Nativo) • Inglês (Leitura e Escrita Técnica / Fluente).
+            <strong>CERTIFICAÇÕES:</strong><br />
+            • Introdução à editoração em LaTeX — UERJ (jan. de 2025)<br />
+            • Desenvolvimento guiado por tipos — Universidade Federal do ABC (UFABC) (mar. de 2022)
+          </div>
+          <div>
+            <strong>IDIOMAS:</strong> Português: Nativo • Inglês: Intermediário (B1) • Mandarim: Iniciante (A1)
           </div>
         </div>
       </section>
