@@ -1,0 +1,22 @@
+{
+  "generated_at": "2026-11-16T23:21:20Z",
+  "reading": {
+    "status": "ok",
+    "updated_at": "2026-11-16T23:21:20Z",
+    "items": [
+      {
+        "id": "94684998",
+        "title": "Domain - Driven Design: Atacando as Complexidades no Coracao do Software",
+        "author": "Eric Evans",
+        "url": "https://www.goodreads.com/book/show/94684998-domain---driven-design",
+        "cover": "https://api.gabe.tec.br/covers/book_94684998.webp"
+      }
+    ]
+  },
+  "listening": {
+    "status": "unconfigured",
+    "updated_at": null,
+    "now_playing": null,
+    "recent_albums": []
+  }
+}
