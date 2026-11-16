@@ -163,14 +163,7 @@ const seedAlbums = (nowSeed.listening?.recent_albums ?? []) as Array<{
                 ))}
               </ul>
             ) : (
-              <a
-                href="https://radio.gabe.tec.br"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="accent-link media-fallback"
-              >
-                Airstation (radio.gabe.tec.br)
-              </a>
+              <p class="media-empty">Nenhum álbum registrado no momento.</p>
             )
           }
         </div>

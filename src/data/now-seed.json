@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-16T23:21:20Z",
+  "generated_at": "2026-11-16T23:30:29Z",
   "reading": {
     "status": "ok",
-    "updated_at": "2026-11-16T23:21:20Z",
+    "updated_at": "2026-11-16T23:30:29Z",
     "items": [
       {
         "id": "94684998",
@@ -14,9 +14,30 @@
     ]
   },
   "listening": {
-    "status": "unconfigured",
-    "updated_at": null,
+    "status": "ok",
+    "updated_at": "2026-11-16T23:30:29Z",
     "now_playing": null,
-    "recent_albums": []
+    "recent_albums": [
+      {
+        "title": "Random Access Memories",
+        "artist": "Daft Punk",
+        "cover": "https://api.gabe.tec.br/covers/alb_69b666354f.webp"
+      },
+      {
+        "title": "Everybody Else Is Doing It, So Why Can’t We?",
+        "artist": "The Cranberries",
+        "cover": "https://api.gabe.tec.br/covers/alb_a611ef0c8e.webp"
+      },
+      {
+        "title": "MM..FOOD",
+        "artist": "MF DOOM",
+        "cover": "https://api.gabe.tec.br/covers/alb_11b4751bc7.webp"
+      },
+      {
+        "title": "Heligoland",
+        "artist": "Massive Attack",
+        "cover": "https://api.gabe.tec.br/covers/alb_6fad4568ed.webp"
+      }
+    ]
   }
 }
