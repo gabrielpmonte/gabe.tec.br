@@ -1,14 +1,12 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import FilterBar from "../../components/FilterBar.astro";
 import FilterBanner from "../../components/FilterBanner.astro";
 import EmptyState from "../../components/EmptyState.astro";
 import FieldNoteCard from "../../components/FieldNoteCard.astro";
-import { getSortedFieldNotes, getTagCounts } from "../../utils/content";
+import { getSortedFieldNotes } from "../../utils/content";
 import { SITE } from "../../site.config";
 
 const notes = await getSortedFieldNotes();
-const tagItems = getTagCounts(notes);
 ---
 
 <BaseLayout
@@ -22,15 +20,6 @@ const tagItems = getTagCounts(notes);
         Registros de expedições, travessias e perfis de elevação com coordenadas
         geográficas catalogadas (WGS 84) e metadados de campo.
       </p>
-
-      <FilterBar
-        label="FILTRAR POR TAG:"
-        allLabel="TODAS"
-        totalCount={notes.length}
-        items={tagItems}
-        paramKey="tag"
-        listId="tag-filter-list"
-      />
     </header>
 
     <FilterBanner
