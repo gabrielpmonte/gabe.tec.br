@@ -49,20 +49,12 @@ const projects = PROJECTS;
           </button>
         </div>
 
-        <div class="filter-tabs font-mono" role="tablist" aria-label="Categorias">
-          <button type="button" class="filter-tab active" data-group="all">
-            TODOS ({projects.length})
-          </button>
-          <button type="button" class="filter-tab" data-group="apps">
-            APPS &amp; JOGOS ({projects.filter((p) => p.group === "apps").length})
-          </button>
-          <button type="button" class="filter-tab" data-group="research">
-            PESQUISA &amp; CLI ({projects.filter((p) => p.group === "research").length})
-          </button>
-          <button type="button" class="filter-tab" data-group="infra">
-            INFRA &amp; DESIGN ({projects.filter((p) => p.group === "infra").length})
-          </button>
-        </div>
+        <select id="projects-group" class="group-select font-mono" aria-label="Filtrar por categoria">
+          <option value="all">Todas as categorias ({projects.length})</option>
+          <option value="apps">Apps &amp; Jogos ({projects.filter((p) => p.group === "apps").length})</option>
+          <option value="research">Pesquisa &amp; CLI ({projects.filter((p) => p.group === "research").length})</option>
+          <option value="infra">Infra &amp; Design ({projects.filter((p) => p.group === "infra").length})</option>
+        </select>
       </div>
 
       <div id="projects-count" class="controls-meta font-mono">
@@ -72,7 +64,7 @@ const projects = PROJECTS;
 
     <div id="projects-grid" class="projects-grid">
       {
-        projects.map((p, index) => (
+        projects.slice(0, 3).map((p, index) => (
           <article
             class="project-card hairline-box"
             data-group={p.group}
@@ -177,6 +169,37 @@ const projects = PROJECTS;
                 </a>
               )}
             </footer>
+          </article>
+        ))
+      }
+    </div>
+
+    <div id="projects-compact-grid" class="compact-grid">
+      {
+        projects.slice(3).map((p) => (
+          <article
+            class="compact-card hairline-box project-item"
+            data-group={p.group}
+            data-search={`${p.title} ${p.category} ${p.description} ${p.stack.join(" ")} ${p.badge || ""}`.toLowerCase()}
+          >
+            <div class="compact-head font-mono">
+              <span class="compact-cat">{p.category}</span>
+              <span class="compact-period">{p.period}</span>
+            </div>
+            <h2 class="compact-title">
+              <a href={p.liveUrl || p.githubUrl || p.internalUrl || "/projects"} target={p.liveUrl || p.githubUrl ? "_blank" : undefined} rel={p.liveUrl || p.githubUrl ? "noopener noreferrer" : undefined} class="compact-link">
+                {p.title}
+              </a>
+            </h2>
+            <p class="compact-desc">{p.description}</p>
+            <div class="compact-foot font-mono">
+              <span class="compact-stack">{p.stack.slice(0, 4).join(" · ")}</span>
+              {p.liveUrl && (
+                <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" class="compact-action">
+                  Demo ↗
+                </a>
+              )}
+            </div>
           </article>
         ))
       }
@@ -471,6 +494,99 @@ const projects = PROJECTS;
     font-weight: 700;
   }
 
+  .group-select {
+    background-color: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.78rem;
+    padding: 0.45rem 0.75rem;
+    cursor: pointer;
+  }
+
+  .group-select:focus {
+    outline: none;
+    border-color: var(--tc-blue, var(--text));
+  }
+
+  .compact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  @media (max-width: 720px) {
+    .compact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .compact-card {
+    background-color: var(--surface);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    transition: border-color 140ms ease-out;
+  }
+
+  .compact-card:hover {
+    border-color: var(--border-strong);
+  }
+
+  .compact-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+  }
+
+  .compact-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .compact-link {
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .compact-link:hover {
+    text-decoration: underline;
+    color: var(--tc-amber, var(--text));
+  }
+
+  .compact-desc {
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin: 0;
+    flex-grow: 1;
+  }
+
+  .compact-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    padding-top: 0.25rem;
+  }
+
+  .compact-action {
+    color: var(--tc-amber, var(--text));
+    text-decoration: none;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .compact-action:hover {
+    text-decoration: underline;
+  }
+
   .controls-meta {
     font-size: 0.72rem;
     color: var(--text-dim);
@@ -481,16 +597,15 @@ const projects = PROJECTS;
   function initProjectsShowcase() {
     const searchInput = document.getElementById("projects-search") as HTMLInputElement | null;
     const clearBtn = document.getElementById("projects-search-clear") as HTMLButtonElement | null;
+    const groupSelect = document.getElementById("projects-group") as HTMLSelectElement | null;
     const countEl = document.getElementById("projects-count");
-    const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>(".filter-tab"));
-    const cards = Array.from(document.querySelectorAll<HTMLElement>("#projects-grid .project-card"));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("#projects-grid .project-card, #projects-compact-grid .compact-card"));
 
-    if (!searchInput || !tabs.length || !cards.length) return;
-
-    let activeGroup = "all";
+    if (!searchInput || !groupSelect || !cards.length) return;
 
     function applyFilters() {
       const q = (searchInput?.value || "").trim().toLowerCase();
+      const activeGroup = groupSelect?.value || "all";
       if (clearBtn) clearBtn.hidden = q.length === 0;
 
       let visible = 0;
@@ -509,14 +624,7 @@ const projects = PROJECTS;
       }
     }
 
-    tabs.forEach((tab) => {
-      tab.addEventListener("click", () => {
-        activeGroup = tab.dataset.group || "all";
-        tabs.forEach((t) => t.classList.toggle("active", t === tab));
-        applyFilters();
-      });
-    });
-
+    groupSelect.addEventListener("change", applyFilters);
     searchInput.addEventListener("input", applyFilters);
     clearBtn?.addEventListener("click", () => {
       searchInput.value = "";

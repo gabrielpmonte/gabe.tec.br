@@ -54,7 +54,7 @@ const { note, interactive = true } = Astro.props;
     }
     <div class="note-tags font-mono">
       {
-        note.data.tags.map((t) =>
+        note.data.tags.slice(0, 2).map((t) =>
           interactive ? (
             <button
               type="button"

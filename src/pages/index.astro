@@ -24,29 +24,20 @@ const fieldNotes = allFieldNotes.slice(0, 3);
 
 <BaseLayout title={SITE.defaultTitle} description={SITE.defaultDescription}>
   <div class="index-flow">
-    <!-- Top Terminal Meta Header -->
-    <header class="index-header hairline-box">
-      <div class="header-status-line font-mono">
-        <span class="prompt">&gt;_</span>
-        <span class="host">{SITE.domain}</span>
-        <span class="sep">:</span>
-        <span class="path">~/index</span>
-        <span class="badge">[READY]</span>
-      </div>
+    <!-- Direct Editorial Header (Above-the-fold focus on Projects) -->
+    <header class="index-header-compact">
       <p class="index-intro">
-        Desenvolvedor Backend &amp; Machine Learning e graduando em Ciência da
-        Computação (UERJ, previsão: 2028). Experiência prática com Go, Python,
-        PostgreSQL, orquestração de containers com Podman/Caddy, análise
-        epidemiológica em R (UFSM) e contribuição contínua no NixOS.
+        Desenvolvedor Backend &amp; Machine Learning (UERJ 2028) — Go, Python,
+        PostgreSQL, Podman/Caddy e contribuições no NixOS.
       </p>
       <div class="quick-stats font-mono">
-        <span>PROJETOS: <a href="/projects" class="underline">{PROJECTS.length} DESTAQUES</a></span>
-        <span>•</span>
-        <span>WRITING: <a href="/writing" class="underline">{allWritings.length} ARTIGOS</a></span>
-        <span>•</span>
-        <span>GARDEN: <a href="/notes" class="underline">{allNotes.length} NOTAS</a></span>
-        <span>•</span>
-        <span>FIELD: <a href="/field-notes" class="underline">{allFieldNotes.length} REGISTROS</a></span>
+        <a href="/projects" class="underline">{PROJECTS.length} projetos</a>
+        <span>·</span>
+        <a href="/writing" class="underline">{allWritings.length} artigos</a>
+        <span>·</span>
+        <a href="/notes" class="underline">{allNotes.length} notas</a>
+        <span>·</span>
+        <a href="/curriculum" class="underline">currículo</a>
       </div>
     </header>
 

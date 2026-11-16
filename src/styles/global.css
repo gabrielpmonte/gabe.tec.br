@@ -96,6 +96,12 @@ h1, h2, h3 {
   text-wrap: balance;
 }
 
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 150ms;
+  animation-timing-function: ease-out;
+}
+
 .prose p,
 article p,
 .about-body p,

@@ -13,6 +13,7 @@ interface Props {
   paramKey?: string;
   buttonClass?: string;
   listId?: string;
+  maxVisible?: number;
 }
 
 const {
@@ -23,7 +24,10 @@ const {
   paramKey = "tag",
   buttonClass = "tag-filter-btn",
   listId = "filter-list",
+  maxVisible,
 } = Astro.props;
+
+const hiddenCount = maxVisible && items.length > maxVisible ? items.length - maxVisible : 0;
 ---
 
 <div class="filter-controls font-mono">
@@ -40,7 +44,7 @@ const {
       [{allLabel}: {totalCount}]
     </button>
     {
-      items.map(({ id, label: itemLabel, count }) => (
+      items.map(({ id, label: itemLabel, count }, idx) => (
         <button
           type="button"
           class={buttonClass}
@@ -48,14 +52,49 @@ const {
           data-value={id}
           data-tag={id}
           data-stage={id}
+          data-extra-item={maxVisible && idx >= maxVisible ? "true" : undefined}
+          hidden={maxVisible && idx >= maxVisible ? true : undefined}
         >
           {itemLabel}
           {count !== undefined ? ` [${count}]` : ""}
         </button>
       ))
     }
+    {
+      hiddenCount > 0 && (
+        <button
+          type="button"
+          class={`${buttonClass} filter-more-btn`}
+          data-expand-list={listId}
+          data-hidden-count={hiddenCount}
+        >
+          +{hiddenCount} tags
+        </button>
+      )
+    }
   </div>
 </div>
+
+<script>
+  function initFilterMore() {
+    document.querySelectorAll<HTMLButtonElement>(".filter-more-btn").forEach((btn) => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = "true";
+      btn.addEventListener("click", () => {
+        const listId = btn.dataset.expandList;
+        const container = listId ? document.getElementById(listId) : btn.parentElement;
+        if (!container) return;
+        const expanded = btn.dataset.expanded === "true";
+        container.querySelectorAll<HTMLElement>("[data-extra-item='true']").forEach((el) => {
+          el.hidden = expanded;
+        });
+        btn.dataset.expanded = expanded ? "false" : "true";
+        btn.textContent = expanded ? `+${btn.dataset.hiddenCount} tags` : "mostrar menos";
+      });
+    });
+  }
+  document.addEventListener("astro:page-load", initFilterMore);
+</script>
 
 <style>
   .filter-controls {

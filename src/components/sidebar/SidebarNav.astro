@@ -57,13 +57,20 @@ const { currentPath } = Astro.props;
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.4rem 0.5rem;
+    min-height: 40px;
+    padding: 0.45rem 0.6rem;
     font-size: 0.82rem;
     color: var(--text-muted);
     border: 1px solid transparent;
+    border-left: 2px solid transparent;
     transition:
-      background-color 80ms ease,
-      color 80ms ease;
+      background-color 120ms ease-out,
+      color 120ms ease-out,
+      transform 120ms ease-out;
+  }
+
+  .nav-link:active {
+    transform: scale(0.98);
   }
 
   .nav-index {
@@ -87,9 +94,11 @@ const { currentPath } = Astro.props;
     color: var(--text);
   }
 
-  .nav-link.is-active {
-    background-color: var(--bg);
+  .nav-link.is-active,
+  .nav-link[aria-current="page"] {
+    background-color: var(--surface-active, var(--bg));
     border-color: var(--border);
+    border-left: 2px solid var(--tc-amber, var(--text));
     color: var(--text);
     font-weight: 600;
   }

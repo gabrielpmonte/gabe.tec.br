@@ -30,7 +30,7 @@ const { note } = Astro.props;
   {note.data.description && <p class="garden-desc">{note.data.description}</p>}
   <div class="garden-tags font-mono">
     {
-      note.data.tags.slice(0, 3).map((t) => (
+      note.data.tags.slice(0, 2).map((t) => (
         <a
           href={`/notes?tag=${encodeURIComponent(t)}`}
           class="tag-mono"
