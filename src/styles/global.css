@@ -31,6 +31,7 @@
   --tc-amber: #b45309;
   --tc-emerald: #047857;
   --tc-blue: #1d4ed8;
+  --accent: var(--tc-amber);
 
   /* Layout */
   --max-width: 1280px;

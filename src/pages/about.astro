@@ -5,270 +5,318 @@ import { SITE } from "../site.config";
 
 <BaseLayout
   title={`Sobre // ${SITE.author}`}
-  description={`Síntese profissional, princípios de engenharia de software e arquiteturas de sistemas de ${SITE.author} (${SITE.domain}).`}
+  description={`Trajetória técnica, ambiente operacional (/uses), homelab e projetos open source de ${SITE.author} (${SITE.domain}).`}
 >
   <div class="about-container">
     <header class="about-header hairline-box">
+      <div class="header-eyebrow font-mono">
+        <span class="accent-dot" aria-hidden="true"></span>
+        <span>PERFIL // {SITE.domain.toUpperCase()}</span>
+      </div>
       <h1 class="about-name">{SITE.author}</h1>
       <div class="about-spec font-mono">
         <span>{SITE.title.toUpperCase()}</span>
-        <span class="sep">•</span>
+        <span class="sep" aria-hidden="true">/</span>
         <span>{SITE.location.formattedUpper}</span>
       </div>
     </header>
 
-    <div class="about-body">
-      <!-- Section 1: Perfil e Foco -->
-      <section class="about-card hairline-box">
-        <header class="card-header">
-          <h2 class="section-title">
-            Trajetória &amp; Foco Técnico
-          </h2>
-        </header>
+    <div class="about-grid">
+      <!-- Coluna Esquerda (1.4fr): Narrativa & Código Aberto -->
+      <div class="about-main">
+        <section class="about-card hairline-box">
+          <header class="card-header">
+            <span class="section-code font-mono">01 // TRAJETÓRIA</span>
+            <h2 class="section-title">Trajetória &amp; Foco Técnico</h2>
+          </header>
 
-        <div class="prose-stack">
-          <p class="lead-text">
-            Sou graduando em <strong>Ciência da Computação pela UERJ</strong>
-            (previsão de conclusão: 2028), com foco em desenvolvimento backend,
-            APIs e infraestrutura Linux.
+          <div class="prose-stack">
+            <p class="lead-text">
+              Graduando em <strong>Ciência da Computação pela UERJ</strong>
+              (previsão: 2028), com atuação centrada em desenvolvimento backend,
+              APIs resilientes e infraestrutura Linux.
+            </p>
+            <p class="body-text">
+              No dia a dia construo serviços com <strong>Go, Python e PostgreSQL</strong>,
+              empacoto pacotes declarativos no <strong>NixOS</strong> (<code>nixpkgs</code>)
+              e mantenho aplicações em produção no catálogo de{" "}
+              <a href="/projects" class="inline-link">projetos</a>.
+            </p>
+            <p class="body-text">
+              Na pesquisa acadêmica, integro pipelines estatísticos em R para
+              modelagem epidemiológica de Chikungunya na <strong>UFSM</strong> e
+              desenvolvo visão computacional aplicada (YOLO11-seg, SAM 2.1 e
+              Flutter) na Iniciação Científica da <strong>UERJ</strong>.
+            </p>
+            <p class="body-text">
+              Em casa opero o homelab{" "}
+              <a href="/notes/tachibana-homelab" class="inline-link">Tachibana</a>,
+              orquestrando mais de 15 serviços rootless com Podman Quadlets,
+              Caddy e observabilidade contínua. O histórico completo de formação
+              e experiências está no{" "}
+              <a href="/curriculum" class="inline-link">currículo</a>.
+            </p>
+          </div>
+        </section>
+
+        <section class="about-card hairline-box">
+          <header class="card-header">
+            <span class="section-code font-mono">02 // REPOSITÓRIOS</span>
+            <h2 class="section-title">Código Aberto</h2>
+          </header>
+
+          <div class="repo-list">
+            <article class="repo-box hairline-box">
+              <div class="repo-head font-mono">
+                <a
+                  href="https://puzzles.gabe.tec.br"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="repo-name"
+                >
+                  <span>puzzles.gabe.tec.br</span>
+                  <svg class="ext-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M7 17L17 7M7 7h10v10" />
+                  </svg>
+                </a>
+                <span class="repo-lang">SvelteKit / SQLite</span>
+              </div>
+              <p class="repo-desc">
+                Plataforma diária de desafios lógicos e problemas computacionais
+                auto-hospedada sob o domínio gabe.tec.br.
+              </p>
+            </article>
+
+            <article class="repo-box hairline-box">
+              <div class="repo-head font-mono">
+                <a
+                  href="https://github.com/uerj-prato-do-dia"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="repo-name"
+                >
+                  <span>uerj-prato-do-dia</span>
+                  <svg class="ext-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M7 17L17 7M7 7h10v10" />
+                  </svg>
+                </a>
+                <span class="repo-lang">Python / ONNX</span>
+              </div>
+              <p class="repo-desc">
+                Pipeline de visão computacional (YOLO11 + SAM 2.1 ONNX) para
+                detecção e segmentação de instâncias de alimentos em refeições.
+              </p>
+            </article>
+
+            <article class="repo-box hairline-box">
+              <div class="repo-head font-mono">
+                <a
+                  href={`${SITE.github.url}/gabe.tec.br`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="repo-name"
+                >
+                  <span>{SITE.github.handle}/gabe.tec.br</span>
+                  <svg class="ext-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <path d="M7 17L17 7M7 7h10v10" />
+                  </svg>
+                </a>
+                <span class="repo-lang">Astro / TypeScript</span>
+              </div>
+              <p class="repo-desc">
+                Código-fonte deste portal estático de engenharia com tokens
+                Cathode CSS, busca local Pagefind e zero clientes pesados.
+              </p>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <!-- Coluna Direita (1fr): Painel Lateral Vivo -->
+      <aside class="about-aside">
+        <section class="about-card hairline-box">
+          <header class="card-header">
+            <span class="section-code font-mono">/USES</span>
+            <h2 class="section-title">Ambiente &amp; Ferramentas</h2>
+          </header>
+
+          <dl class="uses-list">
+            <div class="uses-item">
+              <dt class="uses-key font-mono">Estação &amp; Sistema</dt>
+              <dd class="uses-val">
+                Dual boot Fedora Linux (GNOME / Niri WM) e Windows 11,
+                terminal-first com Alacritty, Zsh e editor Helix.
+              </dd>
+            </div>
+
+            <div class="uses-item">
+              <dt class="uses-key font-mono">Homelab (Tachibana &amp; Wired)</dt>
+              <dd class="uses-val">
+                Servidor local HP EliteDesk (i5-8500, Fedora Server)
+                orquestrando mais de 15 serviços rootless via Podman Quadlets,
+                proxy reverso Caddy, malha privada Tailscale e observabilidade
+                com Beszel e Gatus.
+              </dd>
+            </div>
+
+            <div class="uses-item">
+              <dt class="uses-key font-mono">Stack Principal</dt>
+              <dd class="uses-val">
+                Go e Python no backend, PostgreSQL e SQLite para persistência,
+                NixOS / <code>nixpkgs</code> para empacotamento declarativo e
+                Astro / SvelteKit no frontend.
+              </dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="about-card hairline-box">
+          <header class="card-header">
+            <span class="section-code font-mono">OFFLINE</span>
+            <h2 class="section-title">Fora do Código</h2>
+          </header>
+
+          <p class="aside-prose">
+            Nos fins de semana exploro trilhas no Rio de Janeiro, pratico
+            fotografia documental e mantenho rotina diária de estudos de
+            mandarim.
           </p>
-          <p class="body-text">
-            Tenho experiência prática com <strong>Go, Python, PostgreSQL</strong>
-            e orquestração de containers com <strong>Podman e Caddy</strong>, além
-            de contribuição contínua no ecossistema open source como mantenedor de
-            pacotes no <strong>NixOS</strong> (<code>nixpkgs</code>).
-          </p>
-          <p class="body-text">
-            Na pesquisa acadêmica, atuo como pesquisador voluntário na <strong>UFSM</strong>
-            com pipelines estatísticos em R para modelagem epidemiológica de Chikungunya,
-            e como pesquisador de Iniciação Científica na <strong>UERJ</strong> no
-            projeto <strong>Prato do Dia</strong> (segmentação de instâncias com
-            YOLO11-seg, OpenCV e aplicativo Flutter).
-          </p>
-          <p class="body-text">
-            No servidor Tachibana (Fedora Linux), administro mais de 15 serviços
-            auto-hospedados em rede privada utilizando Podman Quadlets (daemonless),
-            proxy reverso Caddy e observabilidade com Beszel, Gatus e ntfy.
-          </p>
-        </div>
-      </section>
+        </section>
 
-      <!-- Section 2: Princípios Operacionais -->
-      <section class="about-card hairline-box">
-        <header class="card-header">
-          <h2 class="section-title">Princípios de Engenharia</h2>
-        </header>
+        <section class="about-card contact-card hairline-box">
+          <header class="card-header">
+            <span class="section-code font-mono">CONTATO</span>
+            <h2 class="section-title">Contato</h2>
+          </header>
 
-        <div class="principles-grid">
-          <article class="principle-item">
-            <div class="principle-head">
-              <h3 class="principle-title">Determinismo Acima de Heurística</h3>
-            </div>
-            <p class="principle-desc">
-              Sistemas e algoritmos devem ter comportamento reprodutível e
-              verificável. Entender o fluxo de dados em nível de memória e
-              processamento evita falhas sutis.
-            </p>
-          </article>
-
-          <article class="principle-item">
-            <div class="principle-head">
-              <h3 class="principle-title">Simpatia Mecânica</h3>
-            </div>
-            <p class="principle-desc">
-              O código não opera no vácuo abstrato. Conhecer a hierarquia de
-              memória, custos de alocação e latência de I/O é essencial para
-              desenvolver aplicações eficientes.
-            </p>
-          </article>
-
-          <article class="principle-item">
-            <div class="principle-head">
-              <h3 class="principle-title">Densidade de Dados e Minimalismo</h3>
-            </div>
-            <p class="principle-desc">
-              Interfaces e ferramentas técnicas devem priorizar clareza
-              tipográfica, ausência de dependências inchadas e foco absoluto na
-              informação relevante.
-            </p>
-          </article>
-
-          <article class="principle-item">
-            <div class="principle-head">
-              <h3 class="principle-title">Reprodutibilidade &amp; Código Aberto</h3>
-            </div>
-            <p class="principle-desc">
-              Sistemas declarativos (como NixOS) e padrões abertos garantem que
-              projetos continuem auditáveis, fáceis de implantar e sustentáveis
-              a longo prazo.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <!-- Section 3: Ecossistema GitHub e Repositórios -->
-      <section class="about-card hairline-box">
-        <header class="card-header">
-          <h2 class="section-title">Código Aberto &amp; Demonstrações</h2>
-        </header>
-
-        <p class="section-intro">
-          Projetos selecionados e código-fonte disponíveis para auditoria
-          técnica:
-        </p>
-
-        <div class="repo-grid">
-          <div class="repo-box hairline-box">
-            <div class="repo-head font-mono">
-              <a
-                href="https://puzzles.gabe.tec.br"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="repo-name"
-              >
-                puzzles.gabe.tec.br
+          <div class="contact-list font-mono">
+            <div class="contact-email-row">
+              <a href={`mailto:${SITE.email}`} class="contact-link contact-primary">
+                <span class="contact-label">E-MAIL</span>
+                <span class="contact-handle">{SITE.email}</span>
               </a>
-              <span class="repo-lang">Live Demo</span>
-            </div>
-            <p class="repo-desc">
-              Plataforma interativa de puzzles lógicos e problemas
-              computacionais auto-hospedada em infraestrutura própria sob o
-              domínio gabe.tec.br.
-            </p>
-          </div>
-
-          <div class="repo-box hairline-box">
-            <div class="repo-head font-mono">
-              <a
-                href="https://github.com/uerj-prato-do-dia"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="repo-name"
+              <button
+                type="button"
+                class="copy-btn font-mono"
+                data-copy-email={SITE.email}
+                aria-label="Copiar endereço de e-mail"
               >
-                uerj-prato-do-dia
-              </a>
-              <span class="repo-lang">Python / ML / ONNX</span>
+                <svg class="icon-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" />
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+                <svg class="icon-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span class="copy-text">Copiar</span>
+              </button>
             </div>
-            <p class="repo-desc">
-              Pipeline de visão computacional (YOLO11 + SAM 2.1 ONNX) para
-              detecção e segmentação de instâncias de alimentos em fotos de refeições.
-            </p>
-          </div>
 
-          <div class="repo-box hairline-box">
-            <div class="repo-head font-mono">
-              <a
-                href={`${SITE.github.url}/scopio`}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="repo-name"
-              >
-                {SITE.github.handle}/scopio
-              </a>
-              <span class="repo-lang">Python / PyPI</span>
-            </div>
-            <p class="repo-desc">
-              Auditor de métricas de software (CCN, NLOC) com histórico SQLite e
-              quality gates para CI/CD. Pacote publicado no PyPI.
-            </p>
-          </div>
-
-          <div class="repo-box hairline-box">
-            <div class="repo-head font-mono">
-              <a
-                href={`${SITE.github.url}/gabe.tec.br`}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="repo-name"
-              >
-                {SITE.github.handle}/gabe.tec.br
-              </a>
-              <span class="repo-lang">Astro / TypeScript</span>
-            </div>
-            <p class="repo-desc">
-              Código-fonte deste portal estático de engenharia com tipografia
-              editorial acromática, SEO rigoroso e zero clientes pesados.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 4: Comunicação Direta -->
-      <section class="about-card hairline-box">
-        <header class="card-header">
-          <h2 class="section-title">Comunicação Direta</h2>
-        </header>
-
-        <p class="section-intro">
-          Prefiro canais de texto assíncronos e objetivos para discussões de
-          engenharia, arquitetura e colaborações técnicas:
-        </p>
-
-        <div class="contact-channels font-mono">
-          <div class="contact-row">
-            <span class="contact-key">EMAIL</span>
-            <a href={`mailto:${SITE.email}`} class="contact-val">{SITE.email}</a
-            >
-          </div>
-          <div class="contact-row">
-            <span class="contact-key">PGP KEY</span>
-            <span class="contact-val"
-              ><code>{SITE.pgpKey}</code>
-              <span class="contact-hint font-sans"
-                >(Disponível sob requisição)</span
-              ></span
-            >
-          </div>
-          <div class="contact-row">
-            <span class="contact-key">GITHUB</span>
             <a
               href={SITE.github.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="contact-val">github.com/{SITE.github.handle}</a
+              class="contact-link"
             >
-          </div>
-          <div class="contact-row">
-            <span class="contact-key">LINKEDIN</span>
+              <span class="contact-label">GITHUB</span>
+              <span class="contact-handle">github.com/{SITE.github.handle}</span>
+              <svg class="ext-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M7 17L17 7M7 7h10v10" />
+              </svg>
+            </a>
+
             <a
               href={SITE.linkedin.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="contact-val">linkedin.com/in/{SITE.linkedin.handle}</a
+              class="contact-link"
             >
+              <span class="contact-label">LINKEDIN</span>
+              <span class="contact-handle">linkedin.com/in/{SITE.linkedin.handle}</span>
+              <svg class="ext-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M7 17L17 7M7 7h10v10" />
+              </svg>
+            </a>
           </div>
-        </div>
-      </section>
+        </section>
+      </aside>
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  function initCopyButtons() {
+    const buttons = document.querySelectorAll<HTMLButtonElement>("[data-copy-email]");
+
+    buttons.forEach((btn) => {
+      if (btn.dataset.bound === "true") return;
+      btn.dataset.bound = "true";
+
+      let resetTimer: number | undefined;
+
+      btn.addEventListener("click", () => {
+        const email = btn.dataset.copyEmail;
+        if (!email) return;
+
+        // Optimistic UI: feedback imediato sem aguardar promessa do clipboard
+        btn.dataset.copied = "true";
+        const label = btn.querySelector(".copy-text");
+        if (label) label.textContent = "Copiado";
+
+        if (resetTimer) window.clearTimeout(resetTimer);
+        resetTimer = window.setTimeout(() => {
+          delete btn.dataset.copied;
+          if (label) label.textContent = "Copiar";
+        }, 1500);
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).catch(() => {});
+        }
+      });
+    });
+  }
+
+  initCopyButtons();
+  document.addEventListener("astro:page-load", initCopyButtons);
+</script>
 
 <style>
   .about-container {
     display: flex;
     flex-direction: column;
-    gap: 2.25rem;
+    gap: 1.5rem;
   }
 
   .about-header {
-    padding: 2.25rem 2.5rem;
+    padding: 1.85rem 2.25rem;
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
+    gap: 0.65rem;
     background-color: var(--surface);
+    border-left: 3px solid var(--accent);
   }
 
-  .header-path {
-    font-size: 0.75rem;
+  .header-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.72rem;
     color: var(--text-dim);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
+  }
+
+  .accent-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent);
+    flex-shrink: 0;
   }
 
   .about-name {
     font-size: 2rem;
     font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
     color: var(--text);
     margin: 0;
   }
@@ -277,84 +325,85 @@ import { SITE } from "../site.config";
     font-size: 0.78rem;
     color: var(--text-dim);
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.55rem;
     letter-spacing: 0.04em;
   }
 
   .about-spec .sep {
-    opacity: 0.5;
+    color: var(--accent);
+    opacity: 0.85;
   }
 
-  .about-body {
+  /* Asymmetric 1.4fr / 1fr Grid */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .about-main,
+  .about-aside {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
+    min-width: 0;
   }
 
   .about-card {
-    padding: 2.25rem 2.5rem;
+    padding: 1.75rem 2rem;
     display: flex;
     flex-direction: column;
-    gap: 1.75rem;
+    gap: 1.35rem;
     background-color: var(--surface);
   }
 
   .card-header {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
-    margin-bottom: 0.25rem;
+    gap: 0.25rem;
+    padding-bottom: 0.85rem;
+    border-bottom: var(--hairline);
   }
 
-  .section-badge {
-    font-size: 0.75rem;
-    color: var(--text-dim);
+  .section-code {
+    font-size: 0.7rem;
+    color: var(--accent);
     letter-spacing: 0.08em;
+    font-weight: 600;
   }
 
   .section-title {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     font-weight: 600;
     color: var(--text);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
     margin: 0;
+    padding: 0;
+    border: none;
   }
 
+  /* Left Column: Narrative */
   .prose-stack {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-  }
-
-  .about-hire-box {
-    font-size: 0.78rem;
-    padding: 0.6rem 0.85rem;
-    background-color: var(--bg);
-    border: 1px dashed var(--border);
-    color: var(--text);
-    letter-spacing: 0.04em;
-    line-height: 1.4;
+    gap: 1.05rem;
   }
 
   .lead-text {
-    font-size: 1.05rem;
-    line-height: 1.7;
+    font-size: 1.02rem;
+    line-height: 1.68;
     color: var(--text);
     font-weight: 450;
     margin: 0;
   }
 
-  .body-text {
-    font-size: 0.95rem;
-    line-height: 1.68;
-    color: var(--text-muted);
-    margin: 0;
-  }
-
-  .section-intro {
-    font-size: 0.95rem;
-    line-height: 1.6;
+  .body-text,
+  .aside-prose {
+    font-size: 0.92rem;
+    line-height: 1.65;
     color: var(--text-muted);
     margin: 0;
   }
@@ -362,81 +411,47 @@ import { SITE } from "../site.config";
   .inline-link {
     color: var(--text);
     text-decoration: underline;
+    text-decoration-color: var(--accent);
     text-underline-offset: 3px;
+    transition: color 0.12s ease;
   }
 
-  .principles-grid {
+  .inline-link:hover {
+    color: var(--accent);
+  }
+
+  /* Left Column: Open Source (3 cards) */
+  .repo-list {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .principle-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.45rem;
-    padding-left: 1rem;
-    border-left: 2px solid var(--border-strong);
-    transition: border-color 0.15s ease;
-  }
-
-  .principle-item:hover {
-    border-left-color: var(--text);
-  }
-
-  .principle-head {
-    display: flex;
-    align-items: baseline;
-    gap: 0.6rem;
-  }
-
-  .principle-num {
-    font-size: 0.82rem;
-    color: var(--text-dim);
-    font-weight: 600;
-  }
-
-  .principle-title {
-    font-size: 1.02rem;
-    font-weight: 600;
-    color: var(--text);
-    margin: 0;
-  }
-
-  .principle-desc {
-    font-size: 0.92rem;
-    line-height: 1.65;
-    color: var(--text-muted);
-    margin: 0;
-  }
-
-  .repo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1rem;
+    gap: 0.85rem;
   }
 
   .repo-box {
-    padding: 1.25rem 1.4rem;
+    padding: 1.1rem 1.25rem;
     background-color: var(--bg);
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.5rem;
     transition: border-color 0.15s ease;
   }
 
   .repo-box:hover {
-    border-color: var(--border-strong);
+    border-color: var(--accent);
   }
 
   .repo-head {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    gap: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
   .repo-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     font-weight: 600;
     font-size: 0.88rem;
     color: var(--text);
@@ -444,8 +459,19 @@ import { SITE } from "../site.config";
   }
 
   .repo-name:hover {
-    text-decoration: underline;
-    text-underline-offset: 2px;
+    color: var(--accent);
+  }
+
+  .ext-icon {
+    opacity: 0.55;
+    flex-shrink: 0;
+    transition: transform 0.12s ease, opacity 0.12s ease;
+  }
+
+  .repo-name:hover .ext-icon,
+  .contact-link:hover .ext-icon {
+    opacity: 1;
+    transform: translate(1px, -1px);
   }
 
   .repo-lang {
@@ -461,63 +487,162 @@ import { SITE } from "../site.config";
     margin: 0;
   }
 
-  .contact-channels {
+  /* Right Column: /uses */
+  .uses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    margin: 0;
+  }
+
+  .uses-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-left: 0.85rem;
+    border-left: 2px solid var(--border-strong);
+    transition: border-color 0.15s ease;
+  }
+
+  .uses-item:hover {
+    border-left-color: var(--accent);
+  }
+
+  .uses-key {
+    font-size: 0.76rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+
+  .uses-val {
+    margin: 0;
+    font-size: 0.86rem;
+    line-height: 1.58;
+    color: var(--text-muted);
+  }
+
+  /* Right Column: Compact Contact */
+  .contact-card {
+    border-top: 2px solid var(--accent);
+  }
+
+  .contact-list {
     display: flex;
     flex-direction: column;
     border-top: var(--hairline);
   }
 
-  .contact-row {
+  .contact-email-row {
     display: flex;
-    align-items: baseline;
-    padding: 0.9rem 0;
+    align-items: stretch;
     border-bottom: var(--hairline);
-    font-size: 0.88rem;
-    gap: 1.5rem;
+    gap: 0.5rem;
   }
 
-  .contact-key {
-    width: 90px;
-    flex-shrink: 0;
-    color: var(--text-dim);
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
+  .contact-email-row .contact-link {
+    flex: 1;
+    min-width: 0;
+    border-bottom: none;
   }
 
-  .contact-val {
-    color: var(--text);
+  .contact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: var(--hairline);
     text-decoration: none;
-    word-break: break-all;
-  }
-
-  .contact-val a {
     color: var(--text);
-  }
-
-  .contact-val:hover {
-    text-decoration: underline;
-    text-underline-offset: 2px;
-  }
-
-  .contact-hint {
-    color: var(--text-dim);
     font-size: 0.8rem;
-    margin-left: 0.5rem;
+    transition: color 0.12s ease;
+  }
+
+  .contact-link:hover {
+    color: var(--accent);
+  }
+
+  .contact-primary {
+    justify-content: flex-start;
+  }
+
+  .contact-label {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+    width: 64px;
+  }
+
+  .contact-handle {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    flex: 1;
+  }
+
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    align-self: center;
+    padding: 0.35rem 0.65rem;
+    background-color: var(--bg);
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    font-size: 0.72rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: border-color 0.12s ease, color 0.12s ease, background-color 0.12s ease;
+  }
+
+  .copy-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .copy-btn .icon-check {
+    display: none;
+  }
+
+  .copy-btn[data-copied="true"] {
+    border-color: var(--tc-emerald);
+    color: var(--tc-emerald);
+    background-color: var(--surface-active);
+  }
+
+  .copy-btn[data-copied="true"] .icon-copy {
+    display: none;
+  }
+
+  .copy-btn[data-copied="true"] .icon-check {
+    display: inline-block;
+  }
+
+  @media (max-width: 840px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 640px) {
     .about-header,
     .about-card {
-      padding: 1.5rem 1.25rem;
+      padding: 1.35rem 1.25rem;
     }
 
     .about-name {
-      font-size: 1.6rem;
+      font-size: 1.65rem;
     }
 
-    .contact-row {
-      flex-direction: column;
-      gap: 0.35rem;
+    .contact-email-row {
+      flex-wrap: wrap;
+      padding-bottom: 0.65rem;
+    }
+
+    .copy-btn {
+      margin-left: 64px;
     }
   }
 </style>
