@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Desafio PokéStats // Gen 1</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #ffffff;
+        --surface: #f8f8f9;
+        --border: #e4e4e7;
+        --text: #09090b;
+        --text-muted: #3f3f46;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: oklch(13% 0.008 250);
+          --surface: oklch(16.5% 0.008 250);
+          --border: color-mix(in oklch, oklch(93% 0.005 90) 12%, transparent);
+          --text: oklch(93% 0.005 90);
+          --text-muted: oklch(80% 0.012 245);
+        }
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      body {
+        margin: 0;
+        padding: 12px 16px;
+        min-height: 100dvh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Geist Sans", system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.45;
+      }
+      main {
+        width: 100%;
+        max-width: 880px;
+      }
+      pokestats-draft {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <pokestats-draft data-src="./gen1_pokemon.json"></pokestats-draft>
+    </main>
+
+    <script type="module" src="./pokestats-draft.js"></script>
+  </body>
+</html>
