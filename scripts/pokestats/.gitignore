@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+*.pyc
+complete_pokedex.json
+scale_results.json
