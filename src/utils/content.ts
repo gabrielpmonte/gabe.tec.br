@@ -11,7 +11,7 @@ export type FieldNoteEntry = CollectionEntry<"field_notes">;
 export async function getPublishedWritings(): Promise<WritingPost[]> {
   const posts = await getCollection("writing");
   return posts
-    .filter((entry) => !entry.data.draft)
+    .filter((entry) => import.meta.env.DEV || !entry.data.draft)
     .sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
 }
 
