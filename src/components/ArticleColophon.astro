@@ -1,6 +1,4 @@
 ---
-import { SITE } from "../site.config";
-
 interface Props {
   backHref?: string;
   backLabel?: string;
@@ -15,14 +13,6 @@ const {
 ---
 
 <footer class="article-colophon hairline-box">
-  <div class="colophon-meta font-mono">
-    <div>// ESPECIFICAÇÃO DE ENGENHARIA</div>
-    <div>
-      AUTOR: {SITE.author.toUpperCase()} ({SITE.domain.toUpperCase()})
-    </div>
-    <div>COMPILADOR: ASTRO SSG + SHIKI + REHYPE-KATEX</div>
-    <div>STATUS: DETERMINÍSTICO // ZERO-DEPENDENCY CLIENT</div>
-  </div>
   <div class="colophon-actions font-mono">
     <a href={backHref} class="colophon-btn font-mono no-underline">
       &larr; {backLabel}
@@ -41,21 +31,10 @@ const {
     gap: 1.25rem;
   }
 
-  .colophon-meta {
-    font-size: 0.72rem;
-    color: var(--text-dim);
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-  }
-
   .colophon-actions {
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-    padding-top: 1rem;
-    border-top: var(--hairline);
   }
 
   .colophon-btn {

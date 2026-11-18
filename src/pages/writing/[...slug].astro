@@ -63,7 +63,6 @@ const { Content, headings } = await render(post);
             </>
           )
         }
-        <span class="meta-badge">[PEER_REVIEWED]</span>
       </div>
 
       <h1 class="article-title">{post.data.title}</h1>
@@ -133,11 +132,6 @@ const { Content, headings } = await render(post);
 
   .meta-val {
     color: var(--text);
-  }
-
-  .meta-badge {
-    margin-left: auto;
-    color: var(--text-dim);
   }
 
   .article-title {
