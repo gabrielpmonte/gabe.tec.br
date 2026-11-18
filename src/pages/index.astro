@@ -11,7 +11,9 @@ import {
 import { SITE } from "../site.config";
 import { PROJECTS } from "../data/projects";
 
-const allWritings = await getPublishedWritings();
+const allWritings = (await getPublishedWritings()).filter(
+  (post) => post.data.lang === "pt",
+);
 const allNotes = await getSortedNotes();
 const allFieldNotes = await getSortedFieldNotes();
 

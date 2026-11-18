@@ -14,13 +14,15 @@ interface Props {
   updatedDate?: Date;
   tags?: string[];
   canonicalUrl?: string;
+  lang?: "pt" | "en";
+  alternates?: Array<{ lang: string; href: string }>;
 }
 
 const props = Astro.props;
 ---
 
 <!doctype html>
-<html lang={SITE.locale}>
+<html lang={props.lang === "en" ? "en" : SITE.locale}>
   <head>
     <SEOHead {...props} />
 

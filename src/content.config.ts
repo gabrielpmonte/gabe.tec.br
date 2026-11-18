@@ -11,6 +11,8 @@ export const writing = defineCollection({
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
+    lang: z.enum(['pt', 'en']).default('pt'),
+    translationKey: z.string().optional(),
     canonicalUrl: z.url().optional(),
     readingTime: z.number().optional(),
     series: z

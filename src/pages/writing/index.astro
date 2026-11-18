@@ -9,6 +9,12 @@ import { SITE } from "../../site.config";
 
 const allPosts = await getPublishedWritings();
 const tagItems = getTagCounts(allPosts);
+const ptCount = allPosts.filter((p) => p.data.lang === "pt").length;
+const enCount = allPosts.filter((p) => p.data.lang === "en").length;
+const langItems = [
+  { id: "pt", label: "PT-BR", count: ptCount },
+  { id: "en", label: "EN", count: enCount },
+];
 ---
 
 <BaseLayout
@@ -27,8 +33,18 @@ const tagItems = getTagCounts(allPosts);
       </p>
 
       <FilterBar
-        label="FILTRAR POR TAG:"
+        label="IDIOMA:"
         allLabel="TODOS"
+        totalCount={allPosts.length}
+        items={langItems}
+        paramKey="lang"
+        buttonClass="lang-filter-btn"
+        listId="lang-filter-list"
+      />
+
+      <FilterBar
+        label="FILTRAR POR TAG:"
+        allLabel="TODAS"
         totalCount={allPosts.length}
         items={tagItems}
         paramKey="tag"
@@ -160,8 +176,8 @@ const tagItems = getTagCounts(allPosts);
 
   setupFilterManager({
     rootSelector: ".archive-container",
-    topButtonSelector: ".tag-filter-btn",
-    buttonValueAttr: "data-tag",
+    topButtonSelector: ".lang-filter-btn, .tag-filter-btn",
+    buttonValueAttr: "data-value",
     buttonParamKeyAttr: "data-param",
     defaultParamKey: "tag",
     inlineButtonSelector: ".tag-inline-btn",
@@ -169,17 +185,32 @@ const tagItems = getTagCounts(allPosts);
     inlineButtonParamKey: "tag",
     itemSelector: ".article-row",
     itemMatcher: (item, filters) => {
+      const activeLang = filters.lang;
       const activeTag = filters.tag;
-      if (!activeTag || activeTag === "all") return true;
-      const rowTags = (item.getAttribute("data-tags") || "")
-        .split(",")
-        .map((s) => s.trim());
-      return rowTags.includes(activeTag);
+      if (activeLang && activeLang !== "all") {
+        if (item.getAttribute("data-lang") !== activeLang) return false;
+      }
+      if (activeTag && activeTag !== "all") {
+        const rowTags = (item.getAttribute("data-tags") || "")
+          .split(",")
+          .map((s) => s.trim());
+        if (!rowTags.includes(activeTag)) return false;
+      }
+      return true;
     },
     bannerId: "filter-status-banner",
     bannerCountId: "filter-count",
     bannerLabelId: "filter-tag-name",
-    formatBannerLabel: (filters) => `#${filters.tag}`,
+    formatBannerLabel: (filters) => {
+      const parts: string[] = [];
+      if (filters.lang && filters.lang !== "all") {
+        parts.push(filters.lang === "en" ? "EN" : "PT-BR");
+      }
+      if (filters.tag && filters.tag !== "all") {
+        parts.push(`#${filters.tag}`);
+      }
+      return parts.join(" + ");
+    },
     clearBtnId: "clear-filter-btn",
     emptyStateId: "filter-empty-state",
     listContainerId: "articles-table-wrapper",

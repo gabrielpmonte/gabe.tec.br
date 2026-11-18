@@ -4,7 +4,9 @@ import { getPublishedWritings } from '../utils/content';
 import { SITE } from '../site.config';
 
 export const GET: APIRoute = async (context) => {
-  const writingPosts = await getPublishedWritings();
+  const writingPosts = (await getPublishedWritings()).filter(
+    (post) => post.data.lang === 'pt',
+  );
 
   return rss({
     title: `${SITE.author} — Ensaios Técnicos & Sistemas`,

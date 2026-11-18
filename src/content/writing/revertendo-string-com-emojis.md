@@ -3,6 +3,8 @@ title: "Revertendo string com emojis"
 description: "Por que String.prototype.split('') falha com emojis compostos e grafemas complexos em JavaScript, e como resolver de forma precisa com Intl.Segmenter."
 publishDate: 2021-11-26
 tags: ["javascript", "unicode"]
+lang: "pt"
+translationKey: "revertendo-string-com-emojis"
 ---
 
 Quando queremos separar uma string letra por letra ou até mesmo reverter um texto utilizamos o método [`split()`](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/split), porém, existem diversos problemas em se utilizar este método. A própria documentação faz um breve comentário sobre [reverter uma String usando `split("")`](https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/String/split#revertendo_uma_string_usando_split) não ser a melhor opção.

@@ -27,27 +27,51 @@ const { wordCount, readingMinutes } = getContentMetrics(post);
 const effectiveUpdatedDate = getEffectiveUpdatedDate(post);
 const historyUrl = getHistoryUrl(post);
 const seriesContext = getSeriesContext(post, allPosts);
+
+const isEn = post.data.lang === "en";
+const alternatePost = post.data.translationKey
+  ? allPosts.find(
+      (p) =>
+        p.data.translationKey === post.data.translationKey &&
+        p.data.lang !== post.data.lang,
+    )
+  : undefined;
+
+const alternates = alternatePost
+  ? [
+      {
+        lang: post.data.lang === "en" ? "en" : "pt-BR",
+        href: `/writing/${post.id}`,
+      },
+      {
+        lang: alternatePost.data.lang === "en" ? "en" : "pt-BR",
+        href: `/writing/${alternatePost.id}`,
+      },
+    ]
+  : [];
 ---
 
 <BaseLayout
-  title={`${post.data.title} — Artigo Técnico`}
+  title={`${post.data.title} — ${isEn ? "Technical Article" : "Artigo Técnico"}`}
   description={post.data.description}
   type="article"
   publishDate={post.data.publishDate}
   updatedDate={effectiveUpdatedDate ?? undefined}
   tags={post.data.tags}
+  lang={post.data.lang}
+  alternates={alternates}
 >
   <article class="article-container">
     <Breadcrumb
       backHref="/writing"
-      backLabel="VOLTAR AO ÍNDICE DE ARTIGOS"
+      backLabel={isEn ? "BACK TO WRITING INDEX" : "VOLTAR AO ÍNDICE DE ARTIGOS"}
       currentSlug={post.id}
     />
 
     <!-- Header Section -->
     <header class="article-header hairline-box">
       <div class="meta-line font-mono">
-        <span class="meta-label">DATA:</span>
+        <span class="meta-label">{isEn ? "DATE:" : "DATA:"}</span>
         <time datetime={post.data.publishDate.toISOString()} class="meta-val">
           {formatISODate(post.data.publishDate)}
         </time>
@@ -66,21 +90,42 @@ const seriesContext = getSeriesContext(post, allPosts);
           )
         }
         <span class="meta-sep">•</span>
-        <span class="meta-val">{readingMinutes} MIN LEITURA</span>
+        <span class="meta-val">
+          {readingMinutes} {isEn ? "MIN READ" : "MIN LEITURA"}
+        </span>
         <span class="meta-sep">•</span>
-        <span class="meta-val">{wordCount} PALAVRAS</span>
+        <span class="meta-val">
+          {wordCount} {isEn ? "WORDS" : "PALAVRAS"}
+        </span>
         {
-          (historyUrl || post.data.repoUrl) && (
+          (historyUrl || post.data.repoUrl || alternatePost) && (
             <span class="meta-links">
+              {alternatePost && (
+                <a
+                  href={`/writing/${alternatePost.id}`}
+                  class="meta-link"
+                  title={
+                    alternatePost.data.lang === "en"
+                      ? "Read in English"
+                      : "Ler em Português"
+                  }
+                >
+                  {alternatePost.data.lang === "en" ? "EN" : "PT"}
+                </a>
+              )}
               {historyUrl && (
                 <a
                   href={historyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   class="meta-link"
-                  title="Ver histórico de revisões no GitHub"
+                  title={
+                    isEn
+                      ? "View revision history on GitHub"
+                      : "Ver histórico de revisões no GitHub"
+                  }
                 >
-                  HISTÓRICO
+                  {isEn ? "HISTORY" : "HISTÓRICO"}
                 </a>
               )}
               {post.data.repoUrl && (
@@ -89,9 +134,13 @@ const seriesContext = getSeriesContext(post, allPosts);
                   target="_blank"
                   rel="noopener noreferrer"
                   class="meta-link"
-                  title="Ver código-fonte do projeto"
+                  title={
+                    isEn
+                      ? "View source repository"
+                      : "Ver código-fonte do projeto"
+                  }
                 >
-                  CÓDIGO
+                  {isEn ? "CODE" : "CÓDIGO"}
                 </a>
               )}
             </span>
@@ -195,7 +244,11 @@ const seriesContext = getSeriesContext(post, allPosts);
         }
 
         <!-- Footer Colophon -->
-        <ArticleColophon backHref="/writing" backLabel="Voltar para /writing" />
+        <ArticleColophon
+          backHref="/writing"
+          backLabel={isEn ? "Back to /writing" : "Voltar para /writing"}
+          topLabel={isEn ? "Top of Page" : "Topo da Página"}
+        />
       </div>
     </div>
   </article>

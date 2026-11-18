@@ -20,11 +20,15 @@ const MODES = {
     winCheck: (sum) => sum >= 720,
     isBetter: (a, b) => a > b,
     isGoodDelta: (delta) => delta >= 0,
-    hintLabel: "Meta: 120/slot",
-    formatVerdict: (sum) =>
-      sum >= 720
-        ? `Vitória (+${sum - 720} pts de folga)`
-        : `Derrota — faltaram ${720 - sum} pts para a meta.`,
+    hintLabel: { pt: "Meta: 120/slot", en: "Target: 120/stat" },
+    formatVerdict: (sum, lang) =>
+      lang === "en"
+        ? sum >= 720
+          ? `Win (+${sum - 720} pts margin)`
+          : `Loss (${720 - sum} pts short)`
+        : sum >= 720
+          ? `Vitória (+${sum - 720} pts de folga)`
+          : `Derrota — faltaram ${720 - sum} pts para a meta.`,
   },
   magikarp: {
     id: "magikarp",
@@ -33,11 +37,54 @@ const MODES = {
     winCheck: (sum) => sum <= 200,
     isBetter: (a, b) => a < b,
     isGoodDelta: (delta) => delta <= 0,
-    hintLabel: "Meta: 33/slot",
-    formatVerdict: (sum) =>
-      sum <= 200
-        ? `Vitória (${200 - sum} pts abaixo da meta)`
-        : `Derrota — passou ${sum - 200} pts da meta.`,
+    hintLabel: { pt: "Meta: 33/slot", en: "Target: 33/stat" },
+    formatVerdict: (sum, lang) =>
+      lang === "en"
+        ? sum <= 200
+          ? `Win (${200 - sum} pts below target)`
+          : `Loss (${sum - 200} pts over target)`
+        : sum <= 200
+          ? `Vitória (${200 - sum} pts abaixo da meta)`
+          : `Derrota — passou ${sum - 200} pts da meta.`,
+  },
+};
+
+const I18N = {
+  pt: {
+    loading: "Carregando Pokédex Gen 1...",
+    loadError: (msg) => `Não foi possível carregar os dados (${msg}).`,
+    title: "Desafio PokéStats // Gen 1",
+    subtitle: "1 atributo por rodada. Escolhas definitivas.",
+    hintsToggle: "Dicas visuais",
+    lockTitle: "Slot travado",
+    lockCue: "TRAVAR",
+    idealBadge: "IDEAL",
+    finished: "Finalizado",
+    round: (r) => `Rodada ${r}/6`,
+    lockedSum: (sum, total, hint) => `Soma travada: <strong>${sum}</strong> / ${total} pts ${hint}`,
+    progressAria: "Progresso das 6 rodadas",
+    playAgain: "Jogar novamente",
+    restart: "Reiniciar",
+    autoGreedy: "Auto-completar (Guloso)",
+    sessionStats: (w, g) => `Sessão: ${w} vitória(s) em ${g} partida(s)`,
+  },
+  en: {
+    loading: "Loading Gen 1 Pokédex...",
+    loadError: (msg) => `Failed to load data (${msg}).`,
+    title: "PokéStats Challenge // Gen 1",
+    subtitle: "1 stat per round. Picks are final.",
+    hintsToggle: "Visual hints",
+    lockTitle: "Locked stat",
+    lockCue: "LOCK",
+    idealBadge: "BEST",
+    finished: "Finished",
+    round: (r) => `Round ${r}/6`,
+    lockedSum: (sum, total, hint) => `Locked sum: <strong>${sum}</strong> / ${total} pts ${hint}`,
+    progressAria: "6-round progress",
+    playAgain: "Play again",
+    restart: "Restart",
+    autoGreedy: "Auto-complete (Greedy)",
+    sessionStats: (w, g) => `Session: ${w} win(s) in ${g} game(s)`,
   },
 };
 
@@ -531,6 +578,14 @@ class PokestatsDraft extends HTMLElement {
     this._onGlobalKeydown = this.handleGlobalKeydown.bind(this);
   }
 
+  get lang() {
+    return this.getAttribute("lang") === "en" ? "en" : "pt";
+  }
+
+  get t() {
+    return I18N[this.lang];
+  }
+
   async connectedCallback() {
     window.addEventListener("keydown", this._onGlobalKeydown);
     const src = this.getAttribute("data-src") || "./gen1_pokemon.json";
@@ -542,7 +597,7 @@ class PokestatsDraft extends HTMLElement {
       this.startNewGame();
     } catch (err) {
       this.loading = false;
-      this.error = `Não foi possível carregar os dados (${err.message}).`;
+      this.error = this.t.loadError(err.message);
       this.render();
     }
   }
@@ -653,8 +708,10 @@ class PokestatsDraft extends HTMLElement {
   }
 
   render() {
+    const t = this.t;
+    const lang = this.lang;
     if (this.loading) {
-      this.shadowRoot.innerHTML = `<style>${TEMPLATE_STYLES}</style><div class="widget">Carregando Pokédex Gen 1...</div>`;
+      this.shadowRoot.innerHTML = `<style>${TEMPLATE_STYLES}</style><div class="widget">${t.loading}</div>`;
       return;
     }
     if (this.error) {
@@ -696,10 +753,10 @@ class PokestatsDraft extends HTMLElement {
 
       const isIdeal = !isLocked && this.showHints && stat.key === bestSlot;
       const rightIndicator = isLocked
-        ? `<span class="lock-icon" title="Slot travado">${LOCK_ICON_SVG}</span>`
+        ? `<span class="lock-icon" title="${t.lockTitle}">${LOCK_ICON_SVG}</span>`
         : `<span class="top-right">
-             <span class="hover-cue">TRAVAR</span>
-             ${isIdeal ? `<span class="badge-ideal">IDEAL</span>` : ""}
+             <span class="hover-cue">${t.lockCue}</span>
+             ${isIdeal ? `<span class="badge-ideal">${t.idealBadge}</span>` : ""}
            </span>`;
 
       const showVal = this.showHints || isLocked;
@@ -733,16 +790,18 @@ class PokestatsDraft extends HTMLElement {
     }).join("");
 
     const leftStatus = finished
-      ? `<span class="verdict ${won ? "win" : "lose"}">Finalizado · ${mode.formatVerdict(sum)}</span>`
-      : `<span>Rodada ${this.round}/6</span>`;
+      ? `<span class="verdict ${won ? "win" : "lose"}">${t.finished} · ${mode.formatVerdict(sum, lang)}</span>`
+      : `<span>${t.round(this.round)}</span>`;
+
+    const hintText = this.showHints ? `(${mode.hintLabel[lang]})` : "";
 
     this.shadowRoot.innerHTML = `
       <style>${TEMPLATE_STYLES}</style>
       <div class="widget">
         <div class="header">
           <div class="title-block">
-            <h3>Desafio PokéStats // Gen 1</h3>
-            <p>1 atributo por rodada. Escolhas definitivas.</p>
+            <h3>${t.title}</h3>
+            <p>${t.subtitle}</p>
           </div>
           <div class="controls">
             <div class="mode-group">
@@ -751,7 +810,7 @@ class PokestatsDraft extends HTMLElement {
             </div>
             <label class="toggle-label">
               <input type="checkbox" id="hints-toggle" ${this.showHints ? "checked" : ""} />
-              Dicas visuais
+              ${t.hintsToggle}
             </label>
           </div>
         </div>
@@ -759,9 +818,9 @@ class PokestatsDraft extends HTMLElement {
         <div class="progress-section">
           <div class="status-bar">
             ${leftStatus}
-            <span>Soma travada: <strong>${sum}</strong> / ${mode.targetTotal} pts ${this.showHints ? `(${mode.hintLabel})` : ""}</span>
+            <span>${t.lockedSum(sum, mode.targetTotal, hintText)}</span>
           </div>
-          <div class="segments" aria-label="Progresso das 6 rodadas">
+          <div class="segments" aria-label="${t.progressAria}">
             ${segmentsHtml}
           </div>
         </div>
@@ -772,10 +831,10 @@ class PokestatsDraft extends HTMLElement {
 
         <div class="footer">
           <div class="actions">
-            <button class="btn ${finished ? "primary" : ""}" id="new-game-btn">${finished ? "Jogar novamente" : "Reiniciar"}</button>
-            <button class="btn" id="auto-btn" ${finished ? "disabled" : ""}>Auto-completar (Guloso)</button>
+            <button class="btn ${finished ? "primary" : ""}" id="new-game-btn">${finished ? t.playAgain : t.restart}</button>
+            <button class="btn" id="auto-btn" ${finished ? "disabled" : ""}>${t.autoGreedy}</button>
           </div>
-          <span class="session-stats">Sessão: ${this.session.wins} vitória(s) em ${this.session.games} partida(s)</span>
+          <span class="session-stats">${t.sessionStats(this.session.wins, this.session.games)}</span>
         </div>
       </div>
     `;

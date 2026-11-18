@@ -28,7 +28,11 @@ if (post.data.hasDemo) extras.push("DEMO INTERATIVA");
 if (post.data.repoUrl) extras.push("CÓDIGO-FONTE");
 ---
 
-<tr class="article-row hairline-divider" data-tags={post.data.tags.join(",")}>
+<tr
+  class="article-row hairline-divider"
+  data-lang={post.data.lang}
+  data-tags={post.data.tags.join(",")}
+>
   <td class="col-date font-mono">
     <time datetime={post.data.publishDate.toISOString()}>
       {formatISODate(post.data.publishDate)}
@@ -47,6 +51,7 @@ if (post.data.repoUrl) extras.push("CÓDIGO-FONTE");
   </td>
   <td class="col-title">
     <a href={`/writing/${post.id}`} class="post-link">
+      <span class="lang-tag font-mono">[{post.data.lang.toUpperCase()}]</span>{" "}
       {post.data.title}
     </a>
     <p class="post-desc">{post.data.description}</p>
@@ -120,6 +125,13 @@ if (post.data.repoUrl) extras.push("CÓDIGO-FONTE");
 
   .post-link:hover {
     text-decoration-color: var(--text);
+  }
+
+  .lang-tag {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-dim);
+    margin-right: 0.25rem;
   }
 
   .post-desc {

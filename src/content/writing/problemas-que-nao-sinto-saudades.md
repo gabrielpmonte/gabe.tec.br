@@ -3,6 +3,8 @@ title: "Problemas que não sinto saudades"
 description: "Reflexões sobre o caos de gerenciar pacotes, PPAs quebradas no Ubuntu e Elementary OS versus a abordagem declarativa no NixOS."
 publishDate: 2024-11-16
 tags: ["linux", "nixos", "nix"]
+lang: "pt"
+translationKey: "problemas-que-nao-sinto-saudades"
 ---
 
 ## Relembrando o Caos do `apt`

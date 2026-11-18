@@ -10,6 +10,8 @@ interface Props {
   updatedDate?: Date;
   tags?: string[];
   canonicalUrl?: string;
+  lang?: "pt" | "en";
+  alternates?: Array<{ lang: string; href: string }>;
 }
 
 const {
@@ -21,6 +23,8 @@ const {
   updatedDate,
   tags = [],
   canonicalUrl,
+  lang = "pt",
+  alternates = [],
 } = Astro.props;
 
 const canonicalURL = canonicalUrl
@@ -73,6 +77,7 @@ const schemaOrg = isArticle
       "@type": "TechArticle",
       headline: title,
       description: description,
+      inLanguage: lang === "en" ? "en" : "pt-BR",
       image: derivedOgImage,
       datePublished: publishDate?.toISOString(),
       dateModified: (updatedDate || publishDate)?.toISOString(),
@@ -104,6 +109,15 @@ const schemaOrg = isArticle
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+{
+  alternates.map((alt) => (
+    <link
+      rel="alternate"
+      hreflang={alt.lang}
+      href={new URL(alt.href, Astro.site).toString()}
+    />
+  ))
+}
 
 <!-- Primary Meta Tags -->
 <title>{fullTitle}</title>

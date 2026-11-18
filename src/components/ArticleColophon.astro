@@ -3,12 +3,14 @@ interface Props {
   backHref?: string;
   backLabel?: string;
   topAnchor?: string;
+  topLabel?: string;
 }
 
 const {
   backHref = "/writing",
   backLabel = "Voltar para /writing",
   topAnchor = "#main-content",
+  topLabel = "Topo da Página",
 } = Astro.props;
 ---
 
@@ -18,7 +20,7 @@ const {
       &larr; {backLabel}
     </a>
     <a href={topAnchor} class="colophon-btn font-mono no-underline">
-      &uarr; Topo da Página
+      &uarr; {topLabel}
     </a>
   </div>
 </footer>
