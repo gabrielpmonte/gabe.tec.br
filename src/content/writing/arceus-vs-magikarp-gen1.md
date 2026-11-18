@@ -3,6 +3,11 @@ title: "Vencer o Arceus ou perder para o Magikarp: a matemática por trás do de
 description: "Análise combinatória exata dos 10,72 trilhões de times possíveis da Geração 1 e simulação de 50.000 partidas do draft em 6 rodadas — com demo jogável."
 publishDate: 2026-11-18
 tags: ["python", "matematica", "pokemon", "dados"]
+series:
+  name: "Arceus vs. Magikarp"
+  part: 1
+repoUrl: "https://github.com/gabrielpmonte/pokestats"
+hasDemo: true
 ---
 
 <style>

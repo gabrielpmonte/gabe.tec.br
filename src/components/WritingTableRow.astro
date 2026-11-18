@@ -1,6 +1,10 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { formatISODate } from "../utils/date";
+import {
+  getArticleMetrics,
+  getEffectiveUpdatedDate,
+} from "../utils/writing-meta";
 
 interface Props {
   post: CollectionEntry<"writing">;
@@ -8,8 +12,20 @@ interface Props {
 }
 
 const { post, interactiveTags = true } = Astro.props;
-const wordCount = (post.body || "").trim().split(/\s+/).filter(Boolean).length;
-const readingMinutes = post.data.readingTime ?? Math.max(1, Math.ceil(wordCount / 200));
+const { wordCount, readingMinutes } = getArticleMetrics(post);
+const effectiveUpdatedDate = getEffectiveUpdatedDate(post);
+
+const extras: string[] = [];
+if (post.data.series) {
+  const totalSuffix = post.data.series.total
+    ? `/${post.data.series.total}`
+    : "";
+  extras.push(
+    `SÉRIE: ${post.data.series.name.toUpperCase()} (${post.data.series.part}${totalSuffix})`,
+  );
+}
+if (post.data.hasDemo) extras.push("DEMO INTERATIVA");
+if (post.data.repoUrl) extras.push("CÓDIGO-FONTE");
 ---
 
 <tr class="article-row hairline-divider" data-tags={post.data.tags.join(",")}>
@@ -17,12 +33,28 @@ const readingMinutes = post.data.readingTime ?? Math.max(1, Math.ceil(wordCount 
     <time datetime={post.data.publishDate.toISOString()}>
       {formatISODate(post.data.publishDate)}
     </time>
+    {
+      effectiveUpdatedDate && (
+        <time
+          datetime={effectiveUpdatedDate.toISOString()}
+          class="col-submeta"
+          title={`Última edição em ${formatISODate(effectiveUpdatedDate)}`}
+        >
+          rev. {formatISODate(effectiveUpdatedDate)}
+        </time>
+      )
+    }
   </td>
   <td class="col-title">
     <a href={`/writing/${post.id}`} class="post-link">
       {post.data.title}
     </a>
     <p class="post-desc">{post.data.description}</p>
+    {
+      extras.length > 0 && (
+        <div class="post-extras font-mono">{extras.join(" • ")}</div>
+      )
+    }
   </td>
   <td class="col-tags font-mono">
     <div class="tags-container">
@@ -51,7 +83,8 @@ const readingMinutes = post.data.readingTime ?? Math.max(1, Math.ceil(wordCount 
     </div>
   </td>
   <td class="col-time font-mono">
-    {`${readingMinutes} min`}
+    <span>{`${readingMinutes} min`}</span>
+    <span class="col-submeta">{`${wordCount} pal.`}</span>
   </td>
 </tr>
 
@@ -94,6 +127,21 @@ const readingMinutes = post.data.readingTime ?? Math.max(1, Math.ceil(wordCount 
     color: var(--text-muted);
     line-height: 1.4;
     margin: 0;
+  }
+
+  .col-submeta {
+    display: block;
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-top: 0.2rem;
+    opacity: 0.85;
+  }
+
+  .post-extras {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-top: 0.45rem;
+    letter-spacing: 0.02em;
   }
 
   .col-tags {

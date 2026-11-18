@@ -6,17 +6,27 @@ import ArticleColophon from "../../components/ArticleColophon.astro";
 import { render } from "astro:content";
 import { getPublishedWritings } from "../../utils/content";
 import { formatISODate } from "../../utils/date";
+import {
+  getArticleMetrics,
+  getEffectiveUpdatedDate,
+  getHistoryUrl,
+  getSeriesContext,
+} from "../../utils/writing-meta";
 
 export async function getStaticPaths() {
   const posts = await getPublishedWritings();
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: { post },
+    props: { post, allPosts: posts },
   }));
 }
 
-const { post } = Astro.props;
+const { post, allPosts } = Astro.props;
 const { Content, headings } = await render(post);
+const { wordCount, readingMinutes } = getArticleMetrics(post);
+const effectiveUpdatedDate = getEffectiveUpdatedDate(post);
+const historyUrl = getHistoryUrl(post);
+const seriesContext = getSeriesContext(post, allPosts);
 ---
 
 <BaseLayout
@@ -24,7 +34,7 @@ const { Content, headings } = await render(post);
   description={post.data.description}
   type="article"
   publishDate={post.data.publishDate}
-  updatedDate={post.data.updatedDate}
+  updatedDate={effectiveUpdatedDate ?? undefined}
   tags={post.data.tags}
 >
   <article class="article-container">
@@ -42,25 +52,49 @@ const { Content, headings } = await render(post);
           {formatISODate(post.data.publishDate)}
         </time>
         {
-          post.data.updatedDate && (
+          effectiveUpdatedDate && (
             <>
               <span class="meta-sep">•</span>
               <span class="meta-label">REV:</span>
               <time
-                datetime={post.data.updatedDate.toISOString()}
+                datetime={effectiveUpdatedDate.toISOString()}
                 class="meta-val"
               >
-                {formatISODate(post.data.updatedDate)}
+                {formatISODate(effectiveUpdatedDate)}
               </time>
             </>
           )
         }
+        <span class="meta-sep">•</span>
+        <span class="meta-val">{readingMinutes} MIN LEITURA</span>
+        <span class="meta-sep">•</span>
+        <span class="meta-val">{wordCount} PALAVRAS</span>
         {
-          post.data.readingTime && (
-            <>
-              <span class="meta-sep">•</span>
-              <span class="meta-val">{post.data.readingTime} MIN LEITURA</span>
-            </>
+          (historyUrl || post.data.repoUrl) && (
+            <span class="meta-links">
+              {historyUrl && (
+                <a
+                  href={historyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="meta-link"
+                  title="Ver histórico de revisões no GitHub"
+                >
+                  HISTÓRICO
+                </a>
+              )}
+              {post.data.repoUrl && (
+                <a
+                  href={post.data.repoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="meta-link"
+                  title="Ver código-fonte do projeto"
+                >
+                  CÓDIGO
+                </a>
+              )}
+            </span>
           )
         }
       </div>
@@ -92,6 +126,73 @@ const { Content, headings } = await render(post);
         <div class="prose-content">
           <Content />
         </div>
+
+        {
+          seriesContext && (
+            <nav
+              class="series-nav hairline-box"
+              aria-label="Navegação da série"
+            >
+              <div class="series-header font-mono">
+                <span>
+                  // SÉRIE: {seriesContext.name.toUpperCase()} — PARTE{" "}
+                  {seriesContext.part}
+                  {seriesContext.total ? ` DE ${seriesContext.total}` : ""}
+                </span>
+              </div>
+              <ol class="series-list">
+                {seriesContext.items.map((item) => (
+                  <li
+                    class={
+                      item.id === post.id
+                        ? "series-item is-current"
+                        : "series-item"
+                    }
+                  >
+                    <span class="series-part font-mono">
+                      P{String(item.data.series?.part ?? 0).padStart(2, "0")}
+                    </span>
+                    {item.id === post.id ? (
+                      <span class="series-current-title">
+                        {item.data.title}
+                      </span>
+                    ) : (
+                      <a href={`/writing/${item.id}`} class="series-link">
+                        {item.data.title}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ol>
+              {(seriesContext.prev || seriesContext.next) ? (
+                <div class="series-pager font-mono">
+                  {seriesContext.prev ? (
+                    <a
+                      href={`/writing/${seriesContext.prev.id}`}
+                      class="series-pager-link"
+                    >
+                      &larr; Parte {seriesContext.prev.data.series?.part}
+                    </a>
+                  ) : (
+                    <span />
+                  )}
+                  {seriesContext.next && (
+                    <a
+                      href={`/writing/${seriesContext.next.id}`}
+                      class="series-pager-link"
+                    >
+                      Parte {seriesContext.next.data.series?.part} &rarr;
+                    </a>
+                  )}
+                </div>
+              ) : (
+                <div class="series-note font-mono">
+                  Próxima parte desta série em produção.
+                </div>
+              )}
+            </nav>
+          )
+        }
 
         <!-- Footer Colophon -->
         <ArticleColophon backHref="/writing" backLabel="Voltar para /writing" />
@@ -132,6 +233,102 @@ const { Content, headings } = await render(post);
 
   .meta-val {
     color: var(--text);
+  }
+
+  .meta-links {
+    margin-left: auto;
+    display: inline-flex;
+    gap: 0.75rem;
+  }
+
+  .meta-link {
+    color: var(--text-dim);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+  }
+
+  .meta-link:hover {
+    color: var(--text);
+    text-decoration-color: var(--text);
+  }
+
+  .series-nav {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .series-header {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+  }
+
+  .series-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .series-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .series-item.is-current {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .series-part {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    flex-shrink: 0;
+  }
+
+  .series-link {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+  }
+
+  .series-link:hover {
+    color: var(--text);
+    text-decoration-color: var(--text);
+  }
+
+  .series-pager {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 0.75rem;
+    border-top: var(--hairline);
+    font-size: 0.75rem;
+  }
+
+  .series-pager-link {
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+  }
+
+  .series-pager-link:hover {
+    color: var(--text);
+    text-decoration-color: var(--text);
+  }
+
+  .series-note {
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    padding-top: 0.65rem;
+    border-top: var(--hairline);
   }
 
   .article-title {

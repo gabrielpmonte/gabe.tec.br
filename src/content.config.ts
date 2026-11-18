@@ -12,7 +12,16 @@ export const writing = defineCollection({
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     canonicalUrl: z.url().optional(),
-    readingTime: z.number().optional()
+    readingTime: z.number().optional(),
+    series: z
+      .object({
+        name: z.string(),
+        part: z.number(),
+        total: z.number().optional(),
+      })
+      .optional(),
+    repoUrl: z.url().optional(),
+    hasDemo: z.boolean().default(false),
   })
 });
 
