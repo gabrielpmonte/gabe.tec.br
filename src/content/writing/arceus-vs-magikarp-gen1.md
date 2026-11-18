@@ -233,7 +233,7 @@ Como a [Geração 1](https://bulbapedia.bulbagarden.net/wiki/Generation_I) possu
 
 $$P(151, 6) = 151 \times 150 \times 149 \times 148 \times 147 \times 146 = 10.719.792.543.600$$
 
-São **10,72 trilhões** de times ordenados distintos. Se alguém preenchesse as 6 vagas totalmente às cegas, o time médio da Gen 1 somaria apenas 407,64 pontos. Isso deixa um déficit de 312 pontos abaixo do Arceus e uma sobra de 208 pontos acima do Magikarp.
+São **10,72 trilhões** de times ordenados distintos. Se alguém preenchesse as 6 vagas totalmente às cegas, o time médio da Gen 1 somaria apenas 407,64 pontos, ficando 312,36 pontos abaixo do Arceus e 207,64 pontos acima do Magikarp.
 
 ---
 
@@ -387,7 +387,7 @@ Computando a soma exata de todos os 10,72 trilhões de arranjos possíveis[^2], 
   <figcaption class="themed-chart-foot">FONTE: POKÉDEX GEN 1 (KAGGLE / POKÉMONDB) • ANÁLISE COMBINATÓRIA EXATA</figcaption>
 </figure>
 
-**No sorteio cego:** sem nenhuma escolha entre rodadas, perder para o Magikarp (1 em 7.512) é ligeiramente mais raro do que superar o Arceus (1 em 6.616). Pela curva de tentativas independentes $1 - (1 - p)^k$, seriam necessárias 4.586 tentativas no Arceus e 5.207 tentativas no Magikarp apenas para atingir 50% de chance de vencer uma única vez.
+**No sorteio cego:** sem nenhuma escolha entre rodadas, perder para o Magikarp (1 em 7.512) é ligeiramente mais raro do que superar o Arceus (1 em 6.616). Pela curva de tentativas independentes $1 - (1 - p)^k$, seriam necessárias 4.586 tentativas no Arceus e 5.207 tentativas no Magikarp para atingir 50% de chance de conseguir pelo menos uma vitória.
 
 <figure class="themed-chart">
   <div class="themed-chart-head">
@@ -408,11 +408,11 @@ Computando a soma exata de todos os 10,72 trilhões de arranjos possíveis[^2], 
 
 No desafio real você escolhe 1 par `(Pokémon, status)` por rodada. Se uma Chansey aparecer em `Def` na rodada 1 do desafio Arceus, basta ignorá-la, pois ela ainda pode aparecer em `HP` depois.
 
-Simulando 50.000 partidas[^3] com uma regra simples (pegar sempre o maior ou menor valor bruto disponível na rodada) contra escolher pelo melhor percentil no status (quão raro aquele número é dentro daquela coluna):
+Simulando 50.000 partidas[^3] com uma heurística gulosa simples (que funciona como limite inferior conservador, já que um jogador experiente ou uma política ótima via Expectimax alcança taxas maiores), comparamos a escolha pelo maior ou menor valor bruto disponível na rodada contra o melhor percentil no status:
 
 - **Desafio Arceus (`≥ 720`):** a média salta de 407,6 para 541,2 pts, e a chance de vitória sobe para **1,05%** (~1 em 96, ou 69× maior que no sorteio cego).
 - **Desafio Magikarp (`≤ 200`):** a média cai de 407,6 para 287,3 pts, e a chance de vitória sobe para **1,97%** (~1 em 51, ou 148× maior que no sorteio cego).
-- **Por que valor bruto ganha de percentil (`1,05%` vs. `0,95%`)?** A meta de `720` depende da soma absoluta dos pontos: travar um `130` em `Atk` rende `10` pontos a mais no placar final do que travar um `120` em `SpD`, mesmo que `120` esteja no topo percentual de `SpD`.
+- **Por que valor bruto ganha de percentil (`1,05%` vs. `0,95%`)?** A meta de `720` depende da soma absoluta dos pontos e os status têm escalas muito assimétricas: o topo percentual de `HP` entrega até 250 pontos, enquanto o de `SpD` para em 125. Travar um `130` em `Atk` soma `10` pontos a mais no placar final do que travar um `120` em `SpD`, mesmo que `120` esteja no topo percentual de `SpD`.
 
 <figure class="themed-chart">
   <div class="themed-chart-head">
@@ -460,15 +460,15 @@ A [Geração 1](https://bulbapedia.bulbagarden.net/wiki/Generation_I) sofre da h
 - **Blissey** eleva o teto de `HP` (`255`) e traz `135` de `SpD`, enquanto Lugia e Ho-Oh entregam `154` de `SpD` com `680` totais.
 - **Sunkern** assume o novo piso da tabela com apenas `180` pontos totais (`30` em todos os 6 status, abaixo dos `200` do Magikarp).
 
-O impacto dessas espécies nas probabilidades da Gen 2 fica para a Parte 2. O código em Python, os testes e o Web Component do simulador estão abertos no repositório [`pokestats`](https://github.com/gabrielpmonte/pokestats).
+Com essas espécies de alta variância e o novo piso individual de 180 pontos na Pokédex (que derruba o pior time possível para 65 pontos), o impacto nas probabilidades da Gen 2 fica para a Parte 2. O código em Python, os testes e o Web Component do simulador estão abertos no repositório [`pokestats`](https://github.com/gabrielpmonte/pokestats).
 
 ---
 
 ## Notas e Referências
 
-[^1]: Na [Geração I](https://bulbapedia.bulbagarden.net/wiki/Generation_I) original (*Red/Blue/Yellow*), *Special* era um único status; seguindo os filtros modernos e a tabela de [Pokémon Database](https://pokemondb.net/pokedex/all), usamos os 6 status (`HP`, `Atk`, `Def`, `SpA`, `SpD`, `Spe`). O dataset (`elroytan/pokemondata`) reúne as 151 espécies canônicas da Gen 1 mantendo os 5 Lendários/Míticos (`Mewtwo`, `Mew`, `Articuno`, `Zapdos`, `Moltres`); sem `Articuno`, apenas `Mr. Mime` e `Tentacruel` atingem `SpD ≥ 120`.
+[^1]: Na [Geração I](https://bulbapedia.bulbagarden.net/wiki/Generation_I) original (*Red/Blue/Yellow*), *Special* era um único status; seguindo os filtros modernos e a tabela de [Pokémon Database](https://pokemondb.net/pokedex/all), usamos os 6 status atualizados (`HP`, `Atk`, `Def`, `SpA`, `SpD`, `Spe`), que já incorporam os rebalanceamentos permanentes aplicados a partir das Gerações 6 e 7 (como o Electrode subindo de `140` para `150` em `Spe`, o que eleva o teto teórico da Gen 1 de `983` para `993` pontos). O dataset (`elroytan/pokemondata`) reúne as 151 espécies canônicas da Gen 1 mantendo os 5 Lendários/Míticos (`Mewtwo`, `Mew`, `Articuno`, `Zapdos`, `Moltres`); sem `Articuno`, apenas `Mr. Mime` e `Tentacruel` atingem `SpD ≥ 120`.
 [^2]: Cálculo combinatório exato por Programação Dinâmica com Bitmask de 6 bits (`2^6 = 64` estados) validado contra força bruta e `soma_dp == P(151, 6)`. Os pisos mínimos foram obtidos em tempo polinomial $O(n^3)$ via Algoritmo Húngaro (`scipy.optimize.linear_sum_assignment`).
-[^3]: A simulação de `50.000` partidas (`simulate_draft_challenge`) assume sorteio sem reposição entre rodadas e aplica uma heurística gulosa (não Bellman/Expectimax), com IC 95% de `±0,09%` no Arceus (`1,05%`) e `±0,12%` no Magikarp (`1,97%`). Os comparativos de Johto seguem os dados da [Geração II na Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Generation_II).
+[^3]: A simulação de `50.000` partidas (`simulate_draft_challenge`) sorteia opções distintas em cada rodada e impede repetir espécies já travadas no time em rodadas anteriores, aplicando uma heurística gulosa (não Bellman/Expectimax), com IC 95% de `±0,09%` no Arceus (`1,05%`) e `±0,12%` no Magikarp (`1,97%`). Os comparativos de Johto seguem os dados da [Geração II na Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/Generation_II).
 
 <dialog id="chart-lightbox" class="chart-lightbox" aria-label="Visualização ampliada do gráfico">
   <div class="chart-lightbox-bar">
