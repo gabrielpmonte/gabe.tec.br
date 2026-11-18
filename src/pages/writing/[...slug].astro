@@ -178,6 +178,10 @@ const { Content, headings } = await render(post);
     color: var(--text);
   }
 
+  .prose-content :global(strong) {
+    font-weight: 600;
+  }
+
   .prose-content :global(h2) {
     font-size: 1.35rem;
     margin-top: 2.5rem;
