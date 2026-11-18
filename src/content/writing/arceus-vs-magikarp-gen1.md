@@ -213,7 +213,7 @@ Para descobrir qual dos dois é mais difícil, escrevi um script em Python que c
 ## Teste na prática antes de ver os números
 
 > [!tip] Como jogar o simulador
-> Você pode jogar clicando nos cards ou usando as teclas `1` a `6`. Por padrão, o simulador reproduz a experiência do filtro original (só sprite e nome); marque **Dicas visuais** se quiser estudar a estratégia.
+> Você pode jogar clicando nos cards ou usando as teclas `1` a `6`. Por padrão, o simulador reproduz a experiência do filtro original (só sprite e nome); marque **Dicas visuais** se quiser ver a jogada recomendada via Expectimax e a probabilidade de vitória em tempo real (detalharemos esse algoritmo na Parte 2).
 
 <div class="demo-stage">
   <pokestats-draft data-src="/demos/pokestats/gen1_pokemon.json"></pokestats-draft>
