@@ -3,9 +3,6 @@ title: "Vencer o Arceus ou perder para o Magikarp: a matemática por trás do de
 description: "Análise combinatória exata dos 10,72 trilhões de arranjos possíveis da Geração 1 e simulação de 50.000 partidas do draft em 6 rodadas, com demo jogável."
 publishDate: 2026-11-18
 tags: ["python", "matematica", "pokemon", "dados"]
-series:
-  name: "Arceus vs. Magikarp"
-  part: 1
 repoUrl: "https://github.com/gabrielpmonte/pokestats"
 hasDemo: true
 ---
@@ -213,7 +210,7 @@ Para descobrir qual dos dois é mais difícil, escrevi um script em Python que c
 ## Teste na prática antes de ver os números
 
 > [!tip] Como jogar o simulador
-> Você pode jogar clicando nos cards ou usando as teclas `1` a `6`. Por padrão, o simulador reproduz a experiência do filtro original (só sprite e nome); marque **Dicas visuais** se quiser ver a jogada recomendada via Expectimax e a probabilidade de vitória em tempo real (detalharemos esse algoritmo na Parte 2).
+> Você pode jogar clicando nos cards ou usando as teclas `1` a `6`. Por padrão, o simulador reproduz a experiência do filtro original (só sprite e nome); marque **Dicas visuais** se quiser estudar a estratégia.
 
 <div class="demo-stage">
   <pokestats-draft data-src="/demos/pokestats/gen1_pokemon.json"></pokestats-draft>

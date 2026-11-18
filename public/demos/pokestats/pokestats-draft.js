@@ -520,11 +520,8 @@ class PokestatsDraft extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.pokemonList = [];
-    this.dataSrc = "./gen1_pokemon.json";
     this.modeKey = "arceus";
     this.showHints = false;
-    this.expectimax = null;
-    this.expectimaxLoading = false;
     this.round = 1;
     this.locked = {}; // statKey -> { pokemon, value }
     this.currentDraw = {}; // statKey -> pokemon
@@ -537,7 +534,6 @@ class PokestatsDraft extends HTMLElement {
   async connectedCallback() {
     window.addEventListener("keydown", this._onGlobalKeydown);
     const src = this.getAttribute("data-src") || "./gen1_pokemon.json";
-    this.dataSrc = src;
     try {
       const resp = await fetch(src);
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
@@ -641,80 +637,9 @@ class PokestatsDraft extends HTMLElement {
     }
   }
 
-  get currentMask() {
-    let mask = 0;
-    for (let i = 0; i < STATS.length; i++) {
-      if (STATS[i].key in this.locked) mask |= 1 << i;
-    }
-    return mask;
-  }
-
-  async loadExpectimax() {
-    if (this.expectimax || this.expectimaxLoading) return;
-    this.expectimaxLoading = true;
-    try {
-      const binUrl = new URL("expectimax_v.bin", new URL(this.dataSrc, window.location.href));
-      const resp = await fetch(binUrl.toString());
-      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-      const buf = await resp.arrayBuffer();
-      const view = new DataView(buf);
-      const nStats = view.getUint32(0, true);
-      const stride = view.getUint32(4, true);
-      const tableLen = (1 << nStats) * stride;
-
-      const arceus = new Float32Array(tableLen);
-      const magikarp = new Float32Array(tableLen);
-      let offset = 8;
-      for (let i = 0; i < tableLen; i++) {
-        arceus[i] = view.getFloat32(offset, true);
-        offset += 4;
-      }
-      for (let i = 0; i < tableLen; i++) {
-        magikarp[i] = view.getFloat32(offset, true);
-        offset += 4;
-      }
-
-      this.expectimax = { stride, arceus, magikarp };
-    } catch {
-      // Fallback silencioso para heurística gulosa caso o binário falhe
-    } finally {
-      this.expectimaxLoading = false;
-      this.render();
-    }
-  }
-
-  getWinProb(mask, sum) {
-    if (!this.expectimax) return null;
-    const table = this.expectimax[this.modeKey];
-    const { stride } = this.expectimax;
-    const clampedSum = Math.min(sum, stride - 1);
-    return table[mask * stride + clampedSum];
-  }
-
   findBestRoundSlot() {
     const open = this.openStats;
     if (open.length <= 1) return null;
-
-    if (this.expectimax) {
-      const baseMask = this.currentMask;
-      const baseSum = this.currentSum;
-      let bestKey = open[0].key;
-      let bestProb = -1;
-      let bestVal = this.currentDraw[bestKey][bestKey];
-
-      for (const s of open) {
-        const bitIdx = STATS.findIndex((st) => st.key === s.key);
-        const val = this.currentDraw[s.key][s.key];
-        const prob = this.getWinProb(baseMask | (1 << bitIdx), baseSum + val) ?? 0;
-        if (prob > bestProb || (prob === bestProb && this.mode.isBetter(val, bestVal))) {
-          bestProb = prob;
-          bestKey = s.key;
-          bestVal = val;
-        }
-      }
-      return bestKey;
-    }
-
     let bestKey = open[0].key;
     let bestVal = this.currentDraw[bestKey][bestKey];
     for (const s of open.slice(1)) {
@@ -811,9 +736,6 @@ class PokestatsDraft extends HTMLElement {
       ? `<span class="verdict ${won ? "win" : "lose"}">Finalizado · ${mode.formatVerdict(sum)}</span>`
       : `<span>Rodada ${this.round}/6</span>`;
 
-    const winProb = !finished && this.showHints ? this.getWinProb(this.currentMask, sum) : null;
-    const probHint = winProb !== null ? ` · Prob. vitória: ${(winProb * 100).toFixed(2)}%` : "";
-
     this.shadowRoot.innerHTML = `
       <style>${TEMPLATE_STYLES}</style>
       <div class="widget">
@@ -837,7 +759,7 @@ class PokestatsDraft extends HTMLElement {
         <div class="progress-section">
           <div class="status-bar">
             ${leftStatus}
-            <span>Soma travada: <strong>${sum}</strong> / ${mode.targetTotal} pts ${this.showHints ? `(${mode.hintLabel}${probHint})` : ""}</span>
+            <span>Soma travada: <strong>${sum}</strong> / ${mode.targetTotal} pts ${this.showHints ? `(${mode.hintLabel})` : ""}</span>
           </div>
           <div class="segments" aria-label="Progresso das 6 rodadas">
             ${segmentsHtml}
@@ -876,9 +798,6 @@ class PokestatsDraft extends HTMLElement {
     if (hintsToggle) {
       hintsToggle.addEventListener("change", (e) => {
         this.showHints = e.target.checked;
-        if (this.showHints && !this.expectimax) {
-          this.loadExpectimax();
-        }
         this.render();
       });
     }
