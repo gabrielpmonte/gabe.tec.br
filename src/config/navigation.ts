@@ -18,8 +18,7 @@ export const NAV_LINKS: readonly NavItem[] = [
   { href: "/notes", label: "Digital Garden", code: "04" },
   { href: "/field-notes", label: "Notas de Campo", code: "05" },
   { href: "/now", label: "Agora", code: "06" },
-  { href: "/curriculum", label: "Currículo", code: "07" },
-  { href: "/search", label: "Busca", code: "08" },
+  { href: "/search", label: "Busca", code: "07" },
 ] as const;
 
 /**
