@@ -7,11 +7,11 @@ import { render } from "astro:content";
 import { getPublishedWritings } from "../../utils/content";
 import { formatISODate } from "../../utils/date";
 import {
-  getArticleMetrics,
+  getContentMetrics,
   getEffectiveUpdatedDate,
   getHistoryUrl,
   getSeriesContext,
-} from "../../utils/writing-meta";
+} from "../../utils/metrics";
 
 export async function getStaticPaths() {
   const posts = await getPublishedWritings();
@@ -23,7 +23,7 @@ export async function getStaticPaths() {
 
 const { post, allPosts } = Astro.props;
 const { Content, headings } = await render(post);
-const { wordCount, readingMinutes } = getArticleMetrics(post);
+const { wordCount, readingMinutes } = getContentMetrics(post);
 const effectiveUpdatedDate = getEffectiveUpdatedDate(post);
 const historyUrl = getHistoryUrl(post);
 const seriesContext = getSeriesContext(post, allPosts);

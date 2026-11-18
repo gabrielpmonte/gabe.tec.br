@@ -2,9 +2,9 @@
 import type { CollectionEntry } from "astro:content";
 import { formatISODate } from "../utils/date";
 import {
-  getArticleMetrics,
+  getContentMetrics,
   getEffectiveUpdatedDate,
-} from "../utils/writing-meta";
+} from "../utils/metrics";
 
 interface Props {
   post: CollectionEntry<"writing">;
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { post, interactiveTags = true } = Astro.props;
-const { wordCount, readingMinutes } = getArticleMetrics(post);
+const { wordCount, readingMinutes } = getContentMetrics(post);
 const effectiveUpdatedDate = getEffectiveUpdatedDate(post);
 
 const extras: string[] = [];

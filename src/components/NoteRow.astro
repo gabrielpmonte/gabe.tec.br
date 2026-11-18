@@ -1,6 +1,10 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { formatISODate } from "../utils/date";
+import {
+  getContentMetrics,
+  getEffectiveUpdatedDate,
+} from "../utils/metrics";
 
 interface Props {
   note: CollectionEntry<"notes">;
@@ -8,6 +12,8 @@ interface Props {
 }
 
 const { note, interactive = true } = Astro.props;
+const { wordCount, readingMinutes } = getContentMetrics(note);
+const effectiveUpdatedDate = getEffectiveUpdatedDate(note);
 ---
 
 <article
@@ -39,6 +45,20 @@ const { note, interactive = true } = Astro.props;
     <time datetime={note.data.publishDate.toISOString()} class="note-date">
       {formatISODate(note.data.publishDate)}
     </time>
+    {
+      effectiveUpdatedDate && (
+        <time
+          datetime={effectiveUpdatedDate.toISOString()}
+          class="note-submeta"
+          title={`Última edição em ${formatISODate(effectiveUpdatedDate)}`}
+        >
+          rev. {formatISODate(effectiveUpdatedDate)}
+        </time>
+      )
+    }
+    <span class="note-submeta">
+      {readingMinutes} min • {wordCount} pal.
+    </span>
   </div>
 
   <div class="note-body">
@@ -139,6 +159,12 @@ const { note, interactive = true } = Astro.props;
 
   .note-date {
     color: var(--text-dim);
+  }
+
+  .note-submeta {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    opacity: 0.85;
   }
 
   .note-body {

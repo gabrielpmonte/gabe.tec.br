@@ -6,6 +6,11 @@ import { render } from "astro:content";
 import { getSortedNotes } from "../../utils/content";
 import { buildBacklinksIndex } from "../../utils/backlinks";
 import { formatISODate } from "../../utils/date";
+import {
+  getContentMetrics,
+  getEffectiveUpdatedDate,
+  getHistoryUrl,
+} from "../../utils/metrics";
 
 export async function getStaticPaths() {
   const allNotes = await getSortedNotes();
@@ -22,6 +27,9 @@ export async function getStaticPaths() {
 
 const { note, backlinks } = Astro.props;
 const { Content } = await render(note);
+const { wordCount, readingMinutes } = getContentMetrics(note);
+const effectiveUpdatedDate = getEffectiveUpdatedDate(note);
+const historyUrl = getHistoryUrl(note);
 ---
 
 <BaseLayout
@@ -30,7 +38,7 @@ const { Content } = await render(note);
     `Nota atômica ${note.id} no Digital Garden.`}
   type="article"
   publishDate={note.data.publishDate}
-  updatedDate={note.data.updatedDate}
+  updatedDate={effectiveUpdatedDate ?? undefined}
   tags={note.data.tags}
 >
   <article class="note-container">
@@ -57,17 +65,34 @@ const { Content } = await render(note);
           {formatISODate(note.data.publishDate)}
         </time>
         {
-          note.data.updatedDate && (
+          effectiveUpdatedDate && (
             <>
               <span class="meta-sep">•</span>
-              <span class="meta-label">ÚLTIMA ATUALIZAÇÃO:</span>
+              <span class="meta-label">REV:</span>
               <time
-                datetime={note.data.updatedDate.toISOString()}
+                datetime={effectiveUpdatedDate.toISOString()}
                 class="meta-val"
               >
-                {formatISODate(note.data.updatedDate)}
+                {formatISODate(effectiveUpdatedDate)}
               </time>
             </>
+          )
+        }
+        <span class="meta-sep">•</span>
+        <span class="meta-val">{readingMinutes} MIN LEITURA</span>
+        <span class="meta-sep">•</span>
+        <span class="meta-val">{wordCount} PALAVRAS</span>
+        {
+          historyUrl && (
+            <a
+              href={historyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="meta-history-link"
+              title="Ver histórico de revisões no GitHub"
+            >
+              HISTÓRICO
+            </a>
           )
         }
       </div>
@@ -159,6 +184,18 @@ const { Content } = await render(note);
 
   .meta-sep {
     color: var(--border-strong);
+  }
+
+  .meta-history-link {
+    margin-left: auto;
+    color: var(--text-dim);
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+  }
+
+  .meta-history-link:hover {
+    color: var(--text);
+    text-decoration-color: var(--text);
   }
 
   .note-title {
