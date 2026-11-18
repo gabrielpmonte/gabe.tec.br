@@ -521,7 +521,7 @@ class PokestatsDraft extends HTMLElement {
     this.attachShadow({ mode: "open" });
     this.pokemonList = [];
     this.modeKey = "arceus";
-    this.showHints = true;
+    this.showHints = false;
     this.round = 1;
     this.locked = {}; // statKey -> { pokemon, value }
     this.currentDraw = {}; // statKey -> pokemon

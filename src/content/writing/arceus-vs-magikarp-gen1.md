@@ -203,7 +203,7 @@ hasDemo: true
 
 Vi um Reels do [@malamarisuno](https://www.instagram.com/malamarisuno/) com dois desafios que parecem simples na superfície, mas escondem uma matemática bem curiosa:
 
-1. **Desafio Arceus (`≥ 720` pts):** Em 6 rodadas, sorteiam-se Pokémon aleatórios da [Geração 1](https://bulbapedia.bulbagarden.net/wiki/Generation_I) para preencher os 6 atributos do seu time. Na 1ª rodada aparecem 6 opções (uma para cada atributo aberto); você escolhe 1 e trava aquele Pokémon ali — sem poder trocar de lugar depois. Na 2ª rodada aparecem 5 opções, depois 4, 3, 2 e 1. O objetivo é terminar com a soma maior ou igual à do Arceus (720 pontos).
+1. **Desafio Arceus (`≥ 720` pts):** Em 6 rodadas, sorteiam-se Pokémon aleatórios da [Geração 1](https://bulbapedia.bulbagarden.net/wiki/Generation_I) para preencher os 6 atributos do seu time. Na primeira rodada aparecem 6 opções (uma para cada atributo aberto); você escolhe 1 e trava aquele Pokémon ali — sem poder trocar de lugar depois. Na segunda rodada aparecem 5 opções, depois 4, 3, 2 e 1. O objetivo é terminar com a soma maior ou igual à do Arceus (720 pontos).
 2. **Desafio Magikarp (`≤ 200` pts):** A mesma regra, só que tentando terminar menor ou igual ao Magikarp (200 pontos).
 
 Para descobrir qual dos dois é realmente mais difícil, escrevi um pipeline em Python que calcula todas as combinações possíveis da Gen 1 e simula 50.000 partidas reais desse draft.
@@ -213,7 +213,7 @@ Para descobrir qual dos dois é realmente mais difícil, escrevi um pipeline em 
 ## Teste na prática antes de ver os números
 
 > [!tip] Como jogar o simulador
-> Você pode jogar clicando nos cards ou usando as teclas `1` a `6`. Para reproduzir exatamente a experiência do filtro original (só sprite e nome), desmarque **Dicas visuais**; para estudar a estratégia, deixe as dicas ligadas.
+> Você pode jogar clicando nos cards ou usando as teclas `1` a `6`. Por padrão, o simulador reproduz a experiência do filtro original (só sprite e nome); marque **Dicas visuais** se quiser estudar a estratégia.
 
 <div class="demo-stage">
   <pokestats-draft data-src="/demos/pokestats/gen1_pokemon.json"></pokestats-draft>
